@@ -3,10 +3,10 @@
 **On-chain Registry & Brokerage Infrastructure for Tokenized External Resources**
 
 ```
-  ___  ____  ____  ___  _  _______ ____
- / _ \/ __ \/ __ \/ _ \/ |/ / ___// __/
-/ , _/ /_/ / /_/ / , _/    / /__ / _/  
-/_/|_|\____/\____/_/|_/_/|_/\___//___/  
+  __     ____     ____     __    ____    ____     ____      
+ /  \   (  _ \   (  _ \   (  )  (_  _)  (  __)   (  _ \     
+(  O )_  )   / _  ) _ ( _  )(  _  )(  _  ) _)  _  )   / _   
+ \__/(_)(__\_)(_)(____/(_)(__)(_)(__)(_)(____)(_)(__\_)(_)   
 ```
 
 [![Protocol Status](https://img.shields.io/badge/Status-MVP%20on%20Aptos%20Testnet-orange)](https://aptoslabs.com)
