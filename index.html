@@ -72,31 +72,112 @@
             z-index: 9999;
             transition: opacity 0.5s ease;
         }
-        .loader {
+
+        .cosmic-loader {
             position: relative;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .central-star {
+            width: 30px;
+            height: 30px;
+            background-color: #FFC700; /* Solar Yellow */
+            border-radius: 50%;
+            box-shadow: 0 0 20px #FFC700, 0 0 40px #FF7A00;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .orbit {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .orbit:nth-child(2) {
             width: 80px;
             height: 80px;
+            animation: orbit-rotate 8s linear infinite;
         }
-        .aptos-logo-loader {
-            width: 40px;
-            height: 40px;
+
+        .orbit:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            animation: orbit-rotate 12s linear infinite reverse;
+        }
+
+        .planet {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: #E8E8E8; /* Stark White */
+            border-radius: 50%;
         }
-        .satellite {
+
+        .orbit:nth-child(2) .planet {
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .orbit:nth-child(3) .planet {
+            top: 50%;
+            left: -5px;
+            transform: translateY(-50%);
+            background-color: #FF7A00; /* Ignition Orange */
+        }
+
+        @keyframes orbit-rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Shooting Stars */
+        .shooting-star {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 50%;
-            left: 50%;
-            margin: -10px;
-            animation: orbit 3s linear infinite;
+            height: 1px;
+            background: linear-gradient(90deg, #FFC700, transparent);
+            opacity: 0;
+            animation: shooting-star-anim 3s linear infinite;
         }
-        @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(40px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+
+        .shooting-star:nth-child(4) {
+            top: 20%;
+            left: -50%;
+            width: 100px;
+            animation-delay: 1s;
+        }
+
+        .shooting-star:nth-child(5) {
+            top: 80%;
+            left: 150%;
+            width: 150px;
+            animation-delay: 2.5s;
+            transform: rotate(180deg);
+        }
+
+        @keyframes shooting-star-anim {
+            0% {
+                opacity: 0;
+                transform: translateX(0) scaleY(0.5);
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(300px) scaleY(0.5);
+            }
         }
 
         /* Hero Animation */
@@ -118,11 +199,16 @@
 
     <!-- Loading Spinner -->
     <div id="loader" class="loader-container">
-        <div class="loader">
-             <svg class="aptos-logo-loader" viewBox="0 0 44 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22.0031 0L0 11.8665L10.3681 17.653V29.226L22.0031 40.9334L44 29.226V11.7073L22.0031 0ZM21.909 3.8601L37.5451 12.3448L22.0031 20.8294L6.46101 12.3448L21.909 3.8601ZM3.74304 14.1558L19.2851 22.5508V35.196L3.74304 26.8906V14.1558ZM24.7212 35.196V22.5508L40.2632 14.1558V26.8906L24.7212 35.196Z" fill="#FF7A00"/>
-            </svg>
-            <svg class="satellite" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FFC700"><path d="M5.506 7.423a2.5 2.5 0 0 1 3.535 0l2.122 2.121-3.536 3.536-2.121-2.122a2.5 2.5 0 0 1 0-3.535zM15.01 11.489l-2.122-2.121a2.5 2.5 0 0 1-1.02-3.834L14.502.898a1 1 0 0 1 1.414 0l7.172 7.172a1 1 0 0 1 0 1.414l-4.636 4.636a2.5 2.5 0 0 1-3.442-2.731zm-6.049 6.05a2.5 2.5 0 0 1 3.443 2.73l4.636-4.635a1 1 0 0 1 0-1.414L9.828 2.373a1 1 0 0 1-1.414 0L1.243 9.545a1 1 0 0 1 0 1.414l4.636 4.636a2.5 2.5 0 0 1 3.082 1.944z"/></svg>
+        <div class="cosmic-loader">
+            <div class="central-star"></div>
+            <div class="orbit">
+                <div class="planet"></div>
+            </div>
+            <div class="orbit">
+                <div class="planet"></div>
+            </div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
         </div>
     </div>
 
