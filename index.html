@@ -218,13 +218,29 @@
             <div class="container mx-auto px-6">
                 <nav class="flex items-center justify-between">
                     <a href="#" class="flex items-center space-x-3"><img src="logo.svg" alt="O.R.B.I.T.E.R. logo" class="h-8"><span class="font-space-grotesk text-2xl font-bold tracking-wider">O.R.B.I.T.E.R.</span></a>
+                    
                     <div class="hidden md:flex items-center space-x-8 font-ibm-plex-sans text-sm">
                         <a href="#mission" class="hover:solar-flare-text transition-colors">Mission</a>
                         <a href="#sequence" class="hover:solar-flare-text transition-colors">Launch Sequence</a>
                         <a href="#exosphere" class="hover:solar-flare-text transition-colors">The Exosphere</a>
                         <a href="#mission-control-cta" class="bg-[#3D2D1D]/50 px-4 py-2 rounded-md hover:bg-[#3D2D1D] transition-colors">Enter Mission Control</a>
                     </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-white focus:outline-none">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        </button>
+                    </div>
                 </nav>
+                <!-- Mobile Menu -->
+                <div id="mobile-menu" class="hidden md:hidden mt-4 glass-panel rounded-lg p-4">
+                    <div class="flex flex-col space-y-2 font-ibm-plex-sans text-sm text-center">
+                        <a href="#mission" class="hover:solar-flare-text transition-colors py-2">Mission</a>
+                        <a href="#sequence" class="hover:solar-flare-text transition-colors py-2">Launch Sequence</a>
+                        <a href="#exosphere" class="hover:solar-flare-text transition-colors py-2">The Exosphere</a>
+                        <a href="#mission-control-cta" class="bg-[#3D2D1D]/50 px-4 py-3 rounded-md hover:bg-[#3D2D1D] transition-colors mt-2">Enter Mission Control</a>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -234,26 +250,9 @@
             <div class="absolute inset-0 opacity-10" style="background-image: url('https://placehold.co/1920x1080/111111/FF7A00?text='); background-position: center; background-size: cover; filter: blur(100px);"></div>
 
             <div class="container mx-auto px-6 relative z-10">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <!-- Text Content -->
-                    <div class="text-center md:text-left">
-                        <p class="font-ibm-plex-mono text-sm solar-yellow-text">[ STATUS: OPERATIONAL ]</p>
-                        <h1 class="font-space-grotesk text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mt-2">
-                            O.R.B.I.T.E.R.
-                        </h1>
-                        <p class="font-ibm-plex-sans text-lg md:text-xl mt-4 text-gray-300">
-                            On-chain Registry & Brokerage Infrastructure for Tokenized External Resources
-                        </p>
-                        <p class="mt-6 max-w-lg mx-auto md:mx-0 text-gray-400">
-                            Unlock the value of your digital universe. Achieve orbit for your Web2 assets and trade them in the permissionless ecosystem of Web3.
-                        </p>
-                        <a href="#sequence" class="cta-button mt-10 inline-block bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg">
-                            [ INITIATE LAUNCH SEQUENCE ]
-                        </a>
-                    </div>
-
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <!-- Visual Element -->
-                    <div class="hidden md:flex justify-center items-center relative h-96 lg:h-[28rem]">
+                    <div class="flex justify-center items-center relative h-64 md:h-96 lg:h-[28rem] md:order-last">
                         <svg class="absolute w-full h-full" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <!-- Orbits -->
                             <circle cx="200" cy="200" r="190" stroke="#3D2D1D" stroke-width="1"/>
@@ -272,6 +271,23 @@
                                 <rect x="60" y="198" width="8" height="4" fill="#E8E8E8"/>
                             </g>
                         </svg>
+                    </div>
+
+                    <!-- Text Content -->
+                    <div class="text-center md:text-left">
+                        <p class="font-ibm-plex-mono text-sm solar-yellow-text">[ STATUS: OPERATIONAL ]</p>
+                        <h1 class="font-space-grotesk text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mt-2">
+                            O.R.B.I.T.E.R.
+                        </h1>
+                        <p class="font-ibm-plex-sans text-lg md:text-xl mt-4 text-gray-300">
+                            On-chain Registry & Brokerage Infrastructure for Tokenized External Resources
+                        </p>
+                        <p class="mt-6 max-w-lg mx-auto md:mx-0 text-gray-400">
+                            Unlock the value of your digital universe. Achieve orbit for your Web2 assets and trade them in the permissionless ecosystem of Web3.
+                        </p>
+                        <a href="#sequence" class="cta-button mt-10 inline-block bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg">
+                            [ INITIATE LAUNCH SEQUENCE ]
+                        </a>
                     </div>
                 </div>
             </div>
@@ -312,7 +328,7 @@
         <div class="container mx-auto px-6 text-center">
             <h2 class="font-space-grotesk text-3xl md:text-4xl font-bold">The Launch Sequence</h2>
             <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Follow the three-stage protocol to achieve a stable orbit for your digital assets.</p>
-            <div class="relative mt-16 grid md:grid-cols-3 gap-8">
+            <div class="relative mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
                  <!-- Lines connecting stages -->
                 <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#FFC700]/30 to-transparent -translate-y-1/2"></div>
 
@@ -454,6 +470,22 @@
 
         sections.forEach(section => {
             observer.observe(section);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
         });
     </script>
 </body>
