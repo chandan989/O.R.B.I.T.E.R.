@@ -1,5 +1,7 @@
 # O.R.B.I.T.E.R. 🛰️
 
+<img src="logo.svg" alt="Z.E.N.I.T.H. Logo" width="120"/>
+
 **On-chain Registry & Brokerage Infrastructure for Tokenized External Resources**
 
 ```
