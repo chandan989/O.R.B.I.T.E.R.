@@ -1,0 +1,18 @@
+[package]
+name = "orbiter"
+version = "1.0.0"
+authors = ["Jules for O.R.B.I.T.E.R."]
+
+[addresses]
+# This will be replaced by the deployer's address during the deployment process.
+orbiter_addr = "0x1"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "testnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dependencies.AptosTokenObjects]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "testnet"
+subdir = "aptos-move/framework/aptos-token-objects"
