@@ -1,0 +1,213 @@
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* O.R.B.I.T.E.R. Mission Control Design System - Solar Flare Theme */
+
+@layer base {
+  :root {
+    /* Solar Flare Color Palette */
+    --void-black: 0 0% 6.7%;           /* #111111 */
+    --stark-white: 0 0% 91%;           /* #E8E8E8 */
+    --ignition-orange: 22 100% 50%;    /* #FF7A00 */
+    --solar-yellow: 45 100% 50%;       /* #FFC700 */
+    --charred-steel: 30 25% 18%;       /* #3D2D1D */
+    
+    /* Mission Control UI Variables */
+    --background: var(--void-black);
+    --foreground: var(--stark-white);
+    
+    --card: 30 25% 15%;
+    --card-foreground: var(--stark-white);
+    
+    --popover: var(--charred-steel);
+    --popover-foreground: var(--stark-white);
+    
+    --primary: var(--ignition-orange);
+    --primary-foreground: var(--void-black);
+    
+    --secondary: var(--charred-steel);
+    --secondary-foreground: var(--stark-white);
+    
+    --muted: 30 15% 25%;
+    --muted-foreground: 0 0% 70%;
+    
+    --accent: var(--solar-yellow);
+    --accent-foreground: var(--void-black);
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--stark-white);
+    
+    --border: var(--charred-steel);
+    --input: var(--charred-steel);
+    --ring: var(--ignition-orange);
+    
+    --radius: 0.375rem;
+    
+    /* Mission Control Specific Variables */
+    --orbit-glow: var(--ignition-orange);
+    --telemetry-accent: var(--solar-yellow);
+    --console-bg: 30 25% 12%;
+    --grid-lines: 30 15% 30%;
+    
+    /* Launch Sequence Status Colors */
+    --preflight-status: 210 50% 50%;    /* Blue for standby */
+    --launch-ready: var(--solar-yellow);  /* Yellow for ready */
+    --orbital-success: 120 60% 50%;      /* Green for success */
+    
+    /* Gradients */
+    --gradient-ignition: linear-gradient(135deg, hsl(var(--ignition-orange)), hsl(var(--solar-yellow)));
+    --gradient-orbital: linear-gradient(180deg, hsl(var(--void-black)), hsl(var(--charred-steel)));
+    --gradient-console: linear-gradient(90deg, hsl(var(--console-bg)), hsl(var(--charred-steel)));
+    
+    /* Animations */
+    --orbit-duration: 20s;
+    --pulse-duration: 2s;
+    --launch-duration: 3s;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  code, pre, .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Mission Control Grid */
+  .mission-grid {
+    @apply relative;
+    background-image: 
+      linear-gradient(hsl(var(--grid-lines) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-lines) / 0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  /* Orbital Animation */
+  .orbit-animation {
+    animation: orbit var(--orbit-duration) linear infinite;
+  }
+  
+  /* Launch Sequence Glow */
+  .ignition-glow {
+    box-shadow: 0 0 20px hsl(var(--ignition-orange) / 0.5), 
+                0 0 40px hsl(var(--ignition-orange) / 0.3);
+  }
+  
+  .orbital-glow {
+    box-shadow: 0 0 30px hsl(var(--solar-yellow) / 0.6), 
+                0 0 60px hsl(var(--solar-yellow) / 0.4);
+  }
+  
+  /* Console Display */
+  .console-display {
+    @apply bg-gradient-to-r from-console-bg to-charred-steel;
+    border: 1px solid hsl(var(--grid-lines));
+  }
+  
+  /* Telemetry Data */
+  .telemetry-readout {
+    @apply font-mono text-sm;
+    color: hsl(var(--telemetry-accent));
+    text-shadow: 0 0 10px currentColor;
+  }
+}
+
+@layer utilities {
+  /* Typography Classes */
+  .font-heading {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  .font-body {
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  
+  .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  /* Mission Control Backgrounds */
+  .bg-void {
+    background-color: hsl(var(--void-black));
+  }
+  
+  .bg-console {
+    background-color: hsl(var(--console-bg));
+  }
+  
+  .bg-charred {
+    background-color: hsl(var(--charred-steel));
+  }
+  
+  /* Text Colors */
+  .text-stark {
+    color: hsl(var(--stark-white));
+  }
+  
+  .text-ignition {
+    color: hsl(var(--ignition-orange));
+  }
+  
+  .text-solar {
+    color: hsl(var(--solar-yellow));
+  }
+}
+
+/* Keyframe Animations */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(30px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(30px) rotate(-360deg);
+  }
+}
+
+@keyframes launch {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-ignition {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--ignition-orange) / 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--ignition-orange) / 0.8), 
+                0 0 60px hsl(var(--ignition-orange) / 0.6);
+  }
+}
