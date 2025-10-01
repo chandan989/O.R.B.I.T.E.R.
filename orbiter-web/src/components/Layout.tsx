@@ -7,8 +7,12 @@ const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-void-black text-stark-white">
-      <header className="sticky top-0 left-0 right-0 z-30 py-4 bg-void-black/80 backdrop-blur-sm border-b border-white/10">
+    <div className="flex flex-col min-h-screen text-stark-white antialiased relative">
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-[#111111] to-transparent z-0"
+        style={{ height: "300px" }}
+      ></div>
+      <header className="sticky top-0 left-0 right-0 z-20 py-4 bg-void-black/80 backdrop-blur-lg">
         <div className="container mx-auto px-6">
           <nav className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-3">
@@ -18,8 +22,8 @@ const Layout = () => {
               </span>
             </Link>
 
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="flex items-center space-x-8 font-ibm-plex-sans text-sm font-normal">
+            <div className="hidden md:flex items-center space-x-4 font-ibm-plex-sans text-sm">
+              <div className="flex items-center space-x-8">
                 <Link
                   to="/launch-sequence"
                   className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
@@ -62,7 +66,7 @@ const Layout = () => {
               </button>
             </div>
           </nav>
-          <div className={`md:hidden mt-4 rounded-lg p-4 bg-[rgba(61,45,29,0.4)] backdrop-blur-[10px] border border-[#3D2D1D] ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
+          <div className={`md:hidden mt-4 glass-panel rounded-lg p-4 ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
             <div className="flex flex-col space-y-2 font-ibm-plex-sans text-sm text-center">
               <Link
                 to="/launch-sequence"
@@ -89,7 +93,7 @@ const Layout = () => {
           </div>
         </div>
       </header>
-      <main className="flex-grow relative py-8">
+      <main className="flex-grow relative pb-8">
         <div className="container mx-auto px-6 relative z-10">
           <Outlet context={{ isWalletConnected }} />
         </div>

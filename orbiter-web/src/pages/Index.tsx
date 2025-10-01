@@ -30,42 +30,10 @@ const Index = () => {
         observer.observe(section);
     });
 
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    const handleMenuToggle = () => {
-        if (mobileMenu) {
-            mobileMenu.classList.toggle('hidden');
-        }
-    };
-
-    if (mobileMenuButton) {
-        mobileMenuButton.addEventListener('click', handleMenuToggle);
-    }
-
-    const navLinks = mobileMenu?.querySelectorAll('a');
-    const closeMenu = () => {
-        if (mobileMenu) {
-            mobileMenu.classList.add('hidden');
-        }
-    };
-
-    navLinks?.forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
-
-
     return () => {
         // Cleanup
         sections.forEach(section => {
             observer.unobserve(section);
-        });
-        if (mobileMenuButton) {
-            mobileMenuButton.removeEventListener('click', handleMenuToggle);
-        }
-        navLinks?.forEach(link => {
-            link.removeEventListener('click', closeMenu);
         });
     };
   }, []);
@@ -87,96 +55,8 @@ const Index = () => {
         </div>
 
         <div className="relative overflow-hidden">
-          <header className="absolute top-0 left-0 right-0 z-20 py-4">
-            <div className="container mx-auto px-6">
-              <nav className="flex items-center justify-between">
-                <a href="#" className="flex items-center space-x-3">
-                  <img src="logo.svg" alt="O.R.B.I.T.E.R. logo" className="h-8" />
-                  <span className="font-space-grotesk text-2xl font-bold tracking-wider">
-                    O.R.B.I.T.E.R.
-                  </span>
-                </a>
-
-                <div className="hidden md:flex items-center space-x-8 font-ibm-plex-sans text-sm">
-                  <Link
-                    to="/launch-sequence"
-                    className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
-                  >
-                    Launch Sequence
-                  </Link>
-                  <Link
-                    to="/satellite-constellation"
-                    className=" px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
-                  >
-                    Satellite Constellation
-                  </Link>
-                  <Link
-                    to="/exosphere-exchange"
-                    className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
-                  >
-                    Exosphere Exchange
-                  </Link>
-                </div>
-                <div className="md:hidden">
-                  <button id="mobile-menu-button" className="text-white focus:outline-none">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 6h16M4 12h16m-7 6h7"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-              </nav>
-              <div id="mobile-menu" className="hidden md:hidden mt-4 glass-panel rounded-lg p-4">
-                <div className="flex flex-col space-y-2 font-ibm-plex-sans text-sm text-center">
-                 <Link
-                    to="/launch-sequence"
-                    className="bg-[#3D2D1D]/50 px-4 py-3 rounded-md hover:bg-[#3D2D1D] transition-colors mt-2"
-                  >
-                    Launch Sequence
-                  </Link>
-                  <Link
-                    to="/satellite-constellation"
-                    className="bg-[#3D2D1D]/50 px-4 py-3 rounded-md hover:bg-[#3D2D1D] transition-colors mt-2"
-                  >
-                    Satellite Constellation
-                  </Link>
-                  <Link
-                    to="/exosphere-exchange"
-                    className="bg-[#3D2D1D]/50 px-4 py-3 rounded-md hover:bg-[#3D2D1D] transition-colors mt-2"
-                  >
-                    Exosphere Exchange
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </header>
-
           <main className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
-            <div
-              className="absolute inset-0 bg-gradient-to-b from-[#111111] via-[#111111] to-transparent z-0"
-              style={{ height: "50%" }}
-            ></div>
-            <div
-              className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage: "url('https://placehold.co/1920x1080/111111/FF7A00?text=')",
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                filter: "blur(100px)",
-              }}
-            ></div>
-
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="flex justify-center items-center relative h-64 md:h-96 lg:h-[28rem] md:order-last">
                   <svg
@@ -238,12 +118,12 @@ const Index = () => {
                     Unlock the value of your digital universe. Achieve orbit for your Web2 assets
                     and trade them in the permissionless ecosystem of Web3.
                   </p>
-                  <a
-                    href="/launch-sequence"
+                  <Link
+                    to="/launch-sequence"
                     className="cta-button mt-10 inline-block bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg"
                   >
                     [ INITIATE LAUNCH SEQUENCE ]
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -251,7 +131,6 @@ const Index = () => {
         </div>
 
         <section id="mission" className="py-20 fade-in-section">
-          <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative">
                 <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-[#FFC700] to-[#FF7A00] opacity-20 blur-xl"></div>
@@ -307,11 +186,10 @@ const Index = () => {
                 </div>
               </div>
             </div>
-          </div>
         </section>
 
         <section id="sequence" className="py-20 fade-in-section">
-          <div className="container mx-auto px-6 text-center">
+          <div className="text-center">
             <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold">
               The Launch Sequence
             </h2>
@@ -401,7 +279,6 @@ const Index = () => {
         </section>
 
         <section id="exosphere" className="py-20 fade-in-section">
-          <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-5 gap-12 items-center">
               <div className="md:col-span-2">
                 <h2 className="font-space-grotesk text-3xl font-bold">The Exosphere</h2>
@@ -450,11 +327,10 @@ const Index = () => {
                 </div>
               </div>
             </div>
-          </div>
         </section>
 
         <section id="mission-control-cta" className="py-20 fade-in-section">
-          <div className="container mx-auto px-6 text-center">
+          <div className="text-center">
             <div className="glass-panel rounded-lg py-12 px-8 max-w-4xl mx-auto">
               <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold">
                 Ready for Liftoff?
@@ -471,23 +347,6 @@ const Index = () => {
             </div>
           </div>
         </section>
-
-        <footer className="border-t border-white/10 py-8">
-          <div className="container mx-auto px-6 text-center text-gray-500 font-ibm-plex-sans text-sm">
-            <p>&copy; 2025 O.R.B.I.T.E.R. All rights reserved. Licensed under MIT License.</p>
-            <div className="flex justify-center space-x-6 mt-4">
-              <a href="#" className="hover:text-white transition-colors">
-                Discord
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                Twitter
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                GitHub
-              </a>
-            </div>
-          </div>
-        </footer>
       </div>
     </>
   );

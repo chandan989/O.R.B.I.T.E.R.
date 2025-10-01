@@ -19,11 +19,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
           <Route element={<Layout />}>
+            <Route path="/" element={<Index />} />
             <Route path="/exosphere-exchange" element={<ExosphereExchange />} />
             <Route path="/launch-sequence" element={<LaunchSequence />} />
-            <Route path="/satellite-constellation" element={<SatelliteConstellation />} />
+            <Route
+              path="/satellite-constellation"
+              element={<SatelliteConstellation />}
+            />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

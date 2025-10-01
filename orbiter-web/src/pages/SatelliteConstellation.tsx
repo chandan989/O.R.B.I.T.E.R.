@@ -1,24 +1,19 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { 
-  Satellite, 
-  ExternalLink, 
-  Calendar, 
-  Globe, 
-  Zap, 
+import {
+  Satellite,
+  ExternalLink,
+  CheckCircle,
+  Clock,
+  XCircle,
   TrendingUp,
-  Eye,
-  MoreVertical 
+  ArrowDown,
+  ArrowUp,
 } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { CardContent, CardHeader } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../components/ui/dropdown-menu";
 
 interface SatelliteAsset {
   id: string;
@@ -31,353 +26,369 @@ interface SatelliteAsset {
     description: string;
     attributes: Array<{ trait_type: string; value: string }>;
   };
+  marketData?: {
+    floorPrice: number;
+    dailyVolume: number;
+    totalVolume: number;
+    offers: number;
+    priceHistory: number[];
+  }
 }
 
 const mockAssets: SatelliteAsset[] = [
-  {
-    id: "0001",
-    domain: "myawesomesite.com",
-    mintDate: "2024-03-15T10:30:00Z",
-    blockHeight: 157293847,
-    txHash: "0xa1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890",
-    status: "active",
-    metadata: {
-      description: "Premium domain asset tokenized on Aptos",
-      attributes: [
-        { trait_type: "TLD", value: ".com" },
-        { trait_type: "Length", value: "15" },
-        { trait_type: "Age", value: "5 years" },
-        { trait_type: "Traffic", value: "High" }
-      ]
-    }
-  },
-  {
-    id: "0002", 
-    domain: "crypto-hub.io",
-    mintDate: "2024-03-14T15:45:00Z",
-    blockHeight: 157290123,
-    txHash: "0xb2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890ab",
-    status: "active",
-    metadata: {
-      description: "Tech domain with established presence",
-      attributes: [
-        { trait_type: "TLD", value: ".io" },
-        { trait_type: "Length", value: "10" },
-        { trait_type: "Age", value: "3 years" },
-        { trait_type: "Traffic", value: "Medium" }
-      ]
-    }
-  },
-  {
-    id: "0003",
-    domain: "web3future.xyz", 
-    mintDate: "2024-03-13T09:20:00Z",
-    blockHeight: 157285456,
-    txHash: "0xc3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890abcd",
-    status: "transferring",
-    metadata: {
-      description: "Next-gen domain for Web3 innovation",
-      attributes: [
-        { trait_type: "TLD", value: ".xyz" },
-        { trait_type: "Length", value: "11" },
-        { trait_type: "Age", value: "1 year" },
-        { trait_type: "Traffic", value: "Low" }
-      ]
-    }
-  }
+    {
+        id: "0001",
+        domain: "myawesomesite.com",
+        mintDate: "2024-03-15T10:30:00Z",
+        blockHeight: 157293847,
+        txHash: "0xa1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890",
+        status: "active",
+        metadata: {
+          description: "Premium domain asset tokenized on Aptos",
+          attributes: [
+            { trait_type: "TLD", value: ".com" },
+            { trait_type: "Length", value: "15" },
+            { trait_type: "Age", value: "5 years" },
+            { trait_type: "Traffic", value: "High" }
+          ]
+        },
+        marketData: {
+            floorPrice: 150.50,
+            dailyVolume: 25000,
+            totalVolume: 1500000,
+            offers: 12,
+            priceHistory: [140, 142, 145, 143, 148, 150, 150.5]
+        }
+      },
+      {
+        id: "0002",
+        domain: "crypto-hub.io",
+        mintDate: "2024-03-14T15:45:00Z",
+        blockHeight: 157290123,
+        txHash: "0xb2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890ab",
+        status: "active",
+        metadata: {
+          description: "Tech domain with established presence",
+          attributes: [
+            { trait_type: "TLD", value: ".io" },
+            { trait_type: "Length", value: "10" },
+            { trait_type: "Age", value: "3 years" },
+            { trait_type: "Traffic", value: "Medium" }
+          ]
+        },
+        marketData: {
+            floorPrice: 320.00,
+            dailyVolume: 78000,
+            totalVolume: 2300000,
+            offers: 5,
+            priceHistory: [300, 305, 310, 315, 312, 318, 320]
+        }
+      },
+      {
+        id: "0003",
+        domain: "web3future.xyz",
+        mintDate: "2024-03-13T09:20:00Z",
+        blockHeight: 157285456,
+        txHash: "0xc3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890abcd",
+        status: "transferring",
+        metadata: {
+          description: "Next-gen domain for Web3 innovation",
+          attributes: [
+            { trait_type: "TLD", value: ".xyz" },
+            { trait_type: "Length", value: "11" },
+            { trait_type: "Age", value: "1 year" },
+            { trait_type: "Traffic", value: "Low" }
+          ]
+        },
+        marketData: {
+            floorPrice: 95.80,
+            dailyVolume: 12000,
+            totalVolume: 540000,
+            offers: 23,
+            priceHistory: [100, 98, 96, 95, 97, 95, 95.8]
+        }
+      }
 ];
+
+const AssetStatusChart = ({ assets }: { assets: SatelliteAsset[] }) => {
+  const active = assets.filter(a => a.status === 'active').length;
+  const transferring = assets.filter(a => a.status === 'transferring').length;
+  const inactive = assets.filter(a => a.status === 'inactive').length;
+  const total = assets.length;
+
+  const data = [
+    { status: 'Active', count: active, color: 'bg-[#FFC700]' },
+    { status: 'Transferring', count: transferring, color: 'bg-[#FF7A00]' },
+    { status: 'Inactive', count: inactive, color: 'bg-gray-600' },
+  ];
+
+  return (
+    <div className="mt-4">
+      <div className="flex justify-between items-center font-ibm-plex-mono text-xs text-gray-400 mb-2">
+        <span>Asset Status Distribution</span>
+        <span>Total: {total}</span>
+      </div>
+      <div className="w-full bg-black/20 rounded-full h-4 flex overflow-hidden border border-white/10">
+        {data.map(item => (
+          <div
+            key={item.status}
+            className={`${item.color} h-full transition-all duration-500`}
+            style={{ width: `${total > 0 ? (item.count / total) * 100 : 0}%` }}
+            title={`${item.status}: ${item.count}`}
+          />
+        ))}
+      </div>
+      <div className="flex flex-wrap justify-start items-center gap-4 mt-3 text-xs font-ibm-plex-mono">
+        {data.map(item => (
+          <div key={item.status} className="flex items-center gap-2">
+            <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
+            <span className="text-gray-300">{item.status} ({item.count})</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const PerformanceChart = ({ data }: { data: number[] }) => {
+    if (!data || data.length === 0) return null;
+    const max = Math.max(...data);
+    const min = Math.min(...data);
+    const points = data.map((d, i) => `${(i / (data.length - 1)) * 100},${100 - ((d - min) / (max - min)) * 100}`).join(' ');
+    const isUp = data[data.length - 1] >= data[0];
+
+    return (
+        <div className="relative h-32">
+            <svg viewBox="0 0 100 100" className="w-full h-full" preserveAspectRatio="none">
+                <polyline
+                    fill="none"
+                    stroke={isUp ? '#FFC700' : '#FF7A00'}
+                    strokeWidth="2"
+                    points={points}
+                />
+            </svg>
+        </div>
+    );
+};
 
 export const SatelliteConstellation = () => {
   const [selectedAsset, setSelectedAsset] = useState<SatelliteAsset | null>(null);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('.fade-in-section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => observer.observe(section));
+    return () => sections.forEach(section => observer.unobserve(section));
+  }, []);
+
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
-      month: "short", 
+      month: "short",
       day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
     });
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
-      case "active": return "bg-orbital-success text-void-black";
-      case "transferring": return "bg-solar-yellow text-void-black";
-      case "inactive": return "bg-muted text-muted-foreground";
-      default: return "bg-muted text-muted-foreground";
-    }
-  };
-
-  const getTldColor = (tld: string) => {
-    switch (tld) {
-      case ".com": return "bg-ignition-orange text-void-black";
-      case ".io": return "bg-preflight-status text-stark-white"; 
-      case ".xyz": return "bg-telemetry-accent text-void-black";
-      default: return "bg-charred-steel text-stark-white";
+      case "active": return <CheckCircle className="h-4 w-4 text-[#FFC700]" />;
+      case "transferring": return <Clock className="h-4 w-4 text-[#FF7A00]" />;
+      case "inactive": return <XCircle className="h-4 w-4 text-gray-500" />;
+      default: return <XCircle className="h-4 w-4 text-gray-500" />;
     }
   };
 
   return (
-    <div className="space-y-6">
-      {/* Constellation Header */}
-      <Card className="bg-console-bg border-grid-lines">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center gap-2 text-stark-white">
-                <Satellite className="h-5 w-5 text-ignition-orange orbit-animation" />
+    <div className="antialiased text-gray-200 min-h-screen p-4 sm:p-6 md:p-8 pt-24 md:pt-32">
+        <div className="text-center mb-8 md:mb-12">
+            <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold tracking-tighter flex items-center gap-3 justify-center">
+                <Satellite className="h-9 w-9 text-[#FF7A00] orbit-animation" />
                 Satellite Constellation
-              </CardTitle>
-              <CardDescription>
-                Your tokenized domain assets in orbital registry
-              </CardDescription>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant={viewMode === "grid" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setViewMode("grid")}
-              >
-                Grid
-              </Button>
-              <Button
-                variant={viewMode === "list" ? "default" : "ghost"} 
-                size="sm"
-                onClick={() => setViewMode("list")}
-              >
-                List
-              </Button>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-            <div className="console-display p-3 rounded-lg">
-              <div className="flex items-center gap-2 mb-1">
-                <Globe className="h-4 w-4 text-telemetry-accent" />
-                <span className="font-mono text-xs text-telemetry-accent">TOTAL ASSETS</span>
-              </div>
-              <div className="text-2xl font-mono text-stark-white">{mockAssets.length}</div>
-            </div>
-            
-            <div className="console-display p-3 rounded-lg">
-              <div className="flex items-center gap-2 mb-1">
-                <Zap className="h-4 w-4 text-orbital-success" />
-                <span className="font-mono text-xs text-telemetry-accent">ACTIVE</span>
-              </div>
-              <div className="text-2xl font-mono text-stark-white">
-                {mockAssets.filter(a => a.status === "active").length}
-              </div>
-            </div>
-            
-            <div className="console-display p-3 rounded-lg">
-              <div className="flex items-center gap-2 mb-1">
-                <TrendingUp className="h-4 w-4 text-solar-yellow" />
-                <span className="font-mono text-xs text-telemetry-accent">TRANSFERS</span>
-              </div>
-              <div className="text-2xl font-mono text-stark-white">
-                {mockAssets.filter(a => a.status === "transferring").length}
-              </div>
-            </div>
-            
-            <div className="console-display p-3 rounded-lg">
-              <div className="flex items-center gap-2 mb-1">
-                <Calendar className="h-4 w-4 text-preflight-status" />
-                <span className="font-mono text-xs text-telemetry-accent">RECENT</span>
-              </div>
-              <div className="text-xs font-mono text-stark-white">24H: 1</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Asset Grid/List */}
-      <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : "space-y-4"}>
-        {mockAssets.map((asset, index) => (
-          <motion.div
-            key={asset.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <Card 
-              className="bg-console-bg border-grid-lines hover:border-ignition-orange/50 transition-colors cursor-pointer"
-              onClick={() => setSelectedAsset(asset)}
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="relative">
-                      <Satellite className="h-4 w-4 text-ignition-orange" />
-                      <div className={`absolute -top-1 -right-1 h-2 w-2 rounded-full ${
-                        asset.status === "active" ? "bg-orbital-success" :
-                        asset.status === "transferring" ? "bg-solar-yellow" : "bg-muted"
-                      } animate-pulse`} />
-                    </div>
-                    <span className="font-mono text-xs text-telemetry-accent">#{asset.id}</span>
-                  </div>
-                  
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                        <MoreVertical className="h-3 w-3" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>
-                        <Eye className="h-4 w-4 mr-2" />
-                        View Details
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        View on Explorer
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-                
-                <div>
-                  <h3 className="font-mono text-lg text-stark-white truncate">
-                    {asset.domain}
-                  </h3>
-                  <div className="flex items-center gap-2 mt-2">
-                    <Badge 
-                      variant="secondary"
-                      className={getStatusColor(asset.status)}
-                    >
-                      {asset.status.toUpperCase()}
-                    </Badge>
-                    <Badge 
-                      variant="outline"
-                      className={getTldColor(asset.metadata.attributes.find(a => a.trait_type === "TLD")?.value || "")}
-                    >
-                      {asset.metadata.attributes.find(a => a.trait_type === "TLD")?.value}
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="pt-0">
-                <div className="space-y-3">
-                  <div className="console-display p-3 rounded-lg">
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>
-                        <span className="font-mono text-telemetry-accent block">MINT DATE</span>
-                        <span className="font-mono text-stark-white">
-                          {formatDate(asset.mintDate).split(",")[0]}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="font-mono text-telemetry-accent block">BLOCK</span>
-                        <span className="font-mono text-stark-white">
-                          #{asset.blockHeight.toLocaleString()}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    {asset.metadata.attributes.slice(1, 3).map((attr, i) => (
-                      <div key={i} className="bg-charred-steel p-2 rounded">
-                        <span className="font-mono text-telemetry-accent block">{attr.trait_type}</span>
-                        <span className="font-mono text-stark-white">{attr.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Empty State */}
-      {mockAssets.length === 0 && (
-        <Card className="bg-console-bg border-grid-lines">
-          <CardContent className="p-12 text-center">
-            <div className="mb-6 opacity-50">
-              <Satellite className="h-16 w-16 mx-auto text-muted-foreground" />
-            </div>
-            <h3 className="text-xl font-heading text-stark-white mb-2">
-              No Satellites in Orbit
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Launch your first domain to see it appear in your constellation
+            </h1>
+            <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2 max-w-3xl mx-auto">
+                An overview of your tokenized domain assets in the O.R.B.I.T.E.R. registry. Monitor, manage, and analyze your digital universe.
             </p>
-            <Button>
-              Begin Launch Sequence
-            </Button>
-          </CardContent>
-        </Card>
-      )}
+        </div>
 
-      {/* Asset Detail Modal would go here */}
-      {selectedAsset && (
-        <motion.div 
-          className="fixed inset-0 bg-void-black/80 flex items-center justify-center p-4 z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => setSelectedAsset(null)}
-        >
-          <motion.div
-            className="bg-console-bg border border-grid-lines rounded-lg p-6 max-w-md w-full"
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-heading text-stark-white">Asset Details</h3>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setSelectedAsset(null)}
-              >
-                ✕
-              </Button>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-mono text-telemetry-accent text-sm mb-2">{selectedAsset.domain}</h4>
-                <p className="text-muted-foreground text-sm">{selectedAsset.metadata.description}</p>
-              </div>
-              
-              <div className="console-display p-3 rounded-lg">
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="font-mono text-telemetry-accent">Transaction:</span>
-                    <div className="flex items-center gap-1">
-                      <code className="font-mono text-xs">
-                        {selectedAsset.txHash.slice(0, 8)}...{selectedAsset.txHash.slice(-8)}
-                      </code>
-                      <Button variant="ghost" size="sm" className="h-4 w-4 p-0">
-                        <ExternalLink className="h-3 w-3" />
-                      </Button>
+        <div className="w-full max-w-7xl mx-auto space-y-8 md:space-y-12">
+            {/* Constellation Overview */}
+            <section className="fade-in-section">
+                <div className="glass-panel p-6 md:p-8 rounded-lg">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
+                        <h2 className="font-space-grotesk text-xl font-bold text-white mb-2 md:mb-0">Constellation Overview</h2>
+                        <span className="font-ibm-plex-mono text-sm solar-yellow-text">[ STATUS: OPERATIONAL ]</span>
                     </div>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-mono text-telemetry-accent">Mint Date:</span>
-                    <span className="font-mono text-stark-white text-xs">
-                      {formatDate(selectedAsset.mintDate)}
-                    </span>
-                  </div>
+                    <AssetStatusChart assets={mockAssets} />
                 </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-2">
-                {selectedAsset.metadata.attributes.map((attr, i) => (
-                  <div key={i} className="bg-charred-steel p-2 rounded">
-                    <span className="font-mono text-telemetry-accent text-xs block">{attr.trait_type}</span>
-                    <span className="font-mono text-stark-white text-sm">{attr.value}</span>
-                  </div>
+            </section>
+
+            {/* Asset Grid */}
+            <section className="fade-in-section">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {mockAssets.map((asset, index) => (
+                    <motion.div
+                    key={asset.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="h-full"
+                    >
+                    <div
+                        className="glass-panel h-full p-5 rounded-lg border border-transparent hover:border-[#FF7A00]/50 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                        onClick={() => setSelectedAsset(asset)}
+                    >
+                        <div>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                                {getStatusIcon(asset.status)}
+                                <span className="font-ibm-plex-mono text-xs text-gray-400">#{asset.id}</span>
+                            </div>
+                            <Badge variant="secondary" className="font-ibm-plex-mono text-xs capitalize bg-white/5 text-gray-300 border-white/10">
+                                {asset.status}
+                            </Badge>
+                        </div>
+
+                        <h3 className="font-space-grotesk text-2xl font-bold truncate text-gray-50">
+                            {asset.domain}
+                        </h3>
+                        <p className="text-gray-400 font-ibm-plex-sans text-sm mt-1 h-10">
+                            {asset.metadata.description}
+                        </p>
+                        </div>
+
+                        <div className="mt-4 space-y-3">
+                            <div className="grid grid-cols-2 gap-3 text-xs">
+                                {asset.metadata.attributes.slice(0, 2).map((attr, i) => (
+                                <div key={i} className="bg-black/20 p-2 rounded-md">
+                                    <span className="font-ibm-plex-mono text-gray-400 block">{attr.trait_type}</span>
+                                    <span className="font-ibm-plex-mono text-gray-200 font-medium">{attr.value}</span>
+                                </div>
+                                ))}
+                            </div>
+                            <div className="font-ibm-plex-mono text-xs text-gray-500 text-center pt-2">
+                                Minted on {formatDate(asset.mintDate)}
+                            </div>
+                        </div>
+                    </div>
+                    </motion.div>
                 ))}
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
+                </div>
+            </section>
+
+            {/* Empty State */}
+            {mockAssets.length === 0 && (
+                <section className="fade-in-section">
+                    <div className="glass-panel rounded-lg py-16 px-8 text-center">
+                        <div className="mb-6 opacity-30">
+                        <Satellite className="h-16 w-16 mx-auto" />
+                        </div>
+                        <h2 className="font-space-grotesk text-3xl font-bold mb-2">
+                        No Satellites in Orbit
+                        </h2>
+                        <p className="text-gray-400 max-w-md mx-auto mb-8">
+                        Launch your first domain to see it appear in your constellation.
+                        </p>
+                        <Button className="cta-button mt-10 inline-block bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg">
+                        [ INITIATE LAUNCH SEQUENCE ]
+                        </Button>
+                    </div>
+                </section>
+            )}
+        </div>
+
+        {/* Asset Detail Modal */}
+        {selectedAsset && (
+            <motion.div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedAsset(null)}
+            >
+            <motion.div
+                className="glass-panel border border-[#FF7A00]/50 rounded-lg max-w-2xl w-full overflow-hidden"
+                initial={{ scale: 0.95, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <CardHeader className="flex flex-row items-start justify-between p-6">
+                    <div>
+                        <h2 className="font-space-grotesk text-2xl font-bold">{selectedAsset.domain}</h2>
+                        <p className="font-ibm-plex-sans text-gray-300 max-w-md">{selectedAsset.metadata.description}</p>
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={() => setSelectedAsset(null)}>✕</Button>
+                </CardHeader>
+                <CardContent className="space-y-6 p-6 pt-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 className="font-space-grotesk text-lg font-bold mb-3">Asset Attributes</h3>
+                            <div className="grid grid-cols-2 gap-3">
+                                {selectedAsset.metadata.attributes.map((attr, i) => (
+                                    <div key={i} className="bg-black/20 p-3 rounded-md">
+                                    <span className="font-ibm-plex-mono text-gray-400 text-xs block">{attr.trait_type}</span>
+                                    <span className="font-ibm-plex-mono text-gray-200 text-sm font-medium">{attr.value}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <h3 className="font-space-grotesk text-lg font-bold mt-6 mb-3">Chain Data</h3>
+                            <div className="bg-black/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-400">Status:</span>
+                                    <span className="capitalize text-gray-50">{selectedAsset.status}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-400">Mint Date:</span>
+                                    <span className="text-gray-50">{formatDate(selectedAsset.mintDate)}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-400">Block Height:</span>
+                                    <span className="text-gray-50">#{selectedAsset.blockHeight.toLocaleString()}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-400">TX Hash:</span>
+                                    <a href="#" className="flex items-center gap-2 text-[#FFC700] hover:underline">
+                                        <span className="truncate max-w-[120px]">{selectedAsset.txHash}</span>
+                                        <ExternalLink className="h-4 w-4" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="font-space-grotesk text-lg font-bold mb-3 flex items-center gap-2"><TrendingUp className="h-5 w-5 text-solar-yellow-text"/> Market Performance</h3>
+                            {selectedAsset.marketData && (
+                                <div className="space-y-3">
+                                    <PerformanceChart data={selectedAsset.marketData.priceHistory} />
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="bg-black/20 p-3 rounded-md">
+                                            <span className="font-ibm-plex-mono text-gray-400 text-xs block">Floor Price</span>
+                                            <span className="font-ibm-plex-mono text-gray-200 text-lg font-medium flex items-center">{selectedAsset.marketData.floorPrice.toFixed(2)} <span className="text-xs ml-1">APT</span></span>
+                                        </div>
+                                        <div className="bg-black/20 p-3 rounded-md">
+                                            <span className="font-ibm-plex-mono text-gray-400 text-xs block">Offers</span>
+                                            <span className="font-ibm-plex-mono text-gray-200 text-lg font-medium">{selectedAsset.marketData.offers}</span>
+                                        </div>
+                                        <div className="bg-black/20 p-3 rounded-md col-span-2">
+                                            <span className="font-ibm-plex-mono text-gray-400 text-xs block">24h Volume</span>
+                                            <span className="font-ibm-plex-mono text-gray-200 text-sm font-medium">{selectedAsset.marketData.dailyVolume.toLocaleString()} APT</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </CardContent>
+            </motion.div>
+            </motion.div>
+        )}
     </div>
   );
 };

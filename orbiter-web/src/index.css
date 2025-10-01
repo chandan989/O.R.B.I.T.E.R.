@@ -11,7 +11,14 @@ body {
     font-family: 'IBM Plex Sans', sans-serif;
     background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
     background-size: 20px 20px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
 .font-ibm-plex-sans { font-family: 'IBM Plex Sans', sans-serif; }
 .font-ibm-plex-mono { font-family: 'IBM Plex Mono', monospace; }
@@ -20,7 +27,7 @@ body {
 .solar-yellow-text { color: #FFC700; } /* Solar Yellow */
 
 .glass-panel {
-    background: rgba(61, 45, 29, 0.4); /* Charred Steel with opacity */
+    background: rgba(61, 45, 29, 0.1); /* Charred Steel with opacity */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid #3D2D1D; /* Charred Steel */
