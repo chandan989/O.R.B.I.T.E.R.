@@ -83,11 +83,11 @@ export const LaunchSequence = () => {
 
   const verifyDomain = async () => {
     setIsVerifying(true);
-    
+
     try {
       await new Promise(resolve => setTimeout(resolve, 2000)); // Shorter delay
       setVerificationComplete(true);
-      
+
       toast({
         title: "Domain Verified!",
         description: "Your domain ownership has been confirmed.",
@@ -105,11 +105,11 @@ export const LaunchSequence = () => {
 
   const initiateLaunch = async () => {
     setIsLaunching(true);
-    
+
     try {
       await new Promise(resolve => setTimeout(resolve, 3000)); // Shorter delay
       setCurrentStage("complete");
-      
+
       toast({
         title: "Launch Successful!",
         description: `${domainName} has achieved stable orbit!`,
@@ -132,12 +132,12 @@ export const LaunchSequence = () => {
             <div className="glass-panel p-8 rounded-lg">
             <h3 className="font-space-grotesk text-xl font-bold mb-2">Stage 1: Pre-Flight Check</h3>
             <p className="font-ibm-plex-sans text-gray-400 mb-6">Enter your domain name to begin the tokenization process.</p>
-            
+
             <div className="space-y-4 mb-6">
                 <label className="font-ibm-plex-mono text-sm solar-yellow-text" htmlFor="domainName">[ DOMAIN NAME ]</label>
                 <input id="domainName" placeholder="your-domain.com" value={domainName} onChange={(e) => setDomainName(e.target.value)} className="font-mono bg-[#1a1a1a] border-[#3D2D1D] text-white w-full rounded-md px-3 py-2"/>
             </div>
-            
+
             <div className="border border-[#3D2D1D] rounded-lg p-4 mb-6">
                 <h4 className="font-ibm-plex-mono text-sm text-gray-400 mb-3">[ PRE-FLIGHT CHECKLIST ]</h4>
                 <div className="space-y-2 text-sm">
@@ -170,7 +170,7 @@ export const LaunchSequence = () => {
                 </div>
                 </div>
             </div>
-            
+
             <div className="bg-yellow-900/20 border border-yellow-700/50 p-4 rounded-lg flex items-start gap-3 mb-6">
                 <AlertCircle className="h-5 w-5 text-solar-yellow-text mt-0.5 flex-shrink-0" />
                 <div>
@@ -183,7 +183,7 @@ export const LaunchSequence = () => {
                 <button onClick={verifyDomain} disabled={isVerifying || verificationComplete} className="cta-button w-full flex-1 bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-3 rounded-lg text-md disabled:opacity-50 disabled:cursor-not-allowed">
                 {isVerifying ? "VERIFYING..." : "[ VERIFY OWNERSHIP ]"}
                 </button>
-                
+
                 {verificationComplete && <div className="flex-1 text-center py-3 px-8 rounded-lg bg-green-900/30 border border-green-500/50 font-space-grotesk text-green-300">DOMAIN VERIFIED</div>}
             </div>
             {verificationComplete && <button onClick={() => setCurrentStage("orbital")} className="cta-button w-full mt-4 bg-gradient-to-r from-green-500 to-emerald-400 text-black font-bold font-space-grotesk px-8 py-3 rounded-lg text-md">[ PROCEED TO LAUNCH ]</button>}
@@ -219,7 +219,7 @@ export const LaunchSequence = () => {
 
                 <h2 className="font-space-grotesk text-3xl font-bold text-green-400 mb-2">Launch Successful!</h2>
                 <p className="font-ibm-plex-sans text-lg text-white mb-6"><code className="bg-[#1a1a1a] px-2 py-1 rounded-md border border-[#3D2D1D]">{domainName}</code> has achieved stable orbit.</p>
-                
+
                 <div className="border border-[#3D2D1D] rounded-lg p-4 mb-6 text-left font-ibm-plex-mono text-sm">
                     <div className="space-y-2">
                     <div className="flex justify-between"><span className="text-gray-400">NFT ID:</span><span className="text-white">#{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</span></div>
@@ -263,7 +263,7 @@ export const LaunchSequence = () => {
                     <p className="font-ibm-plex-sans text-gray-400 mb-6">
                         Follow the protocol to achieve a stable orbit for your digital asset.
                     </p>
-                    
+
                     <div className="space-y-2">
                         <StageIndicator stage="preflight" currentStage={currentStage} number={1} title="Pre-Flight Check" />
                         <StageIndicator stage="authorization" currentStage={currentStage} number={2} title="Launch Authorization" />
