@@ -1,9 +1,31 @@
-import { Link, Outlet, useOutletContext } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { WalletConnection } from "./WalletConnection";
 import { useState } from "react";
+import {
+  AptosWalletAdapterProvider,
+  useWallet as useAptosWallet,
+} from "@aptos-labs/wallet-adapter-react";
+import { PetraWallet } from "petra-plugin-wallet-adapter";
+import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
+import { Network } from "@aptos-labs/ts-sdk";
+
+const AptosLayout = () => {
+  const wallets = [new PetraWallet(), new MartianWallet()];
+  return (
+    <AptosWalletAdapterProvider
+      plugins={wallets}
+      dappConfig={{ network: Network.TESTNET }}
+      autoConnect={true}
+      onError={(error) => {
+        console.log("Wallet Error", error);
+      }}
+    >
+      <Layout />
+    </AptosWalletAdapterProvider>
+  );
+};
 
 const Layout = () => {
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -43,11 +65,11 @@ const Layout = () => {
                   Exosphere Exchange
                 </Link>
               </div>
-              <WalletConnection onConnectionChange={setIsWalletConnected} isConnected={isWalletConnected} />
+              <WalletConnection />
             </div>
 
             <div className="md:hidden flex items-center">
-              <WalletConnection onConnectionChange={setIsWalletConnected} isConnected={isWalletConnected} />
+              <WalletConnection />
               <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white focus:outline-none ml-4">
                 <svg
                   className="w-6 h-6"
@@ -95,7 +117,7 @@ const Layout = () => {
       </header>
       <main className="flex-grow relative pb-8">
         <div className="container mx-auto px-6 relative z-10">
-          <Outlet context={{ isWalletConnected }} />
+          <Outlet />
         </div>
       </main>
       <footer className="border-t border-white/10 py-8">
@@ -118,8 +140,6 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default AptosLayout;
 
-export function useWallet() {
-  return useOutletContext<{ isWalletConnected: boolean }>();
-}
+export const useWallet = useAptosWallet;

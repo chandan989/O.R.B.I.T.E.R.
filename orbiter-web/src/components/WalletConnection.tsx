@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Wallet, CheckCircle, LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -9,45 +8,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useWallet } from "./Layout";
 
-interface WalletConnectionProps {
-  onConnectionChange: (connected: boolean) => void;
-  isConnected: boolean;
-}
+export const WalletConnection = () => {
+  const { connected, account, wallet, disconnect, isLoading, connect } = useWallet();
 
-export const WalletConnection = ({ onConnectionChange, isConnected }: WalletConnectionProps) => {
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
-
-  const connectWallet = async () => {
-    // Simulate wallet connection
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const mockAddress = "0x1a2b...cdef";
-      setWalletAddress(mockAddress);
-      onConnectionChange(true);
-    } catch (error) {
+  const handleConnect = (walletName: string) => {
+    connect(walletName).catch((error) => {
       console.error("Failed to connect wallet:", error);
-    }
+    });
   };
 
-  const disconnectWallet = () => {
-    setWalletAddress(null);
-    onConnectionChange(false);
-  };
-
-  if (isConnected && walletAddress) {
+  if (connected && account) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="flex items-center gap-2">
             <CheckCircle className="h-4 w-4 text-orbital-success" />
-            <span className="font-mono text-sm">{walletAddress}</span>
+            <span className="font-mono text-sm">
+              {account.address.slice(0, 6)}...{account.address.slice(-4)}
+            </span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Connected</DropdownMenuLabel>
+          <DropdownMenuLabel>{wallet?.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={disconnectWallet}>
+          <DropdownMenuItem onClick={disconnect}>
             <LogOut className="h-4 w-4 mr-2" />
             Disconnect
           </DropdownMenuItem>
@@ -57,9 +43,23 @@ export const WalletConnection = ({ onConnectionChange, isConnected }: WalletConn
   }
 
   return (
-    <Button onClick={connectWallet} className="flex items-center gap-2">
-      <Wallet className="h-4 w-4" />
-      Connect Wallet
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button disabled={isLoading} className="flex items-center gap-2">
+          <Wallet className="h-4 w-4" />
+          {isLoading ? "Connecting..." : "Connect Wallet"}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Select a Wallet</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => handleConnect("Petra")}>
+          Petra
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleConnect("Martian")}>
+          Martian
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
