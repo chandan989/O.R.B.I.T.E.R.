@@ -7,7 +7,7 @@ const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-void-black text-stark-white font-sans">
+    <div className="flex flex-col min-h-screen bg-void-black text-stark-white">
       <header className="sticky top-0 left-0 right-0 z-30 py-4 bg-void-black/80 backdrop-blur-sm border-b border-white/10">
         <div className="container mx-auto px-6">
           <nav className="flex items-center justify-between">
@@ -19,7 +19,7 @@ const Layout = () => {
             </Link>
 
             <div className="hidden md:flex items-center space-x-4">
-              <div className="flex items-center space-x-8 font-ibm-plex-sans text-sm">
+              <div className="flex items-center space-x-8 font-ibm-plex-sans text-sm font-normal">
                 <Link
                   to="/launch-sequence"
                   className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"

@@ -1,213 +1,190 @@
-@import '@fontsource/space-grotesk/400.css';
-@import '@fontsource/space-grotesk/500.css';
-@import '@fontsource/space-grotesk/600.css';
-@import '@fontsource/space-grotesk/700.css';
-@import '@fontsource/ibm-plex-sans/400.css';
-@import '@fontsource/ibm-plex-sans/500.css';
-@import '@fontsource/ibm-plex-sans/600.css';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource/ibm-plex-mono/500.css';
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* O.R.B.I.T.E.R. Mission Control Design System - Solar Flare Theme */
-
-@layer base {
-  :root {
-    /* Solar Flare Color Palette */
-    --void-black: 0 0% 6.7%;           /* #111111 */
-    --stark-white: 0 0% 91%;           /* #E8E8E8 */
-    --ignition-orange: 22 100% 50%;    /* #FF7A00 */
-    --solar-yellow: 45 100% 50%;       /* #FFC700 */
-    --charred-steel: 30 25% 18%;       /* #3D2D1D */
-    
-    /* Mission Control UI Variables */
-    --background: var(--void-black);
-    --foreground: var(--stark-white);
-    
-    --card: 30 25% 15%;
-    --card-foreground: var(--stark-white);
-    
-    --popover: var(--charred-steel);
-    --popover-foreground: var(--stark-white);
-    
-    --primary: var(--ignition-orange);
-    --primary-foreground: var(--void-black);
-    
-    --secondary: var(--charred-steel);
-    --secondary-foreground: var(--stark-white);
-    
-    --muted: 30 15% 25%;
-    --muted-foreground: 0 0% 70%;
-    
-    --accent: var(--solar-yellow);
-    --accent-foreground: var(--void-black);
-    
-    --destructive: 0 84% 60%;
-    --destructive-foreground: var(--stark-white);
-    
-    --border: var(--charred-steel);
-    --input: var(--charred-steel);
-    --ring: var(--ignition-orange);
-    
-    --radius: 0.375rem;
-    
-    /* Mission Control Specific Variables */
-    --orbit-glow: var(--ignition-orange);
-    --telemetry-accent: var(--solar-yellow);
-    --console-bg: 30 25% 12%;
-    --grid-lines: 30 15% 30%;
-    
-    /* Launch Sequence Status Colors */
-    --preflight-status: 210 50% 50%;    /* Blue for standby */
-    --launch-ready: var(--solar-yellow);  /* Yellow for ready */
-    --orbital-success: 120 60% 50%;      /* Green for success */
-    
-    /* Gradients */
-    --gradient-ignition: linear-gradient(135deg, hsl(var(--ignition-orange)), hsl(var(--solar-yellow)));
-    --gradient-orbital: linear-gradient(180deg, hsl(var(--void-black)), hsl(var(--charred-steel)));
-    --gradient-console: linear-gradient(90deg, hsl(var(--console-bg)), hsl(var(--charred-steel)));
-    
-    /* Animations */
-    --orbit-duration: 20s;
-    --pulse-duration: 2s;
-    --launch-duration: 3s;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-body;
+body {
+    background-color: #111111; /* Void Black */
+    color: #E8E8E8; /* Stark White */
     font-family: 'IBM Plex Sans', sans-serif;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
-  }
-  
-  code, pre, .font-mono {
-    font-family: 'IBM Plex Mono', monospace;
-  }
-}
-
-@layer components {
-  /* Mission Control Grid */
-  .mission-grid {
-    @apply relative;
-    background-image: 
-      linear-gradient(hsl(var(--grid-lines) / 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--grid-lines) / 0.3) 1px, transparent 1px);
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
     background-size: 20px 20px;
-  }
-  
-  /* Orbital Animation */
-  .orbit-animation {
-    animation: orbit var(--orbit-duration) linear infinite;
-  }
-  
-  /* Launch Sequence Glow */
-  .ignition-glow {
-    box-shadow: 0 0 20px hsl(var(--ignition-orange) / 0.5), 
-                0 0 40px hsl(var(--ignition-orange) / 0.3);
-  }
-  
-  .orbital-glow {
-    box-shadow: 0 0 30px hsl(var(--solar-yellow) / 0.6), 
-                0 0 60px hsl(var(--solar-yellow) / 0.4);
-  }
-  
-  /* Console Display */
-  .console-display {
-    @apply bg-gradient-to-r from-console-bg to-charred-steel;
-    border: 1px solid hsl(var(--grid-lines));
-  }
-  
-  /* Telemetry Data */
-  .telemetry-readout {
-    @apply font-mono text-sm;
-    color: hsl(var(--telemetry-accent));
-    text-shadow: 0 0 10px currentColor;
-  }
+}
+.font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+.font-ibm-plex-sans { font-family: 'IBM Plex Sans', sans-serif; }
+.font-ibm-plex-mono { font-family: 'IBM Plex Mono', monospace; }
+
+.solar-flare-text { color: #FF7A00; } /* Ignition Orange */
+.solar-yellow-text { color: #FFC700; } /* Solar Yellow */
+
+.glass-panel {
+    background: rgba(61, 45, 29, 0.4); /* Charred Steel with opacity */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #3D2D1D; /* Charred Steel */
 }
 
-@layer utilities {
-  /* Typography Classes */
-  .font-heading {
-    font-family: 'Space Grotesk', sans-serif;
-  }
-  
-  .font-body {
-    font-family: 'IBM Plex Sans', sans-serif;
-  }
-  
-  .font-mono {
-    font-family: 'IBM Plex Mono', monospace;
-  }
-  
-  /* Mission Control Backgrounds */
-  .bg-void {
-    background-color: hsl(var(--void-black));
-  }
-  
-  .bg-console {
-    background-color: hsl(var(--console-bg));
-  }
-  
-  .bg-charred {
-    background-color: hsl(var(--charred-steel));
-  }
-  
-  /* Text Colors */
-  .text-stark {
-    color: hsl(var(--stark-white));
-  }
-  
-  .text-ignition {
-    color: hsl(var(--ignition-orange));
-  }
-  
-  .text-solar {
-    color: hsl(var(--solar-yellow));
-  }
+.cta-button {
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 122, 0, 0.3); /* Ignition Orange glow */
+}
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255, 122, 0, 0.6); /* Ignition Orange glow */
 }
 
-/* Keyframe Animations */
-@keyframes orbit {
-  from {
-    transform: rotate(0deg) translateX(30px) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(30px) rotate(-360deg);
-  }
+.trajectory-line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 199, 0, 0.5), transparent); /* Solar Yellow */
+    opacity: 0.5;
 }
 
-@keyframes launch {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(-20px) scale(1.1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-100px) scale(0.5);
+.fade-in-section {
     opacity: 0;
-  }
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@keyframes pulse-ignition {
-  0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--ignition-orange) / 0.5);
-  }
-  50% {
-    box-shadow: 0 0 40px hsl(var(--ignition-orange) / 0.8), 
-                0 0 60px hsl(var(--ignition-orange) / 0.6);
-  }
+/* Loading Animation */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #111111; /* Void Black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.cosmic-loader {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.central-star {
+    width: 30px;
+    height: 30px;
+    background-color: #FFC700; /* Solar Yellow */
+    border-radius: 50%;
+    box-shadow: 0 0 20px #FFC700, 0 0 40px #FF7A00;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.orbit {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.orbit:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    animation: orbit-rotate 8s linear infinite;
+}
+
+.orbit:nth-child(3) {
+    width: 120px;
+    height: 120px;
+    animation: orbit-rotate 12s linear infinite reverse;
+}
+
+.planet {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #E8E8E8; /* Stark White */
+    border-radius: 50%;
+}
+
+.orbit:nth-child(2) .planet {
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.orbit:nth-child(3) .planet {
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+    background-color: #FF7A00; /* Ignition Orange */
+}
+
+@keyframes orbit-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Shooting Stars */
+.shooting-star {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, #FFC700, transparent);
+    opacity: 0;
+    animation: shooting-star-anim 3s linear infinite;
+}
+
+.shooting-star:nth-child(4) {
+    top: 20%;
+    left: -50%;
+    width: 100px;
+    animation-delay: 1s;
+}
+
+.shooting-star:nth-child(5) {
+    top: 80%;
+    left: 150%;
+    width: 150px;
+    animation-delay: 2.5s;
+    transform: rotate(180deg);
+}
+
+@keyframes shooting-star-anim {
+    0% {
+        opacity: 0;
+        transform: translateX(0) scaleY(0.5);
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(300px) scaleY(0.5);
+    }
+}
+
+/* Hero Animation */
+@keyframes orbit-1 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@keyframes orbit-2 {
+    from { transform: rotate(90deg); }
+    to { transform: rotate(450deg); }
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); }
 }
