@@ -134,7 +134,7 @@ const mockAssets: Asset[] = [
 ];
 
 export const ExosphereExchange = () => {
-  const { isWalletConnected } = useWallet();
+  const { connected: isWalletConnected } = useWallet();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedAsset, setSelectedAsset] = useState<Asset>(mockAssets[0]);
   const [tradeSide, setTradeSide] = useState<'buy' | 'sell'>('buy');
@@ -298,7 +298,7 @@ export const ExosphereExchange = () => {
                                     <span className="text-gray-400">Total</span>
                                     <span>0.00 APT</span>
                                 </div>
-                                <Button className={`w-full font-space-grotesk font-bold transition-colors ${tradeSide === 'buy' ? 'bg-orbital-success/90 hover:bg-orbital-success text-black' : 'bg-orbital-fail/90 hover:bg-orbital-fail text-black'}`}>
+                                <Button disabled={!isWalletConnected} className={`w-full font-space-grotesk font-bold transition-colors ${tradeSide === 'buy' ? 'bg-orbital-success/90 hover:bg-orbital-success text-black' : 'bg-orbital-fail/90 hover:bg-orbital-fail text-black'} disabled:opacity-50 disabled:cursor-not-allowed`}>
                                     {tradeSide.toUpperCase()} {selectedAsset.domain}
                                 </Button>
                             </div>

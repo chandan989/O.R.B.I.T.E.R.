@@ -52,7 +52,7 @@ const StageIndicator = ({ stage, currentStage, title, number }: { stage: LaunchS
 
 
 export const LaunchSequence = () => {
-  const { isWalletConnected } = useWallet();
+  const { connected: isWalletConnected } = useWallet();
   const [currentStage, setCurrentStage] = useState<LaunchStage>("preflight");
   const [domainName, setDomainName] = useState("");
   const [txtRecord, setTxtRecord] = useState("");
