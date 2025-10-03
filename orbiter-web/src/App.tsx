@@ -7,8 +7,10 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { ExosphereExchange } from "./pages/ExosphereExchange";
 import { LaunchSequence } from "./pages/LaunchSequence";
+import { DemoLaunch } from "./pages/DemoLaunch";
 import { SatelliteConstellation } from "./pages/SatelliteConstellation";
 import Layout from "./components/Layout";
+
 
 const queryClient = new QueryClient();
 
@@ -23,10 +25,12 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/exosphere-exchange" element={<ExosphereExchange />} />
             <Route path="/launch-sequence" element={<LaunchSequence />} />
+        <Route path="/demo" element={<DemoLaunch />} />
             <Route
               path="/satellite-constellation"
               element={<SatelliteConstellation />}
             />
+
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

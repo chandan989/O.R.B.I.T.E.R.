@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { ContractStatus } from "../components/ContractStatus";
 
 const Index = () => {
   useEffect(() => {
@@ -115,8 +116,7 @@ const Index = () => {
                     On-chain Registry & Brokerage Infrastructure for Tokenized External Resources
                   </p>
                   <p className="mt-6 max-w-lg mx-auto md:mx-0 text-gray-400">
-                    Unlock the value of your digital universe. Achieve orbit for your Web2 assets
-                    and trade them in the permissionless ecosystem of Web3.
+                    Unlock the value of your digital universe. Achieve orbit for your Web2 assets and trade them as fractionalized Aptos Objects in the permissionless ecosystem of Web3.
                   </p>
                   <Link
                     to="/launch-sequence"
@@ -142,7 +142,7 @@ const Index = () => {
                     Billions in value are locked in Web2 assets like domains and social handles.
                     O.R.B.I.T.E.R. provides the enterprise-grade infrastructure to bridge these
                     universes, bringing Web2 assets into the Web3 economy as liquid, tradable
-                    Digital Assets on the Aptos blockchain.
+                    Aptos Objects on the Aptos blockchain.
                   </p>
                   <p className="font-ibm-plex-sans text-gray-300 leading-relaxed mt-4">
                     Our mission is to unlock this dormant value and create a professional trading
@@ -194,86 +194,70 @@ const Index = () => {
               The Launch Sequence
             </h2>
             <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Follow the three-stage protocol to achieve a stable orbit for your digital assets.
+              Follow the five-stage protocol to achieve a stable orbit for your digital assets.
             </p>
-            <div className="relative mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#FFC700]/30 to-transparent -translate-y-1/2"></div>
+            <div className="relative mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
 
-              <div className="relative glass-panel p-8 rounded-lg text-left z-10">
+              <div className="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 solar-flare-text"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   </div>
-                  <h3 className="font-space-grotesk text-xl font-bold">1. Pre-Flight Check</h3>
+                  <h3 className="font-space-grotesk text-xl font-bold">1. Pre-Flight</h3>
                 </div>
-                <p className="text-gray-300">
-                  The UI displays a Mission Control checklist. The first item: "Verify Domain
-                  Ownership." The DNS check feels like a necessary pre-launch sequence.
+                <p className="text-gray-300 flex-grow">
+                  Connect your wallet and provide the domain name. Our system performs initial checks for compatibility.
                 </p>
               </div>
-              <div className="relative glass-panel p-8 rounded-lg text-left z-10">
+
+              <div className="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 solar-flare-text"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H5v-2H3v-2H1.258a1 1 0 01-.97-1.243l1.258-7.5a1 1 0 01.97-1.243H7V3a2 2 0 012-2h3.172a2 2 0 011.414.586l.828.828A2 2 0 0017 3h2a2 2 0 012 2v2m-6 4h.01"
-                      />
-                    </svg>
+                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                   </div>
-                  <h3 className="font-space-grotesk text-xl font-bold">2. Launch Authorization</h3>
+                  <h3 className="font-space-grotesk text-xl font-bold">2. Authorization</h3>
                 </div>
-                <p className="text-gray-300">
-                  Minting the token is the "ignition." Sign the transaction to authorize launch and
-                  send your asset to the Aptos chain.
+                <p className="text-gray-300 flex-grow">
+                  Prove ownership by adding a unique TXT record to your domain's DNS settings for security verification.
                 </p>
               </div>
-              <div className="relative glass-panel p-8 rounded-lg text-left z-10">
+
+              <div className="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 solar-flare-text"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 10l7-7m0 0l7 7m-7-7v18"
-                      />
-                    </svg>
+                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 20V10M18 20V4M6 20V16" /></svg>
                   </div>
-                  <h3 className="font-space-grotesk text-xl font-bold">3. Orbital Insertion</h3>
+                  <h3 className="font-space-grotesk text-xl font-bold">3. Valuation</h3>
                 </div>
-                <p className="text-gray-300">
-                  "Launch Successful! yourdomain.com has achieved stable orbit." The asset is now
-                  visible and tradable in The Exosphere.
+                <p className="text-gray-300 flex-grow">
+                  Our protocol calculates the objective market value of your asset based on SEO authority, traffic, and brandability.
                 </p>
               </div>
+
+              <div className="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M4 17v4M2 19h4M17 3v4M16 5h4M19 17v4M18 19h4M12 9v6M9 12h6" /></svg>
+                  </div>
+                  <h3 className="font-space-grotesk text-xl font-bold">4. Tokenization</h3>
+                </div>
+                <p className="text-gray-300 flex-grow">
+                  Customize your asset’s on-chain parameters, including the symbol for its liquid shares, before creating the Aptos Object.
+                </p>
+              </div>
+
+              <div className="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.04-3.1-.66-.8-2.16-.84-3.04-.04-1.26 1.5-2.04 2-2.04 2z"/><path d="m10.02 14.02 2.12-2.12c.2-.2.38-.42.5-.66l.38-1.12.38-1.14c.1-.3.18-.6.22-.9.04-.3.04-.62.02-.94l-.04-1.1c-.02-.32-.06-.6-.12-.88l-.2-1.14-.2-1.12a2.5 2.5 0 0 0-4.18-2.18l-1.12.2-1.14.2c-.28.06-.56.12-.88.2l-1.1.04c-.32.02-.64.02-.94-.02l-1.14-.38-1.12-.38c-.24-.08-.46-.2-.66-.4l-2.12-2.12"/></svg>
+                  </div>
+                  <h3 className="font-space-grotesk text-xl font-bold">5. Mission Complete</h3>
+                </div>
+                <p className="text-gray-300 flex-grow">
+                  Your asset achieves stable orbit as a tradable token on Aptos, visible in your Constellation and the Exosphere.
+                </p>
+              </div>
+
             </div>
           </div>
         </section>
@@ -327,6 +311,12 @@ const Index = () => {
                 </div>
               </div>
             </div>
+        </section>
+
+        <section id="contract-status" className="py-12 fade-in-section">
+          <div className="max-w-md mx-auto">
+            <ContractStatus />
+          </div>
         </section>
 
         <section id="mission-control-cta" className="py-20 fade-in-section">

@@ -1,0 +1,2 @@
+# This file ensures the scripts directory is tracked by git
+# Move script files for deployment and interaction will be placed in this directory

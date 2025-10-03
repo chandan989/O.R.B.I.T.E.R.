@@ -8,8 +8,10 @@ import {
   Clock,
   XCircle,
   TrendingUp,
-  ArrowDown,
-  ArrowUp,
+  BarChart,
+  Sparkles,
+  ShieldCheck,
+  Globe
 } from "lucide-react";
 import { CardContent, CardHeader } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
@@ -26,6 +28,18 @@ interface SatelliteAsset {
     description: string;
     attributes: Array<{ trait_type: string; value: string }>;
   };
+  valuation: {
+    score: number;
+    marketValue: number;
+    seoAuthority: number;
+    trafficEstimate: number;
+    brandability: number;
+    tldRarity: number;
+  };
+  tokenization: {
+      tokenTicker: string;
+      totalSupply: number;
+  };
   marketData?: {
     floorPrice: number;
     dailyVolume: number;
@@ -37,7 +51,7 @@ interface SatelliteAsset {
 
 const mockAssets: SatelliteAsset[] = [
     {
-        id: "0001",
+        id: "ORBIT-001",
         domain: "myawesomesite.com",
         mintDate: "2024-03-15T10:30:00Z",
         blockHeight: 157293847,
@@ -48,10 +62,10 @@ const mockAssets: SatelliteAsset[] = [
           attributes: [
             { trait_type: "TLD", value: ".com" },
             { trait_type: "Length", value: "15" },
-            { trait_type: "Age", value: "5 years" },
-            { trait_type: "Traffic", value: "High" }
           ]
         },
+        valuation: { score: 780, marketValue: 25000, seoAuthority: 12000, trafficEstimate: 8000, brandability: 4000, tldRarity: 1000 },
+        tokenization: { tokenTicker: "MYAWS", totalSupply: 25000 },
         marketData: {
             floorPrice: 150.50,
             dailyVolume: 25000,
@@ -61,7 +75,7 @@ const mockAssets: SatelliteAsset[] = [
         }
       },
       {
-        id: "0002",
+        id: "ORBIT-002",
         domain: "crypto-hub.io",
         mintDate: "2024-03-14T15:45:00Z",
         blockHeight: 157290123,
@@ -72,10 +86,10 @@ const mockAssets: SatelliteAsset[] = [
           attributes: [
             { trait_type: "TLD", value: ".io" },
             { trait_type: "Length", value: "10" },
-            { trait_type: "Age", value: "3 years" },
-            { trait_type: "Traffic", value: "Medium" }
           ]
         },
+        valuation: { score: 850, marketValue: 78000, seoAuthority: 30000, trafficEstimate: 25000, brandability: 15000, tldRarity: 8000 },
+        tokenization: { tokenTicker: "CRHUB", totalSupply: 78000 },
         marketData: {
             floorPrice: 320.00,
             dailyVolume: 78000,
@@ -85,7 +99,7 @@ const mockAssets: SatelliteAsset[] = [
         }
       },
       {
-        id: "0003",
+        id: "ORBIT-003",
         domain: "web3future.xyz",
         mintDate: "2024-03-13T09:20:00Z",
         blockHeight: 157285456,
@@ -96,10 +110,10 @@ const mockAssets: SatelliteAsset[] = [
           attributes: [
             { trait_type: "TLD", value: ".xyz" },
             { trait_type: "Length", value: "11" },
-            { trait_type: "Age", value: "1 year" },
-            { trait_type: "Traffic", value: "Low" }
           ]
         },
+        valuation: { score: 620, marketValue: 12000, seoAuthority: 5000, trafficEstimate: 4000, brandability: 2000, tldRarity: 1000 },
+        tokenization: { tokenTicker: "W3FUT", totalSupply: 12000 },
         marketData: {
             floorPrice: 95.80,
             dailyVolume: 12000,
@@ -115,6 +129,8 @@ const AssetStatusChart = ({ assets }: { assets: SatelliteAsset[] }) => {
   const transferring = assets.filter(a => a.status === 'transferring').length;
   const inactive = assets.filter(a => a.status === 'inactive').length;
   const total = assets.length;
+  const totalShares = assets.reduce((sum, asset) => sum + asset.tokenization.totalSupply, 0);
+  const totalMarketCap = assets.reduce((sum, asset) => sum + asset.valuation.marketValue, 0);
 
   const data = [
     { status: 'Active', count: active, color: 'bg-[#FFC700]' },
@@ -124,6 +140,20 @@ const AssetStatusChart = ({ assets }: { assets: SatelliteAsset[] }) => {
 
   return (
     <div className="mt-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-4">
+          <div>
+              <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Total Assets</p>
+              <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">{total}</p>
+          </div>
+          <div>
+              <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Total Shares</p>
+              <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">{totalShares.toLocaleString()}</p>
+          </div>
+          <div>
+              <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Total Market Cap</p>
+              <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">${totalMarketCap.toLocaleString()}</p>
+          </div>
+      </div>
       <div className="flex justify-between items-center font-ibm-plex-mono text-xs text-gray-400 mb-2">
         <span>Asset Status Distribution</span>
         <span>Total: {total}</span>
@@ -211,10 +241,10 @@ export const SatelliteConstellation = () => {
         <div className="text-center mb-8 md:mb-12">
             <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold tracking-tighter flex items-center gap-3 justify-center">
                 <Satellite className="h-9 w-9 text-[#FF7A00] orbit-animation" />
-                Satellite Constellation
+                Manage your Aptos Objects
             </h1>
             <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2 max-w-3xl mx-auto">
-                An overview of your tokenized domain assets in the O.R.B.I.T.E.R. registry. Monitor, manage, and analyze your digital universe.
+                An overview of your Aptos Objects and their fractional shares. Monitor, manage, and analyze your digital universe.
             </p>
         </div>
 
@@ -249,7 +279,7 @@ export const SatelliteConstellation = () => {
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
                                 {getStatusIcon(asset.status)}
-                                <span className="font-ibm-plex-mono text-xs text-gray-400">#{asset.id}</span>
+                                <span className="font-ibm-plex-mono text-xs text-gray-400">Object ID: {asset.id}</span>
                             </div>
                             <Badge variant="secondary" className="font-ibm-plex-mono text-xs capitalize bg-white/5 text-gray-300 border-white/10">
                                 {asset.status}
@@ -259,8 +289,11 @@ export const SatelliteConstellation = () => {
                         <h3 className="font-space-grotesk text-2xl font-bold truncate text-gray-50">
                             {asset.domain}
                         </h3>
-                        <p className="text-gray-400 font-ibm-plex-sans text-sm mt-1 h-10">
-                            {asset.metadata.description}
+                        <p className="font-ibm-plex-mono text-sm text-gray-400">
+                            Shares: {asset.tokenization.totalSupply.toLocaleString()}
+                        </p>
+                        <p className="font-ibm-plex-mono text-lg text-solar-yellow-text mt-2">
+                            ${asset.valuation.marketValue.toLocaleString()}
                         </p>
                         </div>
 
@@ -314,7 +347,7 @@ export const SatelliteConstellation = () => {
             onClick={() => setSelectedAsset(null)}
             >
             <motion.div
-                className="glass-panel border border-[#FF7A00]/50 rounded-lg max-w-2xl w-full overflow-hidden"
+                className="glass-panel border border-[#FF7A00]/50 rounded-lg max-w-4xl w-full overflow-hidden"
                 initial={{ scale: 0.95, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.95, y: 20 }}
@@ -327,42 +360,90 @@ export const SatelliteConstellation = () => {
                     </div>
                     <Button variant="ghost" size="sm" onClick={() => setSelectedAsset(null)}>✕</Button>
                 </CardHeader>
-                <CardContent className="space-y-6 p-6 pt-0">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 className="font-space-grotesk text-lg font-bold mb-3">Asset Attributes</h3>
-                            <div className="grid grid-cols-2 gap-3">
-                                {selectedAsset.metadata.attributes.map((attr, i) => (
-                                    <div key={i} className="bg-black/20 p-3 rounded-md">
-                                    <span className="font-ibm-plex-mono text-gray-400 text-xs block">{attr.trait_type}</span>
-                                    <span className="font-ibm-plex-mono text-gray-200 text-sm font-medium">{attr.value}</span>
+                <CardContent className="space-y-6 p-6 pt-0 max-h-[80vh] overflow-y-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Left Column */}
+                        <div className="md:col-span-1 space-y-6">
+                            <div>
+                                <h3 className="font-space-grotesk text-lg font-bold mb-3">Tokenization</h3>
+                                <div className="bg-black/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Asset Type:</span>
+                                        <span className="font-bold text-gray-50">Aptos Object</span>
                                     </div>
-                                ))}
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Ticker:</span>
+                                        <span className="font-bold text-gray-50">${selectedAsset.tokenization.tokenTicker}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Total Supply:</span>
+                                        <span className="text-gray-50">{selectedAsset.tokenization.totalSupply.toLocaleString()}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="font-space-grotesk text-lg font-bold mt-6 mb-3">Chain Data</h3>
-                            <div className="bg-black/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-400">Status:</span>
-                                    <span className="capitalize text-gray-50">{selectedAsset.status}</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-400">Mint Date:</span>
-                                    <span className="text-gray-50">{formatDate(selectedAsset.mintDate)}</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-400">Block Height:</span>
-                                    <span className="text-gray-50">#{selectedAsset.blockHeight.toLocaleString()}</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-400">TX Hash:</span>
-                                    <a href="#" className="flex items-center gap-2 text-[#FFC700] hover:underline">
-                                        <span className="truncate max-w-[120px]">{selectedAsset.txHash}</span>
-                                        <ExternalLink className="h-4 w-4" />
-                                    </a>
+                            <div>
+                                <h3 className="font-space-grotesk text-lg font-bold mb-3">Chain Data</h3>
+                                <div className="bg-black/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Asset ID:</span>
+                                        <span className="text-gray-50">{selectedAsset.id}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Status:</span>
+                                        <span className="capitalize text-gray-50">{selectedAsset.status}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Mint Date:</span>
+                                        <span className="text-gray-50">{formatDate(selectedAsset.mintDate)}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Block:</span>
+                                        <span className="text-gray-50">#{selectedAsset.blockHeight.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">TX Hash:</span>
+                                        <a href="#" className="flex items-center gap-2 text-[#FFC700] hover:underline">
+                                            <span className="truncate max-w-[120px]">{selectedAsset.txHash}</span>
+                                            <ExternalLink className="h-4 w-4" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        {/* Middle Column */}
+                        <div className="md:col-span-1">
+                            <h3 className="font-space-grotesk text-lg font-bold mb-3">Valuation</h3>
+                            <div className="bg-black/20 p-4 rounded-lg space-y-4">
+                                <div className="text-center">
+                                    <p className="font-ibm-plex-mono text-sm text-gray-400">Score</p>
+                                    <p className="font-space-grotesk text-4xl font-bold text-solar-yellow-text">{selectedAsset.valuation.score}</p>
+                                </div>
+                                <div className="text-center">
+                                    <p className="font-ibm-plex-mono text-sm text-gray-400">Estimated Market Value</p>
+                                    <p className="font-space-grotesk text-3xl font-bold text-white">${selectedAsset.valuation.marketValue.toLocaleString()}</p>
+                                </div>
+                                <div className="border-t border-white/10 pt-4 space-y-2">
+                                    <div className="flex items-center justify-between font-ibm-plex-mono text-xs">
+                                        <div className="flex items-center gap-2 text-gray-300"><BarChart className="h-4 w-4 text-solar-yellow-text/70"/>SEO Authority</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.seoAuthority.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between font-ibm-plex-mono text-xs">
+                                        <div className="flex items-center gap-2 text-gray-300"><Sparkles className="h-4 w-4 text-solar-yellow-text/70"/>Traffic Estimate</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.trafficEstimate.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between font-ibm-plex-mono text-xs">
+                                        <div className="flex items-center gap-2 text-gray-300"><ShieldCheck className="h-4 w-4 text-solar-yellow-text/70"/>Brandability</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.brandability.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex items--center justify-between font-ibm-plex-mono text-xs">
+                                        <div className="flex items-center gap-2 text-gray-300"><Globe className="h-4 w-4 text-solar-yellow-text/70"/>TLD Rarity</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.tldRarity.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Right Column */}
+                        <div className="md:col-span-1">
                             <h3 className="font-space-grotesk text-lg font-bold mb-3 flex items-center gap-2"><TrendingUp className="h-5 w-5 text-solar-yellow-text"/> Market Performance</h3>
                             {selectedAsset.marketData && (
                                 <div className="space-y-3">

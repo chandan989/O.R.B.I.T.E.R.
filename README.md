@@ -11,7 +11,7 @@
  \__/(_)(__\_)(_)(____/(_)(__)(_)(__)(_)(____)(_)(__\_)(_)   
 ```
 
-[![Protocol Status](https://img.shields.io/badge/Status-MVP%20on%20Aptos%20Testnet-orange)](https://aptoslabs.com)
+[![Protocol Status](https.img.shields.io/badge/Status-MVP%20on%20Aptos%20Testnet-orange)](https://aptoslabs.com)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 [![Build](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com)
 
@@ -23,7 +23,7 @@ The digital economy operates across two parallel universes: the established, hig
 
 **O.R.B.I.T.E.R. bridges these universes.**
 
-We provide enterprise-grade infrastructure to verifiably achieve orbit for external Web2 assets, starting with domain names, and represent them as liquid, tradable Digital Assets on Aptos. Our mission is to unlock dormant value and create a professional trading environment in the Exosphere for next-generation orbital assets.
+We provide enterprise-grade infrastructure to verifiably achieve orbit for external Web2 assets, starting with domain names, and represent them as liquid, tradable Aptos Objects on Aptos. Our mission is to unlock dormant value and create a professional trading environment in the Exosphere for next-generation orbital assets.
 
 ### Why Aptos?
 
@@ -51,7 +51,7 @@ We chose Aptos for its unparalleled performance characteristics:
 - User signs transaction to authorize ignition
 
 **STAGE 3: Orbital Insertion**
-- Smart contract executes launch, minting unique Digital Asset (NFT)
+- Smart contract executes launch, minting an Aptos Object representing the domain, with its ownership fractionalized into liquid shares
 - Asset achieves stable orbit with immutable on-chain telemetry data
 - Immediate visibility and trading access in the Exosphere
 
@@ -61,11 +61,149 @@ We chose Aptos for its unparalleled performance characteristics:
 
 | Feature | Description | Status |
 |---------|-------------|---------|
-| **Launch Sequence** | Achieve orbit for any domain you own as an Aptos Digital Asset | ✅ MVP |
+| **Launch Sequence** | Achieve orbit for any domain you own as an Aptos Object with fractional shares | ✅ MVP |
 | **DNS Verification** | Secure, non-custodial ownership proof via TXT records | ✅ MVP |
 | **Orbital Analytics Engine** | Proprietary valuation algorithm for comprehensive telemetry data | ✅ MVP |
 | **The Exosphere** | Professional trading terminal in our orbital marketplace | 🚧 Q4 2025 |
 | **Mission Control** | Command center for managing your satellite constellation | ✅ MVP |
+
+---
+
+## 🏗️ System Architecture
+
+### High-Level Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Frontend (React + Vite)                  │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │   Launch     │  │ Constellation│  │  Exosphere   │     │
+│  │  Sequence    │  │  (Portfolio) │  │  (Exchange)  │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+└─────────────────────────────────────────────────────────────┘
+                            ↕
+┌─────────────────────────────────────────────────────────────┐
+│              Wallet Adapter + Backend API                    │
+│         (Petra/Martian + Node.js Transaction Service)        │
+└─────────────────────────────────────────────────────────────┘
+                            ↕
+┌─────────────────────────────────────────────────────────────┐
+│                   Aptos Blockchain (Testnet)                 │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │              Smart Contract Modules                   │  │
+│  │                                                        │  │
+│  │  ┌─────────────────┐      ┌─────────────────┐       │  │
+│  │  │ domain_registry │◄────►│   fractional    │       │  │
+│  │  │  - Tokenization │      │ - Share mgmt    │       │  │
+│  │  │  - Verification │      │ - Transfers     │       │  │
+│  │  └─────────────────┘      └─────────────────┘       │  │
+│  │           ▲                         ▲                 │  │
+│  │           │                         │                 │  │
+│  │           ▼                         ▼                 │  │
+│  │  ┌─────────────────┐      ┌─────────────────┐       │  │
+│  │  │   marketplace   │◄────►│   valuation     │       │  │
+│  │  │  - Order book   │      │ - AI pricing    │       │  │
+│  │  │  - Trading      │      │ - Oracles       │       │  │
+│  │  └─────────────────┘      └─────────────────┘       │  │
+│  │           ▲                         ▲                 │  │
+│  │           │                         │                 │  │
+│  │  ┌────────┴─────────────────────────┴────────┐      │  │
+│  │  │         security & validation             │      │  │
+│  │  │  - Access control  - Input validation    │      │  │
+│  │  └──────────────────────────────────────────┘      │  │
+│  └──────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Smart Contract Architecture
+
+**Contract Address (Deployed on Aptos Testnet):** 
+```
+0x2a259fea4483e1ce69d3230ef3dbc2a7eb00a262938f2885bc630c442eb2ff7c
+```
+
+**View on Explorer:** [Aptos Explorer](https://explorer.aptoslabs.com/account/0x2a259fea4483e1ce69d3230ef3dbc2a7eb00a262938f2885bc630c442eb2ff7c?network=testnet)
+
+**Deployed Modules:**
+- ✅ domain_registry
+- ✅ fractional
+- ✅ marketplace
+- ✅ valuation
+- ✅ security
+- ✅ validation
+
+#### Module Breakdown
+
+1. **domain_registry** (Core Module)
+   - Domain tokenization as Aptos Objects
+   - DNS verification proof storage
+   - Ownership tracking and transfers
+   - Registry initialization and management
+
+2. **fractional**
+   - Share initialization and minting
+   - Transfer and approval mechanisms
+   - Balance tracking per holder
+   - Supply management and circulation
+
+3. **marketplace**
+   - Order book implementation
+   - Buy/sell order matching
+   - Price discovery mechanisms
+   - Trading fee collection
+
+4. **valuation**
+   - AI-powered domain scoring
+   - Market value calculation
+   - SEO authority metrics
+   - Traffic estimation algorithms
+
+5. **security**
+   - Access control lists
+   - Admin function protection
+   - Pause mechanisms
+   - Rate limiting
+
+6. **validation**
+   - Input sanitization
+   - Domain name validation
+   - Address verification
+   - Amount boundary checks
+
+### Data Flow: Domain Tokenization
+
+```
+1. User Input
+   └─> Domain name entered in Launch Sequence
+
+2. DNS Verification
+   └─> TXT record generated
+   └─> User adds to DNS
+   └─> Backend verifies record
+
+3. AI Valuation
+   └─> Fetch SEO metrics
+   └─> Calculate traffic estimates
+   └─> Analyze brandability
+   └─> Generate valuation score
+
+4. Fractional Configuration
+   └─> User sets ticker symbol
+   └─> Define total supply
+   └─> Configure trading parameters
+
+5. Blockchain Transaction
+   └─> Wallet signs transaction
+   └─> Backend submits to Aptos
+   └─> Smart contract creates Object
+   └─> Shares minted to owner
+
+6. Confirmation
+   └─> Transaction hash returned
+   └─> Event emitted
+   └─> UI updates with success
+   └─> Domain appears in Constellation
+```
 
 ---
 
@@ -105,15 +243,12 @@ git clone https://github.com/your-org/orbiter.git
 cd orbiter
 
 # Install flight systems
+cd orbiter-web
 npm install
 
 # Configure mission parameters
-cp .env.example .env.local
+cp .env.example .env
 # Add your orbital configuration values
-
-# Compile Move contracts for launch
-cd move-contracts
-aptos move compile --named-addresses orbiter=0x[your-address]
 
 # Initialize Mission Control
 npm run dev
@@ -123,13 +258,95 @@ Access your local Mission Control at `http://localhost:3000`
 
 ### Orbital Configuration
 
+Create `.env` in `orbiter-web/`:
 ```bash
-# .env.local
-NEXT_PUBLIC_APTOS_NETWORK=testnet
-NEXT_PUBLIC_CONTRACT_ADDRESS=0x[contract-address]
-DNS_VERIFICATION_SERVICE_URL=https://api.orbiter.space/verify
-DATABASE_URL=postgresql://[connection-string]
+# Contract address (set after deployment)
+VITE_CONTRACT_ADDRESS=0x[your-deployed-address]
+
+# Optional: Custom Aptos node URL
+# VITE_APTOS_NODE_URL=https://fullnode.testnet.aptoslabs.com/v1
 ```
+
+### Smart Contract Deployment
+
+#### 1. Create or Configure Aptos Account
+```powershell
+# Create new account for fresh deployment
+aptos account create --profile orbiter_main
+
+# Fund the account (Testnet)
+aptos account fund --profile orbiter_main --amount 200000000
+
+# Verify account setup
+aptos account list --profile orbiter_main
+```
+
+#### 2. Compile and Deploy Move Package
+```powershell
+# Navigate to Move package directory
+cd C:\Users\[YOUR_PATH]\orbiter
+
+# Compile contracts (verify no errors)
+aptos move compile --named-addresses orbiter=YOUR_ACCOUNT_ADDRESS
+
+# Deploy to Aptos Testnet
+aptos move publish --named-addresses orbiter=YOUR_ACCOUNT_ADDRESS --profile orbiter_main
+```
+
+#### 3. Initialize Registry (One-Time Setup)
+After successful deployment, initialize the domain registry:
+
+**Option A: Via CLI**
+```powershell
+aptos move run --function YOUR_ACCOUNT_ADDRESS::domain_registry::initialize_entry --profile orbiter_main
+```
+
+**Option B: Via Frontend**
+1. Update `.env` with `VITE_CONTRACT_ADDRESS=YOUR_ACCOUNT_ADDRESS`
+2. Restart frontend: `npm run dev`
+3. Connect your wallet in the UI
+4. Click "Initialize Registry" button (appears in header)
+
+#### 4. Verify Deployment
+Check modules deployed:
+```
+https://fullnode.testnet.aptoslabs.com/v1/accounts/YOUR_ACCOUNT_ADDRESS/modules
+```
+
+Check registry resource exists:
+```
+https://fullnode.testnet.aptoslabs.com/v1/accounts/YOUR_ACCOUNT_ADDRESS/resource/YOUR_ACCOUNT_ADDRESS::domain_registry::DomainRegistry
+```
+
+### Production Deployment Checklist
+
+- [ ] Move package deployed to target address
+- [ ] Registry initialized (DomainRegistry resource exists)
+- [ ] Frontend `.env` updated with correct contract address
+- [ ] Wallet connected and funded with APT for gas
+- [ ] DNS verification service configured (if using external verification)
+- [ ] Domain creation flow tested end-to-end
+
+### Troubleshooting Common Issues
+
+**"Contract function not found"**
+- Verify `VITE_CONTRACT_ADDRESS` matches deployed address
+- Check browser console for module diagnostics
+- Ensure Move package published successfully
+
+**"Registry not initialized"**
+- Run `initialize_entry` function once after deployment
+- Check registry resource exists at contract address
+
+**"Simulation failed"**
+- Often indicates registry not initialized
+- Check wallet has sufficient APT balance
+- Verify domain name meets requirements (3-253 chars)
+
+**Wallet connection issues**
+- Try disconnecting and reconnecting wallet
+- Clear browser cache if adapter state corrupted
+- Ensure wallet is on Aptos Testnet network
 
 ---
 
@@ -161,7 +378,7 @@ DATABASE_URL=postgresql://[connection-string]
 
 ### Q1 2026: Fleet Expansion
 - [ ] Social media handle launch sequences
-- [ ] Fractionalization protocols for high-value orbital assets
+- [ ] Advanced ownership models for Aptos Objects
 - [ ] Cross-chain trajectory plotting to Ethereum and Solana
 - [ ] Institutional satellite constellation management
 
@@ -238,6 +455,25 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discord**: [Join our community](https://discord.gg/orbiter)
 - **Twitter**: [@OrbiterProtocol](https://twitter.com/OrbiterProtocol)
 - **GitHub**: [github.com/orbiter-protocol](https://github.com/orbiter-protocol)
+
+---
+
+## 🌐 Live Demo & Deployment
+
+**Frontend:** Deployed on Vercel (works in demo mode)
+
+**Smart Contracts:** Live on Aptos Testnet
+- **Address:** `0x2a259fea4483e1ce69d3230ef3dbc2a7eb00a262938f2885bc630c442eb2ff7c`
+- **Explorer:** [View on Aptos Explorer](https://explorer.aptoslabs.com/account/0x2a259fea4483e1ce69d3230ef3dbc2a7eb00a262938f2885bc630c442eb2ff7c?network=testnet)
+
+**Backend:** Optional - enables real blockchain transactions
+- Deploy to Render/Railway for production
+- Frontend works in demo mode without backend
+- Set `PRIVATE_KEY` environment variable when deploying
+
+**Deployment Modes:**
+1. **Full Mode** (Backend + Frontend) - Real blockchain transactions
+2. **Demo Mode** (Frontend only) - Simulated transactions with full UI
 
 ---
 

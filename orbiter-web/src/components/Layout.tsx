@@ -5,17 +5,14 @@ import {
   AptosWalletAdapterProvider,
   useWallet as useAptosWallet,
 } from "@aptos-labs/wallet-adapter-react";
-import { PetraWallet } from "petra-plugin-wallet-adapter";
-import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
 import { Network } from "@aptos-labs/ts-sdk";
 
 const AptosLayout = () => {
-  const wallets = [new PetraWallet(), new MartianWallet()];
+  // Newer wallet adapter versions auto-discover installed wallet extensions; explicit plugin list removed.
   return (
     <AptosWalletAdapterProvider
-      plugins={wallets}
-      dappConfig={{ network: Network.TESTNET }}
       autoConnect={true}
+      dappConfig={{ network: Network.TESTNET }}
       onError={(error) => {
         console.log("Wallet Error", error);
       }}
@@ -64,6 +61,7 @@ const Layout = () => {
                 >
                   Exosphere Exchange
                 </Link>
+
               </div>
               <WalletConnection />
             </div>
@@ -111,6 +109,7 @@ const Layout = () => {
               >
                 Exosphere Exchange
               </Link>
+
             </div>
           </div>
         </div>

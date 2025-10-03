@@ -1,0 +1,77 @@
+{
+  "deployment": {
+    "networks": {
+      "testnet": {
+        "url": "https://fullnode.testnet.aptoslabs.com/v1",
+        "faucet": "https://faucet.testnet.aptoslabs.com",
+        "explorer": "https://explorer.aptoslabs.com/?network=testnet"
+      },
+      "mainnet": {
+        "url": "https://fullnode.mainnet.aptoslabs.com/v1",
+        "explorer": "https://explorer.aptoslabs.com/?network=mainnet"
+      }
+    },
+    "marketplace": {
+      "default_trading_fee_bps": 250,
+      "max_trading_fee_bps": 1000,
+      "min_listing_duration": 3600,
+      "max_listing_duration": 2592000
+    },
+    "valuation": {
+      "min_consensus_oracles": 1,
+      "max_consensus_oracles": 10,
+      "update_frequency_seconds": 86400,
+      "score_ranges": {
+        "min_score": 0,
+        "max_score": 1000
+      }
+    },
+    "fractional": {
+      "min_total_supply": 1000,
+      "max_total_supply": 1000000000,
+      "max_ticker_length": 10
+    }
+  },
+  "demo": {
+    "domains": [
+      {
+        "name": "google.com",
+        "ticker": "GOOGL",
+        "total_supply": 1000000,
+        "valuation": {
+          "score": 950,
+          "market_value": 1000000,
+          "seo_authority": 900,
+          "traffic_estimate": 950,
+          "brandability": 980,
+          "tld_rarity": 800
+        },
+        "listing": {
+          "price_per_share": 100,
+          "shares_to_sell": 10000
+        }
+      },
+      {
+        "name": "apple.com",
+        "ticker": "AAPL",
+        "total_supply": 500000,
+        "valuation": {
+          "score": 920,
+          "market_value": 800000,
+          "seo_authority": 880,
+          "traffic_estimate": 900,
+          "brandability": 950,
+          "tld_rarity": 800
+        },
+        "listing": {
+          "price_per_share": 160,
+          "shares_to_sell": 5000
+        }
+      }
+    ],
+    "accounts": {
+      "funding_amount": 1000000000,
+      "profiles": ["demo_buyer", "demo_seller"]
+    }
+  }
+}

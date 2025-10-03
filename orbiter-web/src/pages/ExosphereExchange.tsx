@@ -9,10 +9,15 @@ import {
   TrendingUp,
   BookOpen,
   History,
+  BarChart,
+  Sparkles,
+  ShieldCheck,
 } from "lucide-react";
 import { useWallet } from "../components/Layout";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
+import { useContract } from "../hooks/useContract";
+import { CONTRACT_CONFIG } from "../config/contracts";
 
 // --- Helper Components ---
 const MainPerformanceChart = ({ data }: { data: number[] }) => {
@@ -62,18 +67,28 @@ interface Asset {
     asks: Array<{ price: number; size: number }>;
   };
   tradeHistory: Array<{ price: number; size: number; time: string, side: 'buy' | 'sell' }>;
+  valuation: {
+    score: number;
+    marketValue: number;
+    seoAuthority: number;
+    trafficEstimate: number;
+    brandability: number;
+    tldRarity: number;
+  };
+  tokenization: {
+      tokenTicker: string;
+      totalSupply: number;
+  };
 }
 
 const mockAssets: Asset[] = [
   {
-    id: "TRJ-001",
+    id: "ORBIT-001",
     domain: "blockchain-hub.com",
     description: "A premium domain for the decentralized world, representing a central hub for blockchain innovation and news.",
     attributes: [
         { trait_type: "TLD", value: ".com" },
         { trait_type: "Length", value: "14" },
-        { trait_type: "Age", value: "8 years" },
-        { trait_type: "Keywords", value: "blockchain, hub" },
     ],
     listingPrice: 12.50,
     priceChange24h: 1.20,
@@ -86,16 +101,16 @@ const mockAssets: Asset[] = [
       asks: [{ price: 12.55, size: 8 }, { price: 12.60, size: 12 }, { price: 12.65, size: 18 }, { price: 12.70, size: 22 }],
     },
     tradeHistory: [{ price: 12.50, size: 5, time: "14:30:15", side: 'buy' }, { price: 12.48, size: 3, time: "14:29:55", side: 'sell' }],
+    valuation: { score: 820, marketValue: 125000, seoAuthority: 60000, trafficEstimate: 40000, brandability: 20000, tldRarity: 5000 },
+    tokenization: { tokenTicker: "BLH", totalSupply: 125000 },
   },
   {
-    id: "TRJ-002",
+    id: "ORBIT-002",
     domain: "nft-gallery.io",
     description: "A short and memorable domain perfect for an NFT marketplace or a digital art gallery project.",
     attributes: [
         { trait_type: "TLD", value: ".io" },
         { trait_type: "Length", value: "11" },
-        { trait_type: "Age", value: "3 years" },
-        { trait_type: "Keywords", value: "nft, gallery" },
     ],
     listingPrice: 6.80,
     priceChange24h: -0.40,
@@ -108,16 +123,16 @@ const mockAssets: Asset[] = [
       asks: [{ price: 6.85, size: 20 }, { price: 6.90, size: 22 }, { price: 6.95, size: 28 }],
     },
     tradeHistory: [{ price: 6.80, size: 10, time: "14:31:02", side: 'buy' }, { price: 6.82, size: 8, time: "14:30:45", side: 'sell' }],
+    valuation: { score: 750, marketValue: 68000, seoAuthority: 30000, trafficEstimate: 20000, brandability: 15000, tldRarity: 3000 },
+    tokenization: { tokenTicker: "NFTG", totalSupply: 68000 },
   },
   {
-    id: "TRJ-004",
+    id: "ORBIT-003",
     domain: "crypto-news.org",
     description: "An authoritative domain for a cryptocurrency news outlet or a non-profit educational resource.",
     attributes: [
         { trait_type: "TLD", value: ".org" },
         { trait_type: "Length", value: "11" },
-        { trait_type: "Age", value: "6 years" },
-        { trait_type: "Keywords", value: "crypto, news" },
     ],
     listingPrice: 15.00,
     priceChange24h: 2.50,
@@ -130,6 +145,8 @@ const mockAssets: Asset[] = [
       asks: [{ price: 15.05, size: 7 }, { price: 15.10, size: 11 }, { price: 15.15, size: 14 }],
     },
     tradeHistory: [{ price: 15.00, size: 2, time: "14:32:10", side: 'buy' }, { price: 14.98, size: 4, time: "14:31:50", side: 'sell' }],
+    valuation: { score: 880, marketValue: 150000, seoAuthority: 70000, trafficEstimate: 50000, brandability: 25000, tldRarity: 5000 },
+    tokenization: { tokenTicker: "CRN", totalSupply: 150000 },
   },
 ];
 
@@ -169,7 +186,7 @@ export const ExosphereExchange = () => {
                 Exosphere Exchange
             </h1>
             <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2 max-w-3xl mx-auto">
-                Trade tokenized Web2 assets on the Aptos blockchain. Discover, analyze, and exchange on-chain domain name tokens.
+                Trade fractional ownership of tokenized Web2 domains, powered by Aptos Objects.
             </p>
         </div>
 
@@ -186,11 +203,10 @@ export const ExosphereExchange = () => {
                         <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">${(totalVolume/1_000_000).toFixed(2)}M</p>
                     </div>
                     <div>
-                        <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Listed Assets</p>
+                        <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Orbital Assets</p>
                         <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">{mockAssets.length}</p>
                     </div>
                     <div>
-                        <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Market Sentiment</p>
                         <p className={`font-ibm-plex-mono text-xl font-bold ${mockAssets.filter(a => a.priceChange24h >= 0).length > mockAssets.length / 2 ? 'text-orbital-success' : 'text-orbital-fail'}`}>
                             Bullish
                         </p>
@@ -224,7 +240,7 @@ export const ExosphereExchange = () => {
                     <p className={`font-ibm-plex-mono font-bold text-base ${asset.priceChange24h >= 0 ? 'text-orbital-success' : 'text-orbital-fail'}`}>{asset.listingPrice.toFixed(2)}</p>
                   </div>
                   <div className="flex justify-between items-center text-xs mt-1">
-                    <p className="text-gray-400 font-ibm-plex-mono">Vol: {(asset.volume24h/1000).toFixed(1)}k</p>
+                    <p className="text-gray-400 font-ibm-plex-mono">Vol: ${(asset.volume24h/1000).toFixed(1)}k</p>
                     <PriceChange change={asset.priceChangePercent24h} />
                   </div>
                 </div>
@@ -240,8 +256,8 @@ export const ExosphereExchange = () => {
                 <div className="flex items-center gap-4">
                   <Globe className="h-10 w-10 text-[#FF7A00]"/>
                   <div>
-                    <h2 className="font-space-grotesk text-2xl font-bold text-gray-50">{selectedAsset.domain}</h2>
-                    <p className="text-gray-400 font-ibm-plex-sans text-sm">On-chain Domain Name Token</p>
+                    <h2 className="font-space-grotesk text-2xl font-bold text-gray-50">{selectedAsset.tokenization.tokenTicker} / APT</h2>
+                    <p className="text-gray-400 font-ibm-plex-sans text-sm">{selectedAsset.domain}</p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -291,7 +307,7 @@ export const ExosphereExchange = () => {
                                     <input type="number" defaultValue={selectedAsset.listingPrice.toFixed(2)} className="w-full bg-black/30 border border-white/10 rounded-lg p-2 font-ibm-plex-mono focus:ring-1 focus:ring-[#FF7A00] outline-none" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="font-ibm-plex-mono text-xs text-gray-400">Amount</label>
+                                    <label className="font-ibm-plex-mono text-xs text-gray-400">Amount of Shares ({selectedAsset.tokenization.tokenTicker})</label>
                                     <input type="number" placeholder="0.00" className="w-full bg-black/30 border border-white/10 rounded-lg p-2 font-ibm-plex-mono focus:ring-1 focus:ring-[#FF7A00] outline-none" />
                                 </div>
                                 <div className="flex justify-between font-ibm-plex-mono text-xs">
@@ -299,18 +315,15 @@ export const ExosphereExchange = () => {
                                     <span>0.00 APT</span>
                                 </div>
                                 <Button disabled={!isWalletConnected} className={`w-full font-space-grotesk font-bold transition-colors ${tradeSide === 'buy' ? 'bg-orbital-success/90 hover:bg-orbital-success text-black' : 'bg-orbital-fail/90 hover:bg-orbital-fail text-black'} disabled:opacity-50 disabled:cursor-not-allowed`}>
-                                    {tradeSide.toUpperCase()} {selectedAsset.domain}
+                                    {tradeSide.toUpperCase()} {selectedAsset.tokenization.tokenTicker}
                                 </Button>
                             </div>
                         </div>
                     ) : (
-                        <div className="space-y-4">
+                        <div className="space-y-6">
                             <div>
                                 <h4 className="font-space-grotesk font-bold text-lg mb-2">About {selectedAsset.domain}</h4>
-                                <p className="font-ibm-plex-sans text-sm text-gray-300">{selectedAsset.description}</p>
-                            </div>
-                            <div>
-                                <h4 className="font-space-grotesk font-bold text-lg mb-2">Attributes</h4>
+                                <p className="font-ibm-plex-sans text-sm text-gray-300 mb-4">{selectedAsset.description}</p>
                                 <div className="grid grid-cols-2 gap-3 text-sm">
                                     {selectedAsset.attributes.map(attr => (
                                         <div key={attr.trait_type} className="bg-black/20 p-3 rounded-lg">
@@ -318,6 +331,52 @@ export const ExosphereExchange = () => {
                                             <p className="font-ibm-plex-mono font-bold text-gray-50">{attr.value}</p>
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                            <div>
+                                <h4 className="font-space-grotesk font-bold text-lg mb-2">Tokenomics</h4>
+                                <div className="bg-black/20 p-3 rounded-lg font-ibm-plex-mono text-sm space-y-3">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Ownership Model:</span>
+                                        <span className="font-bold text-gray-50">Fractional (Aptos Object)</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Token Ticker:</span>
+                                        <span className="font-bold text-gray-50">${selectedAsset.tokenization.tokenTicker}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Total Supply:</span>
+                                        <span className="text-gray-50">{selectedAsset.tokenization.totalSupply.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400">Market Cap:</span>
+                                        <span className="text-gray-50">${selectedAsset.marketCap.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 className="font-space-grotesk font-bold text-lg mb-2">Valuation Breakdown</h4>
+                                <div className="bg-black/20 p-4 rounded-lg space-y-2">
+                                    <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
+                                        <div className="flex items-center gap-2 text-gray-300"><BarChart className="h-4 w-4 text-solar-yellow-text/70"/>SEO Authority</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.seoAuthority.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
+                                        <div className="flex items-center gap-2 text-gray-300"><Sparkles className="h-4 w-4 text-solar-yellow-text/70"/>Traffic Estimate</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.trafficEstimate.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
+                                        <div className="flex items-center gap-2 text-gray-300"><ShieldCheck className="h-4 w-4 text-solar-yellow-text/70"/>Brandability</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.brandability.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
+                                        <div className="flex items-center gap-2 text-gray-300"><Globe className="h-4 w-4 text-solar-yellow-text/70"/>TLD Rarity</div>
+                                        <span className="font-bold text-white">${selectedAsset.valuation.tldRarity.toLocaleString()}</span>
+                                    </div>
+                                    <div className="border-t border-white/10 mt-2 pt-2 flex items-center justify-between font-ibm-plex-mono text-base">
+                                        <span className="font-bold text-solar-yellow-text">Total Estimated Value</span>
+                                        <span className="font-bold text-solar-yellow-text">${selectedAsset.valuation.marketValue.toLocaleString()}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +390,7 @@ export const ExosphereExchange = () => {
           <div className="lg:col-span-1 h-[calc(100vh-24rem)] flex flex-col space-y-6">
             {/* Order Book */}
             <div className="glass-panel rounded-lg flex-1 flex flex-col border border-white/10">
-              <h3 className="font-space-grotesk font-bold p-3 border-b border-white/10 flex items-center gap-2"><BookOpen className="h-4 w-4 text-gray-400"/>Order Book</h3>
+              <h3 className="font-space-grotesk font-bold p-3 border-b border-white/10 flex items-center gap-2"><BookOpen className="h-4 w-4 text-gray-400"/>Share Order Book</h3>
               <div className="flex-grow overflow-y-auto text-xs font-ibm-plex-mono">
                 <table className="w-full">
                     <thead>
@@ -372,7 +431,7 @@ export const ExosphereExchange = () => {
 
             {/* Trade History */}
             <div className="glass-panel rounded-lg flex-1 flex flex-col border border-white/10">
-              <h3 className="font-space-grotesk font-bold p-3 border-b border-white/10 flex items-center gap-2"><History className="h-4 w-4 text-gray-400"/>Trade History</h3>
+              <h3 className="font-space-grotesk font-bold p-3 border-b border-white/10 flex items-center gap-2"><History className="h-4 w-4 text-gray-400"/>Share Trade History</h3>
               <div className="flex-grow overflow-y-auto text-xs font-ibm-plex-mono">
                 <table className="w-full">
                     <thead>

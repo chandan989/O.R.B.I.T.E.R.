@@ -320,7 +320,7 @@ Code: 0.875rem (14px) - IBM Plex Mono Regular - Line height: 1.5
 - Optional glow effect on hover using Ignition Orange glow (#FF7A0040)
 - Header with icon (Ignition Orange) + label (Space Grotesk)
 - Data section with monospaced numbers (IBM Plex Mono, Stark White)
-- Status indicator in top-right corner
+- Status indicator (e.g., Active, Inactive) in top-right corner
 - Padding: 24px
 - Border radius: 8px
 - Hover: Lift effect (translateY(-2px)) + shadow increase

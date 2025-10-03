@@ -57,7 +57,7 @@ export const WalletConnection = () => {
           <Button variant="outline" className="flex items-center gap-2">
             <CheckCircle className="h-4 w-4 text-orbital-success" />
             <span className="font-mono text-sm">
-              {account.address.slice(0, 6)}...{account.address.slice(-4)}
+              {String(account.address).slice(0, 6)}...{String(account.address).slice(-4)}
             </span>
           </Button>
         </DropdownMenuTrigger>

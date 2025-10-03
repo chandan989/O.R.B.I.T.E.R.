@@ -1,0 +1,290 @@
+{
+  "hackathon_demo_scenarios": {
+    "presentation_duration": "15 minutes",
+    "target_audience": "Judges, investors, developers",
+    "key_value_props": [
+      "Tokenize Web2 domains as Aptos Objects",
+      "Fractional ownership democratizes premium assets",
+      "Sub-second trading with professional interface",
+      "AI-powered valuation and market making"
+    ],
+    "demo_accounts": {
+      "presenter": {
+        "role": "Platform Admin",
+        "address": "0x1234567890abcdef1234567890abcdef12345678",
+        "initial_apt_balance": 1000000,
+        "owns_domains": [
+          "google.com",
+          "amazon.com", 
+          "microsoft.com",
+          "apple.com",
+          "meta.com",
+          "blockchain.com",
+          "crypto.com",
+          "defi.com",
+          "nft.com",
+          "web3.com"
+        ]
+      },
+      "whale_investor": {
+        "role": "Institutional Investor",
+        "address": "0xabcdef1234567890abcdef1234567890abcdef12",
+        "initial_apt_balance": 500000,
+        "portfolio": {
+          "google.com": "5% stake (50,000 GOOGL tokens)",
+          "amazon.com": "5% stake (22,500 AMZN tokens)",
+          "microsoft.com": "5% stake (20,000 MSFT tokens)"
+        }
+      },
+      "retail_trader": {
+        "role": "Individual Trader",
+        "address": "0x567890abcdef1234567890abcdef1234567890ab",
+        "initial_apt_balance": 10000,
+        "portfolio": {
+          "blockchain.com": "1% stake (5,000 BLKC tokens)",
+          "crypto.com": "1% stake (5,000 CRYP tokens)",
+          "web3.com": "1% stake (5,000 WEB3 tokens)"
+        }
+      },
+      "market_maker": {
+        "role": "Liquidity Provider",
+        "address": "0xcdef1234567890abcdef1234567890abcdef1234",
+        "initial_apt_balance": 100000,
+        "strategy": "Provides bid-ask spreads across all major domains"
+      }
+    },
+    "demo_domains": [
+      {
+        "domain": "google.com",
+        "ticker": "GOOGL",
+        "valuation": {
+          "total_score": 950,
+          "market_value_apt": 500000,
+          "seo_authority": 95,
+          "traffic_estimate": 98,
+          "brandability": 90,
+          "tld_rarity": 95
+        },
+        "tokenization": {
+          "total_supply": 1000000,
+          "circulating_supply": 100000,
+          "current_price_apt": 50.0,
+          "24h_change": "+2.5%"
+        }
+      },
+      {
+        "domain": "amazon.com", 
+        "ticker": "AMZN",
+        "valuation": {
+          "total_score": 940,
+          "market_value_apt": 450000,
+          "seo_authority": 92,
+          "traffic_estimate": 96,
+          "brandability": 88,
+          "tld_rarity": 95
+        },
+        "tokenization": {
+          "total_supply": 900000,
+          "circulating_supply": 90000,
+          "current_price_apt": 45.0,
+          "24h_change": "+1.8%"
+        }
+      },
+      {
+        "domain": "blockchain.com",
+        "ticker": "BLKC", 
+        "valuation": {
+          "total_score": 750,
+          "market_value_apt": 50000,
+          "seo_authority": 75,
+          "traffic_estimate": 80,
+          "brandability": 70,
+          "tld_rarity": 95
+        },
+        "tokenization": {
+          "total_supply": 500000,
+          "circulating_supply": 50000,
+          "current_price_apt": 10.0,
+          "24h_change": "+15.2%"
+        }
+      },
+      {
+        "domain": "hackathon-demo.com",
+        "ticker": "LIVE",
+        "valuation": {
+          "total_score": 650,
+          "market_value_apt": 7500,
+          "seo_authority": 60,
+          "traffic_estimate": 65,
+          "brandability": 55,
+          "tld_rarity": 95
+        },
+        "tokenization": {
+          "total_supply": 100000,
+          "circulating_supply": 5000,
+          "current_price_apt": 7.5,
+          "24h_change": "NEW"
+        },
+        "demo_note": "This domain will be tokenized live during the presentation"
+      }
+    ],
+    "presentation_script": [
+      {
+        "time": "0:00-2:00",
+        "section": "Problem & Solution",
+        "talking_points": [
+          "Billions in Web2 assets locked without liquidity",
+          "Premium domains like google.com worth millions but illiquid",
+          "O.R.B.I.T.E.R. bridges Web2 and Web3 economies",
+          "Built on Aptos for sub-second finality and low costs"
+        ],
+        "demo_actions": [
+          "Show landing page with orbital animation",
+          "Display market overview with $2.5B+ tokenized value"
+        ]
+      },
+      {
+        "time": "2:00-4:00", 
+        "section": "Live Domain Tokenization",
+        "talking_points": [
+          "DNS verification ensures legitimate ownership",
+          "AI-powered valuation considers multiple factors",
+          "Aptos Objects provide native composability",
+          "Fractional ownership democratizes access"
+        ],
+        "demo_actions": [
+          "Navigate to Launch Sequence page",
+          "Enter 'hackathon-demo.com' domain",
+          "Show DNS verification process",
+          "Configure fractional ownership (LIVE ticker, 100k supply)",
+          "Execute tokenization transaction"
+        ]
+      },
+      {
+        "time": "4:00-6:00",
+        "section": "Trading Interface",
+        "talking_points": [
+          "Professional trading terminal design",
+          "Real-time order books and price charts", 
+          "Market making provides liquidity",
+          "Portfolio diversification across domain sectors"
+        ],
+        "demo_actions": [
+          "Navigate to Exosphere Exchange",
+          "Show order book for GOOGL/APT pair",
+          "Display price charts and trading history",
+          "Execute a live buy order for LIVE tokens"
+        ]
+      },
+      {
+        "time": "6:00-8:00",
+        "section": "Market Dynamics",
+        "talking_points": [
+          "Multiple trading strategies supported",
+          "Institutional and retail participation",
+          "Market makers provide tight spreads",
+          "High-frequency trading capabilities"
+        ],
+        "demo_actions": [
+          "Show whale investor portfolio (5% stakes)",
+          "Display retail trader diversification",
+          "Demonstrate market maker bid-ask spreads",
+          "Execute rapid trading sequence"
+        ]
+      },
+      {
+        "time": "8:00-10:00",
+        "section": "Valuation & Analytics",
+        "talking_points": [
+          "Multi-factor valuation algorithm",
+          "SEO authority, traffic, brandability metrics",
+          "Oracle consensus for price updates",
+          "Historical performance tracking"
+        ],
+        "demo_actions": [
+          "Show valuation breakdown for google.com",
+          "Display SEO authority: $60k, Traffic: $40k, etc.",
+          "Demonstrate oracle price update mechanism",
+          "Show 24h price changes and volume"
+        ]
+      },
+      {
+        "time": "10:00-12:00",
+        "section": "Technical Architecture",
+        "talking_points": [
+          "Move language security and formal verification",
+          "Aptos Objects for composable asset representation",
+          "Modular design: Registry, Fractional, Marketplace, Valuation",
+          "Gas optimization and parallel execution"
+        ],
+        "demo_actions": [
+          "Show code structure in IDE",
+          "Highlight key Move modules",
+          "Display gas costs for operations",
+          "Demonstrate transaction finality speed"
+        ]
+      },
+      {
+        "time": "12:00-13:00",
+        "section": "Business Model & Traction",
+        "talking_points": [
+          "2.5% trading fees generate sustainable revenue",
+          "Premium domain partnerships in pipeline",
+          "Institutional interest from domain investors",
+          "Built for Tapp.Exchange Next-Gen DeFi bounty"
+        ],
+        "demo_actions": [
+          "Show revenue projections",
+          "Display partnership pipeline",
+          "Highlight competitive advantages"
+        ]
+      },
+      {
+        "time": "13:00-14:00",
+        "section": "Roadmap & Vision",
+        "talking_points": [
+          "Cross-chain expansion to Ethereum and Solana",
+          "Social media handle tokenization",
+          "DeFi integration: lending, derivatives",
+          "Enterprise API for domain management"
+        ],
+        "demo_actions": [
+          "Show roadmap timeline",
+          "Display future feature mockups",
+          "Highlight scalability plans"
+        ]
+      },
+      {
+        "time": "14:00-15:00",
+        "section": "Q&A & Closing",
+        "talking_points": [
+          "Technical questions about Move implementation",
+          "Business model and monetization",
+          "Competitive landscape and differentiation",
+          "Investment opportunity and next steps"
+        ],
+        "demo_actions": [
+          "Live Q&A with judges",
+          "Show final statistics",
+          "Display contact information"
+        ]
+      }
+    ],
+    "key_metrics_to_highlight": {
+      "total_domains_tokenized": 15,
+      "total_value_locked": "$2.5B+",
+      "daily_trading_volume": "$50M+", 
+      "active_traders": "10,000+",
+      "average_transaction_time": "< 1 second",
+      "trading_fee": "2.5%",
+      "supported_tlds": [".com", ".org", ".net", ".io", ".ai"]
+    },
+    "risk_mitigation": {
+      "dns_verification": "Prevents unauthorized tokenization",
+      "oracle_consensus": "Ensures accurate valuations",
+      "access_controls": "Admin functions protected",
+      "pause_mechanism": "Emergency stop capability",
+      "formal_verification": "Move language security"
+    }
+  }
+}
