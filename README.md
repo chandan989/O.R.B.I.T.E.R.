@@ -227,12 +227,69 @@ We chose Aptos for its unparalleled performance characteristics:
 
 ---
 
-## 🚀 Launch Sequence Guide
+## 🚀 Quick Start (Local Development)
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- Git
+
+### Run Locally with REAL Transactions
+
+**Step 1: Clone and Install**
+```bash
+git clone https://github.com/chandan989/O.R.B.I.T.E.R..git
+cd O.R.B.I.T.E.R.
+
+# Install frontend dependencies
+cd orbiter-web
+npm install
+
+# Install backend dependencies
+cd ../backend
+npm install
+```
+
+**Step 2: Configure Backend**
+```bash
+cd backend
+cp .env.example .env
+# Edit .env and add your Aptos private key (optional - for real transactions)
+```
+
+**Step 3: Run Both Services**
+
+**Terminal 1 - Backend (for real transactions):**
+```bash
+cd backend
+npm start
+# Runs on http://localhost:3002
+```
+
+**Terminal 2 - Frontend:**
+```bash
+cd orbiter-web
+npm run dev
+# Runs on http://localhost:8080
+```
+
+**Step 4: Open Browser**
+```
+http://localhost:8080
+```
+
+**That's it!** 🚀
+- With backend running: Real blockchain transactions
+- Without backend: Demo mode (automatic fallback)
+
+---
+
+## 📖 Detailed Setup Guide
 
 ### Prerequisites
 - Node.js ≥ 18.0.0
 - Yarn or npm
-- Aptos CLI
+- Aptos CLI (for contract deployment)
 - Git
 
 ### Mission Control Setup
