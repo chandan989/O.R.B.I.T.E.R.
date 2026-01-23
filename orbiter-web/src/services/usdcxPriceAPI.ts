@@ -1,0 +1,106 @@
+// Real USDCx Price Integration
+export class USDCxPriceService {
+  private static instance: USDCxPriceService;
+  private cachedPrice: number = 10; // Default fallback
+  private lastUpdate: number = 0;
+  private readonly CACHE_DURATION = 60000; // 1 minute
+
+  static getInstance(): USDCxPriceService {
+    if (!USDCxPriceService.instance) {
+      USDCxPriceService.instance = new USDCxPriceService();
+    }
+    return USDCxPriceService.instance;
+  }
+
+  // Get current USDCx price in USD
+  async getCurrentPrice(): Promise<number> {
+    const now = Date.now();
+    
+    // Return cached price if still fresh
+    if (now - this.lastUpdate < this.CACHE_DURATION) {
+      return this.cachedPrice;
+    }
+
+    try {
+      // Try multiple price sources
+      const price = await this.fetchFromMultipleSources();
+      this.cachedPrice = price;
+      this.lastUpdate = now;
+      return price;
+    } catch (error) {
+      console.warn('Failed to fetch USDCx price, using cached:', error);
+      return this.cachedPrice;
+    }
+  }
+
+  private async fetchFromMultipleSources(): Promise<number> {
+    const sources = [
+      () => this.fetchFromCoinGecko(),
+      () => this.fetchFromCoinMarketCap(),
+      () => this.fetchFromBinance()
+    ];
+
+    for (const source of sources) {
+      try {
+        const price = await source();
+        if (price > 0) return price;
+      } catch (error) {
+        console.warn('Price source failed:', error);
+      }
+    }
+
+    throw new Error('All price sources failed');
+  }
+
+  private async fetchFromCoinGecko(): Promise<number> {
+    const response = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=stacks&vs_currencies=usd'
+    );
+    const data = await response.json();
+    return data.stacks?.usd || 0;
+  }
+
+  private async fetchFromCoinMarketCap(): Promise<number> {
+    // Would need API key for production
+    const response = await fetch(
+      'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=USDCx',
+      {
+        headers: {
+          'X-CMC_PRO_API_KEY': 'your-api-key'
+        }
+      }
+    );
+    const data = await response.json();
+    return data.data?.USDCx?.quote?.USD?.price || 0;
+  }
+
+  private async fetchFromBinance(): Promise<number> {
+    const response = await fetch(
+      'https://api.binance.com/api/v3/ticker/price?symbol=USDCxUSDT'
+    );
+    const data = await response.json();
+    return parseFloat(data.price) || 0;
+  }
+
+  // Convert USDCx to USD
+  async convertToUSD(usdcxAmount: number): Promise<number> {
+    const price = await this.getCurrentPrice();
+    return usdcxAmount * price;
+  }
+
+  // Format USDCx amount with USD equivalent
+  async formatWithUSD(usdcxAmount: number): Promise<string> {
+    const usdValue = await this.convertToUSD(usdcxAmount);
+    const price = await this.getCurrentPrice();
+    
+    if (usdcxAmount >= 1000000) {
+      return `${(usdcxAmount / 1000000).toFixed(1)}M USDCx (≈$${(usdValue / 1000000).toFixed(1)}M @ $${price.toFixed(2)}/USDCx)`;
+    } else if (usdcxAmount >= 1000) {
+      return `${(usdcxAmount / 1000).toFixed(1)}K USDCx (≈$${(usdValue / 1000).toFixed(1)}K @ $${price.toFixed(2)}/USDCx)`;
+    } else {
+      return `${usdcxAmount.toFixed(2)} USDCx (≈$${usdValue.toFixed(2)} @ $${price.toFixed(2)}/USDCx)`;
+    }
+  }
+}
+
+export const usdcxPriceService = USDCxPriceService.getInstance();
