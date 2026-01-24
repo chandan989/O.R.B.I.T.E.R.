@@ -51,7 +51,7 @@ export default {
         "void-black": "hsl(var(--void-black))",
         "stark-white": "hsl(var(--stark-white))",
         "ignition-orange": "hsl(var(--ignition-orange))",
-        "solar-yellow": "hsl(var(--solar-yellow))", 
+        "solar-yellow": "hsl(var(--solar-yellow))",
         "charred-steel": "hsl(var(--charred-steel))",
         "console-bg": "hsl(var(--console-bg))",
         "grid-lines": "hsl(var(--grid-lines))",
@@ -63,7 +63,7 @@ export default {
       },
       fontFamily: {
         heading: ['Space Grotesk', 'sans-serif'],
-        body: ['IBM Plex Sans', 'sans-serif'], 
+        body: ['IBM Plex Sans', 'sans-serif'],
         mono: ['IBM Plex Mono', 'monospace'],
       },
       backgroundImage: {
@@ -114,7 +114,7 @@ export default {
             opacity: "1",
           },
           "50%": {
-            transform: "translateY(-20px) scale(1.1)", 
+            transform: "translateY(-20px) scale(1.1)",
             opacity: "0.8",
           },
           "100%": {

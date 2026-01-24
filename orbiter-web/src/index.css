@@ -1,52 +1,83 @@
-
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+        --ignition-orange: 11 99% 62%;
+    }
+}
+
 body {
-    background-color: #111111; /* Void Black */
-    color: #E8E8E8; /* Stark White */
+    background-color: #111111;
+    /* Void Black */
+    color: #E8E8E8;
+    /* Stark White */
     font-family: 'IBM Plex Sans', sans-serif;
-    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
+    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 0);
     background-size: 20px 20px;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 body::-webkit-scrollbar {
     display: none;
 }
 
-.font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
-.font-ibm-plex-sans { font-family: 'IBM Plex Sans', sans-serif; }
-.font-ibm-plex-mono { font-family: 'IBM Plex Mono', monospace; }
+.font-space-grotesk {
+    font-family: 'Space Grotesk', sans-serif;
+}
 
-.solar-flare-text { color: #FF7A00; } /* Ignition Orange */
-.solar-yellow-text { color: #FFC700; } /* Solar Yellow */
+.font-ibm-plex-sans {
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.font-ibm-plex-mono {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.solar-flare-text {
+    color: #FE6440;
+}
+
+/* Ignition Orange */
+.solar-yellow-text {
+    color: #FFC700;
+}
+
+/* Solar Yellow */
 
 .glass-panel {
-    background: rgba(61, 45, 29, 0.1); /* Charred Steel with opacity */
+    background: rgba(61, 45, 29, 0.1);
+    /* Charred Steel with opacity */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid #3D2D1D; /* Charred Steel */
+    border: 1px solid #3D2D1D;
+    /* Charred Steel */
 }
 
 .cta-button {
     transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(255, 122, 0, 0.3); /* Ignition Orange glow */
+    box-shadow: 0 0 15px rgba(255, 122, 0, 0.3);
+    /* Ignition Orange glow */
 }
+
 .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 25px rgba(255, 122, 0, 0.6); /* Ignition Orange glow */
+    box-shadow: 0 0 25px rgba(255, 122, 0, 0.6);
+    /* Ignition Orange glow */
 }
 
 .trajectory-line {
     position: absolute;
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 199, 0, 0.5), transparent); /* Solar Yellow */
+    background: linear-gradient(90deg, transparent, rgba(255, 199, 0, 0.5), transparent);
+    /* Solar Yellow */
     opacity: 0.5;
 }
 
@@ -55,6 +86,7 @@ body::-webkit-scrollbar {
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
+
 .fade-in-section.is-visible {
     opacity: 1;
     transform: translateY(0);
@@ -67,7 +99,8 @@ body::-webkit-scrollbar {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #111111; /* Void Black */
+    background-color: #111111;
+    /* Void Black */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,9 +120,10 @@ body::-webkit-scrollbar {
 .central-star {
     width: 30px;
     height: 30px;
-    background-color: #FFC700; /* Solar Yellow */
+    background-color: #FFC700;
+    /* Solar Yellow */
     border-radius: 50%;
-    box-shadow: 0 0 20px #FFC700, 0 0 40px #FF7A00;
+    box-shadow: 0 0 20px #FFC700, 0 0 40px #FE6440;
     animation: pulse 2s infinite ease-in-out;
 }
 
@@ -115,7 +149,8 @@ body::-webkit-scrollbar {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #E8E8E8; /* Stark White */
+    background-color: #E8E8E8;
+    /* Stark White */
     border-radius: 50%;
 }
 
@@ -129,13 +164,15 @@ body::-webkit-scrollbar {
     top: 50%;
     left: -5px;
     transform: translateY(-50%);
-    background-color: #FF7A00; /* Ignition Orange */
+    background-color: #FE6440;
+    /* Ignition Orange */
 }
 
 @keyframes orbit-rotate {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -170,12 +207,15 @@ body::-webkit-scrollbar {
         opacity: 0;
         transform: translateX(0) scaleY(0.5);
     }
+
     20% {
         opacity: 1;
     }
+
     80% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
         transform: translateX(300px) scaleY(0.5);
@@ -184,32 +224,56 @@ body::-webkit-scrollbar {
 
 /* Hero Animation */
 @keyframes orbit-1 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
+
 @keyframes orbit-2 {
-    from { transform: rotate(90deg); }
-    to { transform: rotate(450deg); }
+    from {
+        transform: rotate(90deg);
+    }
+
+    to {
+        transform: rotate(450deg);
+    }
 }
+
 @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(0.95); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(0.95);
+    }
 }
 
 /* Custom Scrollbar for Market List */
 .custom-scrollbar::-webkit-scrollbar {
     width: 4px;
-    display: block; /* Override default hidden scrollbar */
+    display: block;
+    /* Override default hidden scrollbar */
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
 }
-

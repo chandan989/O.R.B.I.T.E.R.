@@ -106,7 +106,7 @@ export const WalletDomainCreator = ({
 
   if (!connected) {
     return (
-      <Card className="bg-gray-900/50 border-gray-700">
+      <Card className="bg-card border-border">
         <CardHeader>
           <CardTitle className="text-orange-400 flex items-center gap-2">
             <Zap className="h-6 w-6" />
@@ -117,14 +117,14 @@ export const WalletDomainCreator = ({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-400">Connect Leather or Hiro wallet to get started</p>
+          <p className="text-muted-foreground">Connect Leather or Hiro wallet to get started</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="bg-gray-900/50 border-gray-700">
+    <Card className="bg-card border-border">
       <CardHeader>
         <CardTitle className="text-orange-400 flex items-center gap-2">
           <Zap className="h-6 w-6" />

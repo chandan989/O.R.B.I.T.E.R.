@@ -50,14 +50,14 @@ export const SimpleLaunchTest = () => {
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
           placeholder="Enter domain (e.g., google.com)"
-          className="flex-1 px-3 py-2 bg-black/50 border border-gray-600 rounded text-white"
+          className="flex-1 px-3 py-2 bg-secondary/50 border border-border rounded text-foreground"
         />
         <Button onClick={testLaunch} disabled={loading} className="bg-blue-600 hover:bg-blue-700">
           {loading ? 'Launching...' : 'Test Launch'}
         </Button>
       </div>
 
-      <div className="text-xs text-gray-500">
+      <div className="text-xs text-muted-foreground">
         <div className="font-bold mb-1">Quick test domains:</div>
         <div className="flex flex-wrap gap-2">
           {['google.com', 'chat.com', 'ai.com', 'x.com', 'shop.com'].map(d => (

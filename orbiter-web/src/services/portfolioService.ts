@@ -179,7 +179,7 @@ class PortfolioService {
   getPriceChangeColor(change: number): string {
     if (change > 0) return 'text-green-400';
     if (change < 0) return 'text-red-400';
-    return 'text-gray-400';
+    return 'text-muted-foreground';
   }
   
   /**

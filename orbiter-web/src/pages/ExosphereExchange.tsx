@@ -26,7 +26,7 @@ import { portfolioService } from "../services/portfolioService";
 
 // --- Helper Components ---
 const MainPerformanceChart = ({ data }: { data: number[] }) => {
-  if (!data || data.length === 0) return <div className="h-64 w-full bg-black/20 rounded-lg flex items-center justify-center"><p className="font-ibm-plex-mono text-gray-500">No price data available</p></div>;
+  if (!data || data.length === 0) return <div className="h-64 w-full bg-secondary/20 rounded-lg flex items-center justify-center"><p className="font-ibm-plex-mono text-muted-foreground">No price data available</p></div>;
   const max = Math.max(...data);
   const min = Math.min(...data);
   const points = data.map((d, i) => `${(i / (data.length - 1)) * 100},${100 - ((d - min) / (max - min)) * 90 + 5}`).join(' ');
@@ -37,13 +37,13 @@ const MainPerformanceChart = ({ data }: { data: number[] }) => {
       <svg viewBox="0 0 100 100" className="w-full h-full" preserveAspectRatio="none">
         <defs>
           <linearGradient id="chart-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={isUp ? '#FFC700' : '#FF7A00'} stopOpacity="0.3" />
-            <stop offset="100%" stopColor={isUp ? '#FFC700' : '#FF7A00'} stopOpacity="0" />
+            <stop offset="0%" stopColor={isUp ? '#FFC700' : '#FE6440'} stopOpacity="0.3" />
+            <stop offset="100%" stopColor={isUp ? '#FFC700' : '#FE6440'} stopOpacity="0" />
           </linearGradient>
         </defs>
         <motion.polyline
           fill="url(#chart-gradient)"
-          stroke={isUp ? '#FFC700' : '#FF7A00'}
+          stroke={isUp ? '#FFC700' : '#FE6440'}
           strokeWidth="2"
           points={`0,100 ${points} 100,100`}
           initial={{ pathLength: 0 }}
@@ -718,15 +718,15 @@ export const ExosphereExchange = () => {
         <main className="w-full max-w-[96rem] mx-auto space-y-8">
           <div className="text-center">
             <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold tracking-tighter flex items-center gap-3 justify-center">
-              <Globe className="h-9 w-9 text-[#FF7A00] orbit-animation" />
+              <Globe className="h-9 w-9 text-primary orbit-animation" />
               Exosphere Exchange
             </h1>
-            <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2">
+            <p className="font-ibm-plex-sans text-lg text-muted-foreground mt-2">
               Loading tradeable domain assets...
             </p>
           </div>
           <div className="flex justify-center">
-            <div className="w-8 h-8 border-2 border-white/30 border-t-[#FF7A00] rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-2 border-border border-t-[#FF7A00] rounded-full animate-spin"></div>
           </div>
         </main>
       </div>
@@ -740,13 +740,13 @@ export const ExosphereExchange = () => {
         <main className="w-full max-w-[96rem] mx-auto space-y-8">
           <div className="text-center">
             <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold tracking-tighter flex items-center gap-3 justify-center">
-              <Globe className="h-9 w-9 text-[#FF7A00] orbit-animation" />
+              <Globe className="h-9 w-9 text-primary orbit-animation" />
               Exosphere Exchange
             </h1>
-            <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2">
+            <p className="font-ibm-plex-sans text-lg text-muted-foreground mt-2">
               No tokenized domains available for trading yet.
             </p>
-            <p className="font-ibm-plex-sans text-sm text-gray-500 mt-1">
+            <p className="font-ibm-plex-sans text-sm text-muted-foreground mt-1">
               Create your first domain in the Satellite Constellation to start trading!
             </p>
           </div>
@@ -771,20 +771,20 @@ export const ExosphereExchange = () => {
         {/* Page Header */}
         <div className="text-center">
           <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold tracking-tighter flex items-center gap-3 justify-center">
-            <Globe className="h-9 w-9 text-[#FF7A00] orbit-animation" />
+            <Globe className="h-9 w-9 text-primary orbit-animation" />
             Exosphere Exchange
           </h1>
-          <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2 max-w-3xl mx-auto">
+          <p className="font-ibm-plex-sans text-lg text-muted-foreground mt-2 max-w-3xl mx-auto">
             Trade fractional shares of tokenized domains with live order books, charts, and real-time market data.
           </p>
           <div className="flex justify-center mt-4">
             <button
               onClick={loadAssets}
               disabled={loading}
-              className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm font-ibm-plex-mono disabled:opacity-50"
+              className="flex items-center gap-2 px-4 py-2 bg-black/10 hover:bg-black/20 rounded-lg transition-colors text-sm font-ibm-plex-mono disabled:opacity-50"
             >
               {loading ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-border border-t-white rounded-full animate-spin"></div>
               ) : (
                 <TrendingUp className="h-4 w-4" />
               )}
@@ -798,26 +798,26 @@ export const ExosphereExchange = () => {
           <div className="glass-panel p-4 md:p-6 rounded-lg">
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
               <div>
-                <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Market Cap</p>
-                <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">${(totalMarketCap / 1_000_000).toFixed(2)}M</p>
+                <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">Market Cap</p>
+                <p className="font-ibm-plex-mono text-xl font-bold text-foreground">${(totalMarketCap / 1_000_000).toFixed(2)}M</p>
               </div>
               <div>
-                <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">24h Volume</p>
-                <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">${(totalVolume / 1_000_000).toFixed(2)}M</p>
+                <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">24h Volume</p>
+                <p className="font-ibm-plex-mono text-xl font-bold text-foreground">${(totalVolume / 1_000_000).toFixed(2)}M</p>
               </div>
               <div>
-                <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Orbital Assets</p>
-                <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">{assets.length}</p>
+                <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">Orbital Assets</p>
+                <p className="font-ibm-plex-mono text-xl font-bold text-foreground">{assets.length}</p>
               </div>
               <div>
-                <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Market Trend</p>
+                <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">Market Trend</p>
                 <p className={`font-ibm-plex-mono text-xl font-bold ${assets.filter(a => a.priceChange24h >= 0).length > assets.length / 2 ? 'text-orbital-success' : 'text-orbital-fail'}`}>
                   {assets.filter(a => a.priceChange24h >= 0).length > assets.length / 2 ? 'Bullish' : 'Bearish'}
                 </p>
               </div>
               <div>
-                <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Last Update</p>
-                <p className="font-ibm-plex-mono text-sm font-bold text-gray-50">{new Date().toLocaleTimeString('en-US', { hour12: false }).slice(0, 5)}</p>
+                <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">Last Update</p>
+                <p className="font-ibm-plex-mono text-sm font-bold text-foreground">{new Date().toLocaleTimeString('en-US', { hour12: false }).slice(0, 5)}</p>
               </div>
             </div>
           </div>
@@ -826,15 +826,15 @@ export const ExosphereExchange = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
           {/* Left Panel: Market List */}
-          <div className="lg:col-span-1 h-[calc(100vh-24rem)] flex flex-col glass-panel p-4 rounded-lg border border-white/10">
+          <div className="lg:col-span-1 h-[calc(100vh-24rem)] flex flex-col glass-panel p-4 rounded-lg border border-border">
             <div className="relative mb-4 flex-shrink-0">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
                 placeholder="Search Markets"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-black/30 border border-white/10 rounded-lg py-2 pl-9 pr-4 font-ibm-plex-mono focus:ring-1 focus:ring-[#FF7A00] outline-none transition"
+                className="w-full bg-secondary/30 border border-border rounded-lg py-2 pl-9 pr-4 font-ibm-plex-mono focus:ring-1 focus:ring-[#FF7A00] outline-none transition"
               />
             </div>
 
@@ -848,17 +848,17 @@ export const ExosphereExchange = () => {
                     key={asset.id}
                     onClick={() => setSelectedAsset(asset)}
                     className={`p-3 rounded-xl cursor-pointer transition-all duration-200 border border-transparent group ${isSelected
-                      ? 'bg-gradient-to-r from-white/10 to-transparent border-white/20 shadow-lg'
-                      : 'hover:bg-white/5 hover:border-white/10'
+                      ? 'bg-gradient-to-r from-white/10 to-transparent border-border shadow-lg'
+                      : 'hover:bg-black/5 hover:border-border'
                       } ${isOwned ? 'ring-1 ring-green-500/30 bg-green-500/5' : ''}`}
                   >
                     <div className="flex justify-between items-start mb-1">
                       <div className="flex-1 min-w-0 pr-2">
-                        <p className={`font-space-grotesk font-bold text-base truncate ${isSelected ? 'text-white' : 'text-gray-200 group-hover:text-white'}`}>
+                        <p className={`font-space-grotesk font-bold text-base truncate ${isSelected ? 'text-foreground' : 'text-gray-200 group-hover:text-foreground'}`}>
                           {asset.domain}
                         </p>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <p className="text-gray-500 text-xs font-ibm-plex-mono bg-white/5 px-1.5 py-0.5 rounded">{asset.tokenization.tokenTicker}</p>
+                          <p className="text-muted-foreground text-xs font-ibm-plex-mono bg-black/5 px-1.5 py-0.5 rounded">{asset.tokenization.tokenTicker}</p>
                           {isOwned && (
                             <span className="inline-flex items-center gap-1 text-[10px] bg-green-500/10 text-green-400 px-1.5 py-0.5 rounded-full border border-green-500/20 font-medium whitespace-nowrap">
                               <User className="h-2.5 w-2.5" /> YOURS
@@ -882,17 +882,17 @@ export const ExosphereExchange = () => {
           {/* Center Panel: Chart and Trade */}
           <div className="lg:col-span-2 space-y-6">
             {/* Asset Header */}
-            <div className="glass-panel p-4 rounded-lg border border-white/10">
+            <div className="glass-panel p-4 rounded-lg border border-border">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-4">
-                  <Globe className="h-10 w-10 text-[#FF7A00]" />
+                  <Globe className="h-10 w-10 text-primary" />
                   <div>
-                    <h2 className="font-space-grotesk text-2xl font-bold text-gray-50">{selectedAsset.tokenization.tokenTicker} / USDCx</h2>
-                    <p className="text-gray-400 font-ibm-plex-sans text-sm">{selectedAsset.domain}</p>
+                    <h2 className="font-space-grotesk text-2xl font-bold text-foreground">{selectedAsset.tokenization.tokenTicker} / USDCx</h2>
+                    <p className="text-muted-foreground font-ibm-plex-sans text-sm">{selectedAsset.domain}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className={`font-ibm-plex-mono text-2xl font-bold ${selectedAsset.priceChange24h >= 0 ? 'text-orbital-success' : 'text-orbital-fail'}`}>{selectedAsset.listingPrice.toFixed(2)} <span className="text-base text-gray-400">USDCx</span></p>
+                  <p className={`font-ibm-plex-mono text-2xl font-bold ${selectedAsset.priceChange24h >= 0 ? 'text-orbital-success' : 'text-orbital-fail'}`}>{selectedAsset.listingPrice.toFixed(2)} <span className="text-base text-muted-foreground">USDCx</span></p>
                   <div className="flex items-center justify-end gap-2 text-sm">
                     <p className={`font-ibm-plex-mono ${selectedAsset.priceChange24h >= 0 ? 'text-orbital-success' : 'text-orbital-fail'}`}>{selectedAsset.priceChange24h.toFixed(2)}</p>
                     <PriceChange change={selectedAsset.priceChangePercent24h} />
@@ -902,7 +902,7 @@ export const ExosphereExchange = () => {
             </div>
 
             {/* Chart */}
-            <div className="glass-panel p-4 rounded-lg border border-white/10">
+            <div className="glass-panel p-4 rounded-lg border border-border">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-space-grotesk text-lg font-bold flex items-center gap-2"><TrendingUp className="h-5 w-5 text-solar-yellow-text" /> Price Chart</h3>
                 {/* Timeframe selector can be added here */}
@@ -911,10 +911,10 @@ export const ExosphereExchange = () => {
             </div>
 
             {/* Tabs: Trade / Info */}
-            <div className="glass-panel rounded-lg border border-white/10">
-              <div className="flex border-b border-white/10">
-                <button onClick={() => setActiveTab('trade')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all ${activeTab === 'trade' ? 'text-white border-b-2 border-[#FF7A00]' : 'text-gray-400 hover:bg-white/5'}`}>Trade</button>
-                <button onClick={() => setActiveTab('info')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all ${activeTab === 'info' ? 'text-white border-b-2 border-[#FF7A00]' : 'text-gray-400 hover:bg-white/5'}`}>Info</button>
+            <div className="glass-panel rounded-lg border border-border">
+              <div className="flex border-b border-border">
+                <button onClick={() => setActiveTab('trade')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all ${activeTab === 'trade' ? 'text-white border-b-2 border-[#FF7A00]' : 'text-muted-foreground hover:bg-black/5'}`}>Trade</button>
+                <button onClick={() => setActiveTab('info')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all ${activeTab === 'info' ? 'text-white border-b-2 border-[#FF7A00]' : 'text-muted-foreground hover:bg-black/5'}`}>Info</button>
               </div>
 
               <AnimatePresence mode="wait">
@@ -929,9 +929,9 @@ export const ExosphereExchange = () => {
                   {activeTab === 'trade' ? (
                     <div>
                       {/* Trading Side Selector */}
-                      <div className="flex rounded-lg overflow-hidden border border-white/10 mb-4">
-                        <button onClick={() => setTradeSide('buy')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all text-sm ${tradeSide === 'buy' ? 'bg-orbital-success/20 text-orbital-success' : 'text-gray-200 hover:bg-white/10 hover:text-white'}`}>BUY</button>
-                        <button onClick={() => setTradeSide('sell')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all text-sm ${tradeSide === 'sell' ? 'bg-orbital-fail/20 text-orbital-fail' : 'text-gray-200 hover:bg-white/10 hover:text-white'}`}>SELL</button>
+                      <div className="flex rounded-lg overflow-hidden border border-border mb-4">
+                        <button onClick={() => setTradeSide('buy')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all text-sm ${tradeSide === 'buy' ? 'bg-orbital-success/20 text-orbital-success' : 'text-gray-200 hover:bg-black/10 hover:text-white'}`}>BUY</button>
+                        <button onClick={() => setTradeSide('sell')} className={`flex-1 p-3 font-space-grotesk font-bold text-center transition-all text-sm ${tradeSide === 'sell' ? 'bg-orbital-fail/20 text-orbital-fail' : 'text-gray-200 hover:bg-black/10 hover:text-white'}`}>SELL</button>
                       </div>
 
                       {/* Ownership Info */}
@@ -953,16 +953,16 @@ export const ExosphereExchange = () => {
                       <div className="space-y-4">
                         {/* Market Price Display */}
                         <div className="space-y-2">
-                          <label className="font-ibm-plex-mono text-xs text-gray-400">Market Price per Share</label>
-                          <div className="w-full bg-black/20 border border-white/10 rounded-lg p-2 font-ibm-plex-mono text-orbital-success font-bold">
+                          <label className="font-ibm-plex-mono text-xs text-muted-foreground">Market Price per Share</label>
+                          <div className="w-full bg-secondary/20 border border-border rounded-lg p-2 font-ibm-plex-mono text-orbital-success font-bold">
                             {selectedAsset.listingPrice.toFixed(3)} USDCx
                           </div>
-                          <p className="text-xs text-gray-500">Current market price (auto-filled)</p>
+                          <p className="text-xs text-muted-foreground">Current market price (auto-filled)</p>
                         </div>
 
                         {/* Shares Input */}
                         <div className="space-y-2">
-                          <label className="font-ibm-plex-mono text-xs text-gray-400">Number of Shares ({selectedAsset.tokenization.tokenTicker})</label>
+                          <label className="font-ibm-plex-mono text-xs text-muted-foreground">Number of Shares ({selectedAsset.tokenization.tokenTicker})</label>
                           <input
                             type="number"
                             value={tradeAmount}
@@ -970,9 +970,9 @@ export const ExosphereExchange = () => {
                             placeholder="0.1"
                             step="0.1"
                             min="0.1"
-                            className="w-full bg-black/30 border border-white/10 rounded-lg p-2 font-ibm-plex-mono focus:ring-1 focus:ring-[#FF7A00] outline-none"
+                            className="w-full bg-secondary/30 border border-border rounded-lg p-2 font-ibm-plex-mono focus:ring-1 focus:ring-[#FF7A00] outline-none"
                           />
-                          <div className="flex justify-between text-xs text-gray-500">
+                          <div className="flex justify-between text-xs text-muted-foreground">
                             <span>Available: {selectedAsset.tokenization.totalSupply.toLocaleString()}</span>
                             <span>Min: 0.1 shares</span>
                           </div>
@@ -981,12 +981,12 @@ export const ExosphereExchange = () => {
                         {/* Total Cost Display */}
                         <div className="bg-orbital-primary/10 border border-orbital-primary/30 rounded-lg p-3">
                           <div className="flex justify-between font-ibm-plex-mono text-sm">
-                            <span className="text-gray-400">Total Cost:</span>
-                            <span className="text-white font-bold">{calculateTotal()} USDCx</span>
+                            <span className="text-muted-foreground">Total Cost:</span>
+                            <span className="text-foreground font-bold">{calculateTotal()} USDCx</span>
                           </div>
                           <div className="flex justify-between font-ibm-plex-mono text-xs mt-1">
-                            <span className="text-gray-500">{tradeAmount || 0} shares × {selectedAsset.listingPrice.toFixed(3)} USDCx</span>
-                            <span className="text-gray-500">≈ ${(parseFloat(calculateTotal()) * 8.5).toFixed(2)} USD</span>
+                            <span className="text-muted-foreground">{tradeAmount || 0} shares × {selectedAsset.listingPrice.toFixed(3)} USDCx</span>
+                            <span className="text-muted-foreground">≈ ${(parseFloat(calculateTotal()) * 8.5).toFixed(2)} USD</span>
                           </div>
                         </div>
 
@@ -1012,7 +1012,7 @@ export const ExosphereExchange = () => {
                         >
                           {isTrading ? (
                             <>
-                              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                              <div className="w-4 h-4 border-2 border-border border-t-white rounded-full animate-spin mr-2"></div>
                               Processing...
                             </>
                           ) : (
@@ -1038,54 +1038,54 @@ export const ExosphereExchange = () => {
                         <p className="font-ibm-plex-sans text-sm text-gray-300 mb-4">{selectedAsset.description}</p>
                         <div className="grid grid-cols-2 gap-3 text-sm">
                           {selectedAsset.attributes.map(attr => (
-                            <div key={attr.trait_type} className="bg-black/20 p-3 rounded-lg">
-                              <p className="font-ibm-plex-mono text-xs text-gray-400">{attr.trait_type}</p>
-                              <p className="font-ibm-plex-mono font-bold text-gray-50">{attr.value}</p>
+                            <div key={attr.trait_type} className="bg-secondary/20 p-3 rounded-lg">
+                              <p className="font-ibm-plex-mono text-xs text-muted-foreground">{attr.trait_type}</p>
+                              <p className="font-ibm-plex-mono font-bold text-foreground">{attr.value}</p>
                             </div>
                           ))}
                         </div>
                       </div>
                       <div>
                         <h4 className="font-space-grotesk font-bold text-lg mb-2">Tokenomics</h4>
-                        <div className="bg-black/20 p-3 rounded-lg font-ibm-plex-mono text-sm space-y-3">
+                        <div className="bg-secondary/20 p-3 rounded-lg font-ibm-plex-mono text-sm space-y-3">
                           <div className="flex justify-between items-center">
-                            <span className="text-gray-400">Ownership Model:</span>
-                            <span className="font-bold text-gray-50">Fractional (Stacks Object)</span>
+                            <span className="text-muted-foreground">Ownership Model:</span>
+                            <span className="font-bold text-foreground">Fractional (Stacks Object)</span>
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="text-gray-400">Token Ticker:</span>
-                            <span className="font-bold text-gray-50">${selectedAsset.tokenization.tokenTicker}</span>
+                            <span className="text-muted-foreground">Token Ticker:</span>
+                            <span className="font-bold text-foreground">${selectedAsset.tokenization.tokenTicker}</span>
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="text-gray-400">Total Supply:</span>
-                            <span className="text-gray-50">{selectedAsset.tokenization.totalSupply.toLocaleString()}</span>
+                            <span className="text-muted-foreground">Total Supply:</span>
+                            <span className="text-foreground">{selectedAsset.tokenization.totalSupply.toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="text-gray-400">Market Cap:</span>
-                            <span className="text-gray-50">${selectedAsset.marketCap.toLocaleString()}</span>
+                            <span className="text-muted-foreground">Market Cap:</span>
+                            <span className="text-foreground">${selectedAsset.marketCap.toLocaleString()}</span>
                           </div>
                         </div>
                       </div>
                       <div>
                         <h4 className="font-space-grotesk font-bold text-lg mb-2">Valuation Breakdown</h4>
-                        <div className="bg-black/20 p-4 rounded-lg space-y-2">
+                        <div className="bg-secondary/20 p-4 rounded-lg space-y-2">
                           <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
                             <div className="flex items-center gap-2 text-gray-300"><BarChart className="h-4 w-4 text-solar-yellow-text/70" />SEO Authority</div>
-                            <span className="font-bold text-white">${selectedAsset.valuation.seoAuthority.toLocaleString()}</span>
+                            <span className="font-bold text-foreground">${selectedAsset.valuation.seoAuthority.toLocaleString()}</span>
                           </div>
                           <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
                             <div className="flex items-center gap-2 text-gray-300"><Sparkles className="h-4 w-4 text-solar-yellow-text/70" />Traffic Estimate</div>
-                            <span className="font-bold text-white">${selectedAsset.valuation.trafficEstimate.toLocaleString()}</span>
+                            <span className="font-bold text-foreground">${selectedAsset.valuation.trafficEstimate.toLocaleString()}</span>
                           </div>
                           <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
                             <div className="flex items-center gap-2 text-gray-300"><ShieldCheck className="h-4 w-4 text-solar-yellow-text/70" />Brandability</div>
-                            <span className="font-bold text-white">${selectedAsset.valuation.brandability.toLocaleString()}</span>
+                            <span className="font-bold text-foreground">${selectedAsset.valuation.brandability.toLocaleString()}</span>
                           </div>
                           <div className="flex items-center justify-between font-ibm-plex-mono text-sm">
                             <div className="flex items-center gap-2 text-gray-300"><Globe className="h-4 w-4 text-solar-yellow-text/70" />TLD Rarity</div>
-                            <span className="font-bold text-white">${selectedAsset.valuation.tldRarity.toLocaleString()}</span>
+                            <span className="font-bold text-foreground">${selectedAsset.valuation.tldRarity.toLocaleString()}</span>
                           </div>
-                          <div className="border-t border-white/10 mt-2 pt-2 flex items-center justify-between font-ibm-plex-mono text-base">
+                          <div className="border-t border-border mt-2 pt-2 flex items-center justify-between font-ibm-plex-mono text-base">
                             <span className="font-bold text-solar-yellow-text">Total Estimated Value</span>
                             <span className="font-bold text-solar-yellow-text">${selectedAsset.valuation.marketValue.toLocaleString()}</span>
                           </div>
@@ -1101,12 +1101,12 @@ export const ExosphereExchange = () => {
           {/* Right Panel: Order Book & Trade History */}
           <div className="lg:col-span-1 h-[calc(100vh-24rem)] flex flex-col space-y-6">
             {/* Order Book */}
-            <div className="glass-panel rounded-lg flex-1 flex flex-col border border-white/10">
-              <h3 className="font-space-grotesk font-bold p-3 border-b border-white/10 flex items-center gap-2"><BookOpen className="h-4 w-4 text-gray-400" />Share Order Book</h3>
+            <div className="glass-panel rounded-lg flex-1 flex flex-col border border-border">
+              <h3 className="font-space-grotesk font-bold p-3 border-b border-border flex items-center gap-2"><BookOpen className="h-4 w-4 text-muted-foreground" />Share Order Book</h3>
               <div className="flex-grow overflow-y-auto text-xs font-ibm-plex-mono">
                 <table className="w-full">
                   <thead>
-                    <tr className="text-gray-400 sticky top-0 bg-black/50 backdrop-blur-sm">
+                    <tr className="text-muted-foreground sticky top-0 bg-secondary/50 backdrop-blur-sm">
                       <th className="text-left p-2 font-normal">Price (USDCx)</th>
                       <th className="text-right p-2 font-normal">Size</th>
                       <th className="text-right p-2 font-normal">Total</th>
@@ -1114,7 +1114,7 @@ export const ExosphereExchange = () => {
                   </thead>
                   <tbody>
                     {selectedAsset.orderBook.asks.slice(0, 8).reverse().map((ask, i) => (
-                      <tr key={i} className="relative hover:bg-white/5">
+                      <tr key={i} className="relative hover:bg-black/5">
                         <td className="p-1 pl-2 text-orbital-fail">{ask.price.toFixed(2)}</td>
                         <td className="p-1 text-right">{ask.size}</td>
                         <td className="p-1 pr-2 text-right">{(ask.price * ask.size).toFixed(2)}</td>
@@ -1123,13 +1123,13 @@ export const ExosphereExchange = () => {
                     ))}
                   </tbody>
                 </table>
-                <div className="py-2 border-t border-b border-white/10 my-1 font-ibm-plex-mono text-lg text-center font-bold text-white">
+                <div className="py-2 border-t border-b border-border my-1 font-ibm-plex-mono text-lg text-center font-bold text-foreground">
                   {selectedAsset.listingPrice.toFixed(2)} USDCx
                 </div>
                 <table className="w-full">
                   <tbody>
                     {selectedAsset.orderBook.bids.slice(0, 8).map((bid, i) => (
-                      <tr key={i} className="relative hover:bg-white/5">
+                      <tr key={i} className="relative hover:bg-black/5">
                         <td className="p-1 pl-2 text-orbital-success">{bid.price.toFixed(2)}</td>
                         <td className="p-1 text-right">{bid.size}</td>
                         <td className="p-1 pr-2 text-right">{(bid.price * bid.size).toFixed(2)}</td>
@@ -1142,12 +1142,12 @@ export const ExosphereExchange = () => {
             </div>
 
             {/* Trade History */}
-            <div className="glass-panel rounded-lg flex-1 flex flex-col border border-white/10">
-              <h3 className="font-space-grotesk font-bold p-3 border-b border-white/10 flex items-center gap-2"><History className="h-4 w-4 text-gray-400" />Share Trade History</h3>
+            <div className="glass-panel rounded-lg flex-1 flex flex-col border border-border">
+              <h3 className="font-space-grotesk font-bold p-3 border-b border-border flex items-center gap-2"><History className="h-4 w-4 text-muted-foreground" />Share Trade History</h3>
               <div className="flex-grow overflow-y-auto text-xs font-ibm-plex-mono">
                 <table className="w-full">
                   <thead>
-                    <tr className="text-gray-400 sticky top-0 bg-black/50 backdrop-blur-sm">
+                    <tr className="text-muted-foreground sticky top-0 bg-secondary/50 backdrop-blur-sm">
                       <th className="text-left p-2 font-normal">Price (USDCx)</th>
                       <th className="text-right p-2 font-normal">Size</th>
                       <th className="text-right p-2 font-normal">Time</th>
@@ -1156,10 +1156,10 @@ export const ExosphereExchange = () => {
                   <AnimatePresence>
                     <tbody>
                       {selectedAsset.tradeHistory.map((trade, i) => (
-                        <motion.tr key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="hover:bg-white/5">
+                        <motion.tr key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="hover:bg-black/5">
                           <td className={`p-1 pl-2 ${trade.side === 'buy' ? 'text-orbital-success' : 'text-orbital-fail'}`}>{trade.price.toFixed(2)}</td>
                           <td className="p-1 text-right">{trade.size}</td>
-                          <td className="p-1 pr-2 text-right text-gray-400">{trade.time}</td>
+                          <td className="p-1 pr-2 text-right text-muted-foreground">{trade.time}</td>
                         </motion.tr>
                       ))}
                     </tbody>

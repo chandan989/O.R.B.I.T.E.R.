@@ -52,7 +52,7 @@ export const ContractStatus: React.FC = () => {
   };
 
   return (
-    <Card className="bg-black/40 border-white/10">
+    <Card className="bg-secondary/40 border-border">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-space-grotesk">Smart Contract Status</CardTitle>
@@ -67,19 +67,19 @@ export const ContractStatus: React.FC = () => {
       <CardContent className="space-y-3">
         <div className="grid grid-cols-2 gap-4 text-xs">
           <div>
-            <p className="text-gray-400 font-ibm-plex-mono">Network</p>
-            <p className="text-white font-medium">Stacks Testnet</p>
+            <p className="text-muted-foreground font-ibm-plex-mono">Network</p>
+            <p className="text-foreground font-medium">Stacks Testnet</p>
           </div>
           <div>
-            <p className="text-gray-400 font-ibm-plex-mono">Modules</p>
-            <p className="text-white font-medium">6 Deployed</p>
+            <p className="text-muted-foreground font-ibm-plex-mono">Modules</p>
+            <p className="text-foreground font-medium">6 Deployed</p>
           </div>
         </div>
         
         <div className="space-y-2">
-          <p className="text-gray-400 font-ibm-plex-mono text-xs">Contract Address</p>
+          <p className="text-muted-foreground font-ibm-plex-mono text-xs">Contract Address</p>
           <div className="flex items-center gap-2">
-            <code className="text-xs bg-white/5 px-2 py-1 rounded font-mono">
+            <code className="text-xs bg-black/5 px-2 py-1 rounded font-mono">
               {CONTRACT_CONFIG.CONTRACT_ADDRESS.slice(0, 8)}...{CONTRACT_CONFIG.CONTRACT_ADDRESS.slice(-8)}
             </code>
             <Button
@@ -97,14 +97,14 @@ export const ContractStatus: React.FC = () => {
         </div>
 
         {lastChecked && (
-          <div className="text-xs text-gray-500 font-ibm-plex-mono">
+          <div className="text-xs text-muted-foreground font-ibm-plex-mono">
             Last checked: {lastChecked.toLocaleTimeString()}
           </div>
         )}
 
         <div className="flex items-center gap-2 pt-2">
           {getStatusIcon()}
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-muted-foreground">
             {isOnline ? 'All systems operational' : 'Contract unavailable'}
           </span>
         </div>

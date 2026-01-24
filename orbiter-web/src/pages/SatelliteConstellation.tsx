@@ -121,23 +121,23 @@ const AssetStatusChart = ({ assets }: { assets: SatelliteAsset[] }) => {
     <div className="mt-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-4">
         <div>
-          <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Total Assets</p>
-          <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">{total}</p>
+          <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">Total Assets</p>
+          <p className="font-ibm-plex-mono text-xl font-bold text-foreground">{total}</p>
         </div>
         <div>
-          <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Total Shares</p>
-          <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">{totalShares.toLocaleString()}</p>
+          <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">Total Shares</p>
+          <p className="font-ibm-plex-mono text-xl font-bold text-foreground">{totalShares.toLocaleString()}</p>
         </div>
         <div>
-          <p className="font-ibm-plex-mono text-xs text-gray-400 uppercase">Total Market Cap</p>
-          <p className="font-ibm-plex-mono text-xl font-bold text-gray-50">${totalMarketCap.toLocaleString()}</p>
+          <p className="font-ibm-plex-mono text-xs text-muted-foreground uppercase">Total Market Cap</p>
+          <p className="font-ibm-plex-mono text-xl font-bold text-foreground">${totalMarketCap.toLocaleString()}</p>
         </div>
       </div>
-      <div className="flex justify-between items-center font-ibm-plex-mono text-xs text-gray-400 mb-2">
+      <div className="flex justify-between items-center font-ibm-plex-mono text-xs text-muted-foreground mb-2">
         <span>Asset Status Distribution</span>
         <span>Total: {total}</span>
       </div>
-      <div className="w-full bg-black/20 rounded-full h-4 flex overflow-hidden border border-white/10">
+      <div className="w-full bg-secondary/20 rounded-full h-4 flex overflow-hidden border border-border">
         {data.map(item => (
           <div
             key={item.status}
@@ -171,7 +171,7 @@ const PerformanceChart = ({ data }: { data: number[] }) => {
       <svg viewBox="0 0 100 100" className="w-full h-full" preserveAspectRatio="none">
         <polyline
           fill="none"
-          stroke={isUp ? '#FFC700' : '#FF7A00'}
+          stroke={isUp ? '#FFC700' : '#FE6440'}
           strokeWidth="2"
           points={points}
         />
@@ -375,10 +375,10 @@ export const SatelliteConstellation = () => {
     <div className="antialiased text-gray-200 min-h-screen p-4 sm:p-6 md:p-8 pt-24 md:pt-32">
       <div className="text-center mb-8 md:mb-12">
         <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold tracking-tighter flex items-center gap-3 justify-center">
-          <Satellite className="h-9 w-9 text-[#FF7A00] orbit-animation" />
+          <Satellite className="h-9 w-9 text-primary orbit-animation" />
           Satellite Constellation
         </h1>
-        <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2 max-w-3xl mx-auto">
+        <p className="font-ibm-plex-sans text-lg text-muted-foreground mt-2 max-w-3xl mx-auto">
           Your personal fleet of tokenized domains. Monitor and manage your satellite assets.
         </p>
       </div>
@@ -387,9 +387,9 @@ export const SatelliteConstellation = () => {
         <div className="flex flex-col items-center justify-center py-20">
           <div className="glass-panel p-10 rounded-lg text-center max-w-lg border border-[#FF7A00]/30 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-[#FF7A00]/5 to-transparent pointer-events-none"></div>
-            <Satellite className="h-20 w-20 text-[#FF7A00] mx-auto mb-6 opacity-80" />
-            <h2 className="font-space-grotesk text-2xl font-bold text-white mb-4">Signal Lost</h2>
-            <p className="font-ibm-plex-sans text-gray-400 mb-8">
+            <Satellite className="h-20 w-20 text-primary mx-auto mb-6 opacity-80" />
+            <h2 className="font-space-grotesk text-2xl font-bold text-foreground mb-4">Signal Lost</h2>
+            <p className="font-ibm-plex-sans text-muted-foreground mb-8">
               Access to the Satellite Constellation requires an active uplink. Please connect your wallet to view your assets.
             </p>
             <div className="flex justify-center">
@@ -403,7 +403,7 @@ export const SatelliteConstellation = () => {
           <section className="fade-in-section">
             <div className="glass-panel p-6 md:p-8 rounded-lg">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
-                <h2 className="font-space-grotesk text-xl font-bold text-white mb-2 md:mb-0">Constellation Overview</h2>
+                <h2 className="font-space-grotesk text-xl font-bold text-foreground mb-2 md:mb-0">Constellation Overview</h2>
                 <span className="font-ibm-plex-mono text-sm solar-yellow-text">[ STATUS: OPERATIONAL ]</span>
               </div>
               <AssetStatusChart assets={assets} />
@@ -413,10 +413,10 @@ export const SatelliteConstellation = () => {
           {/* Created Domains Section */}
           <section className="fade-in-section">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-space-grotesk text-2xl font-bold text-white">Created by Me</h2>
+              <h2 className="font-space-grotesk text-2xl font-bold text-foreground">Created by Me</h2>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <span className="font-ibm-plex-mono text-sm text-gray-400">Domains I Minted</span>
+                <span className="font-ibm-plex-mono text-sm text-muted-foreground">Domains I Minted</span>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -457,12 +457,12 @@ export const SatelliteConstellation = () => {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2">
                             {getStatusIcon(asset.status)}
-                            <span className="font-ibm-plex-mono text-xs text-gray-400">Object ID: {asset.id}</span>
+                            <span className="font-ibm-plex-mono text-xs text-muted-foreground">Object ID: {asset.id}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             {/* Show different badges for real vs demo domains */}
                             {asset.id && asset.id.startsWith('ORBIT-') ? (
-                              <Badge className="font-ibm-plex-mono text-xs bg-gray-600/20 text-gray-400 border-gray-500/50">
+                              <Badge className="font-ibm-plex-mono text-xs bg-gray-600/20 text-muted-foreground border-border/50">
                                 DEMO
                               </Badge>
                             ) : (
@@ -470,16 +470,16 @@ export const SatelliteConstellation = () => {
                                 LIVE
                               </Badge>
                             )}
-                            <Badge variant="secondary" className="font-ibm-plex-mono text-xs capitalize bg-white/5 text-gray-300 border-white/10">
+                            <Badge variant="secondary" className="font-ibm-plex-mono text-xs capitalize bg-black/5 text-gray-300 border-border">
                               {asset.status}
                             </Badge>
                           </div>
                         </div>
 
-                        <h3 className="font-space-grotesk text-2xl font-bold truncate text-gray-50">
+                        <h3 className="font-space-grotesk text-2xl font-bold truncate text-foreground">
                           {asset.domain || 'Unknown Domain'}
                         </h3>
-                        <p className="font-ibm-plex-mono text-sm text-gray-400">
+                        <p className="font-ibm-plex-mono text-sm text-muted-foreground">
                           Shares: {asset.tokenization?.totalSupply?.toLocaleString() || 'N/A'}
                         </p>
                         <p className="font-ibm-plex-mono text-lg text-blue-400 mt-2">
@@ -490,8 +490,8 @@ export const SatelliteConstellation = () => {
                       <div className="mt-4 space-y-3">
                         <div className="grid grid-cols-2 gap-3 text-xs">
                           {(asset.metadata?.attributes || []).slice(0, 2).map((attr, i) => (
-                            <div key={i} className="bg-black/20 p-2 rounded-md">
-                              <span className="font-ibm-plex-mono text-gray-400 block">{attr.trait_type}</span>
+                            <div key={i} className="bg-secondary/20 p-2 rounded-md">
+                              <span className="font-ibm-plex-mono text-muted-foreground block">{attr.trait_type}</span>
                               <span className="font-ibm-plex-mono text-gray-200 font-medium">{attr.value}</span>
                             </div>
                           ))}
@@ -501,7 +501,7 @@ export const SatelliteConstellation = () => {
                         <div className="space-y-2 pt-2">
                           {/* Status Toggle */}
                           <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-400">Status:</span>
+                            <span className="text-xs text-muted-foreground">Status:</span>
                             <Button
                               size="sm"
                               className={`text-xs px-3 py-1 ${asset.status === 'active'
@@ -545,7 +545,7 @@ export const SatelliteConstellation = () => {
                             </Button>
                             <Button
                               size="sm"
-                              className="bg-gray-600/20 hover:bg-gray-600/40 text-gray-400 border-gray-500/50 text-xs"
+                              className="bg-gray-600/20 hover:bg-gray-600/40 text-muted-foreground border-border/50 text-xs"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedAsset(asset);
@@ -556,7 +556,7 @@ export const SatelliteConstellation = () => {
                           </div>
                         </div>
 
-                        <div className="font-ibm-plex-mono text-xs text-gray-500 text-center pt-2">
+                        <div className="font-ibm-plex-mono text-xs text-muted-foreground text-center pt-2">
                           Created on {asset.mintDate ? formatDate(asset.mintDate) : 'Unknown'}
                         </div>
                       </div>
@@ -570,10 +570,10 @@ export const SatelliteConstellation = () => {
           {/* Purchased Domains Section */}
           <section className="fade-in-section">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-space-grotesk text-2xl font-bold text-white">Purchased by Me</h2>
+              <h2 className="font-space-grotesk text-2xl font-bold text-foreground">Purchased by Me</h2>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span className="font-ibm-plex-mono text-sm text-gray-400">Domains I Bought</span>
+                <span className="font-ibm-plex-mono text-sm text-muted-foreground">Domains I Bought</span>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -603,22 +603,22 @@ export const SatelliteConstellation = () => {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2">
                             {getStatusIcon(asset.status)}
-                            <span className="font-ibm-plex-mono text-xs text-gray-400">Object ID: {asset.id}</span>
+                            <span className="font-ibm-plex-mono text-xs text-muted-foreground">Object ID: {asset.id}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Badge className="font-ibm-plex-mono text-xs bg-yellow-600/20 text-yellow-400 border-yellow-500/50">
                               PURCHASED
                             </Badge>
-                            <Badge variant="secondary" className="font-ibm-plex-mono text-xs capitalize bg-white/5 text-gray-300 border-white/10">
+                            <Badge variant="secondary" className="font-ibm-plex-mono text-xs capitalize bg-black/5 text-gray-300 border-border">
                               {asset.status}
                             </Badge>
                           </div>
                         </div>
 
-                        <h3 className="font-space-grotesk text-2xl font-bold truncate text-gray-50">
+                        <h3 className="font-space-grotesk text-2xl font-bold truncate text-foreground">
                           {asset.domain || 'Unknown Domain'}
                         </h3>
-                        <p className="font-ibm-plex-mono text-sm text-gray-400">
+                        <p className="font-ibm-plex-mono text-sm text-muted-foreground">
                           Shares: {asset.tokenization?.totalSupply?.toLocaleString() || 'N/A'}
                         </p>
                         <p className="font-ibm-plex-mono text-lg text-yellow-400 mt-2">
@@ -629,8 +629,8 @@ export const SatelliteConstellation = () => {
                       <div className="mt-4 space-y-3">
                         <div className="grid grid-cols-2 gap-3 text-xs">
                           {(asset.metadata?.attributes || []).slice(0, 2).map((attr, i) => (
-                            <div key={i} className="bg-black/20 p-2 rounded-md">
-                              <span className="font-ibm-plex-mono text-gray-400 block">{attr.trait_type}</span>
+                            <div key={i} className="bg-secondary/20 p-2 rounded-md">
+                              <span className="font-ibm-plex-mono text-muted-foreground block">{attr.trait_type}</span>
                               <span className="font-ibm-plex-mono text-gray-200 font-medium">{attr.value}</span>
                             </div>
                           ))}
@@ -652,7 +652,7 @@ export const SatelliteConstellation = () => {
                           </Button>
                           <Button
                             size="sm"
-                            className="bg-gray-600/20 hover:bg-gray-600/40 text-gray-400 border-gray-500/50 text-xs"
+                            className="bg-gray-600/20 hover:bg-gray-600/40 text-muted-foreground border-border/50 text-xs"
                             onClick={(e) => {
                               e.stopPropagation();
                               // Transfer shares functionality
@@ -663,7 +663,7 @@ export const SatelliteConstellation = () => {
                           </Button>
                         </div>
 
-                        <div className="font-ibm-plex-mono text-xs text-gray-500 text-center pt-2">
+                        <div className="font-ibm-plex-mono text-xs text-muted-foreground text-center pt-2">
                           Acquired on {asset.mintDate ? formatDate(asset.mintDate) : 'Unknown'}
                         </div>
                       </div>
@@ -685,7 +685,7 @@ export const SatelliteConstellation = () => {
                   <h3 className="font-space-grotesk text-xl font-bold mb-2 text-gray-300">
                     No Purchased Domains Yet
                   </h3>
-                  <p className="text-gray-400 mb-4">
+                  <p className="text-muted-foreground mb-4">
                     Visit the Exosphere Exchange to buy domain shares from other users.
                   </p>
                   <Button
@@ -708,7 +708,7 @@ export const SatelliteConstellation = () => {
                 <h2 className="font-space-grotesk text-2xl font-bold mb-2">
                   Loading Constellation...
                 </h2>
-                <p className="text-gray-400">
+                <p className="text-muted-foreground">
                   Scanning orbital satellites for domain assets
                 </p>
               </div>
@@ -725,7 +725,7 @@ export const SatelliteConstellation = () => {
                 <h2 className="font-space-grotesk text-3xl font-bold mb-2">
                   No Satellites in Orbit
                 </h2>
-                <p className="text-gray-400 max-w-md mx-auto mb-8">
+                <p className="text-muted-foreground max-w-md mx-auto mb-8">
                   Launch your first domain to see it appear in your constellation.
                 </p>
                 <Button className="cta-button mt-10 inline-block bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg">
@@ -739,13 +739,13 @@ export const SatelliteConstellation = () => {
           <section className="fade-in-section mt-12">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="font-space-grotesk text-2xl font-bold text-white flex items-center gap-2">
+                <h2 className="font-space-grotesk text-2xl font-bold text-foreground flex items-center gap-2">
                   Advanced Portfolio Analytics
                   <span className="text-xs bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-400/30 text-purple-300 px-2 py-1 rounded">
                     KANA PERPS
                   </span>
                 </h2>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   Combined view of domain assets and perpetual positions
                 </p>
               </div>
@@ -759,7 +759,7 @@ export const SatelliteConstellation = () => {
       {/* Asset Detail Modal */}
       {selectedAsset && (
         <motion.div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+          className="fixed inset-0 bg-secondary/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -785,42 +785,42 @@ export const SatelliteConstellation = () => {
                 <div className="md:col-span-1 space-y-6">
                   <div>
                     <h3 className="font-space-grotesk text-lg font-bold mb-3">Tokenization</h3>
-                    <div className="bg-black/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
+                    <div className="bg-secondary/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Asset Type:</span>
-                        <span className="font-bold text-gray-50">Stacks Object</span>
+                        <span className="text-muted-foreground">Asset Type:</span>
+                        <span className="font-bold text-foreground">Stacks Object</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Ticker:</span>
-                        <span className="font-bold text-gray-50">${selectedAsset.tokenization.tokenTicker}</span>
+                        <span className="text-muted-foreground">Ticker:</span>
+                        <span className="font-bold text-foreground">${selectedAsset.tokenization.tokenTicker}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Total Supply:</span>
-                        <span className="text-gray-50">{selectedAsset.tokenization.totalSupply.toLocaleString()}</span>
+                        <span className="text-muted-foreground">Total Supply:</span>
+                        <span className="text-foreground">{selectedAsset.tokenization.totalSupply.toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
                   <div>
                     <h3 className="font-space-grotesk text-lg font-bold mb-3">Chain Data</h3>
-                    <div className="bg-black/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
+                    <div className="bg-secondary/20 p-3 rounded-md font-ibm-plex-mono text-sm space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Asset ID:</span>
-                        <span className="text-gray-50">{selectedAsset.id}</span>
+                        <span className="text-muted-foreground">Asset ID:</span>
+                        <span className="text-foreground">{selectedAsset.id}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Status:</span>
-                        <span className="capitalize text-gray-50">{selectedAsset.status}</span>
+                        <span className="text-muted-foreground">Status:</span>
+                        <span className="capitalize text-foreground">{selectedAsset.status}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Mint Date:</span>
-                        <span className="text-gray-50">{formatDate(selectedAsset.mintDate)}</span>
+                        <span className="text-muted-foreground">Mint Date:</span>
+                        <span className="text-foreground">{formatDate(selectedAsset.mintDate)}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Block:</span>
-                        <span className="text-gray-50">#{selectedAsset.blockHeight.toLocaleString()}</span>
+                        <span className="text-muted-foreground">Block:</span>
+                        <span className="text-foreground">#{selectedAsset.blockHeight.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">TX Hash:</span>
+                        <span className="text-muted-foreground">TX Hash:</span>
                         <a
                           href={`https://explorer.stackslabs.com/txn/${selectedAsset.txHash}?network=testnet`}
                           target="_blank"
@@ -837,31 +837,31 @@ export const SatelliteConstellation = () => {
                 {/* Middle Column */}
                 <div className="md:col-span-1">
                   <h3 className="font-space-grotesk text-lg font-bold mb-3">Valuation</h3>
-                  <div className="bg-black/20 p-4 rounded-lg space-y-4">
+                  <div className="bg-secondary/20 p-4 rounded-lg space-y-4">
                     <div className="text-center">
-                      <p className="font-ibm-plex-mono text-sm text-gray-400">Score</p>
+                      <p className="font-ibm-plex-mono text-sm text-muted-foreground">Score</p>
                       <p className="font-space-grotesk text-4xl font-bold text-solar-yellow-text">{selectedAsset.valuation.score}</p>
                     </div>
                     <div className="text-center">
-                      <p className="font-ibm-plex-mono text-sm text-gray-400">Estimated Market Value</p>
-                      <p className="font-space-grotesk text-3xl font-bold text-white">${selectedAsset.valuation.marketValue.toLocaleString()}</p>
+                      <p className="font-ibm-plex-mono text-sm text-muted-foreground">Estimated Market Value</p>
+                      <p className="font-space-grotesk text-3xl font-bold text-foreground">${selectedAsset.valuation.marketValue.toLocaleString()}</p>
                     </div>
-                    <div className="border-t border-white/10 pt-4 space-y-2">
+                    <div className="border-t border-border pt-4 space-y-2">
                       <div className="flex items-center justify-between font-ibm-plex-mono text-xs">
                         <div className="flex items-center gap-2 text-gray-300"><BarChart className="h-4 w-4 text-solar-yellow-text/70" />SEO Authority</div>
-                        <span className="font-bold text-white">${selectedAsset.valuation.seoAuthority.toLocaleString()}</span>
+                        <span className="font-bold text-foreground">${selectedAsset.valuation.seoAuthority.toLocaleString()}</span>
                       </div>
                       <div className="flex items-center justify-between font-ibm-plex-mono text-xs">
                         <div className="flex items-center gap-2 text-gray-300"><Sparkles className="h-4 w-4 text-solar-yellow-text/70" />Traffic Estimate</div>
-                        <span className="font-bold text-white">${selectedAsset.valuation.trafficEstimate.toLocaleString()}</span>
+                        <span className="font-bold text-foreground">${selectedAsset.valuation.trafficEstimate.toLocaleString()}</span>
                       </div>
                       <div className="flex items-center justify-between font-ibm-plex-mono text-xs">
                         <div className="flex items-center gap-2 text-gray-300"><ShieldCheck className="h-4 w-4 text-solar-yellow-text/70" />Brandability</div>
-                        <span className="font-bold text-white">${selectedAsset.valuation.brandability.toLocaleString()}</span>
+                        <span className="font-bold text-foreground">${selectedAsset.valuation.brandability.toLocaleString()}</span>
                       </div>
                       <div className="flex items--center justify-between font-ibm-plex-mono text-xs">
                         <div className="flex items-center gap-2 text-gray-300"><Globe className="h-4 w-4 text-solar-yellow-text/70" />TLD Rarity</div>
-                        <span className="font-bold text-white">${selectedAsset.valuation.tldRarity.toLocaleString()}</span>
+                        <span className="font-bold text-foreground">${selectedAsset.valuation.tldRarity.toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
@@ -873,16 +873,16 @@ export const SatelliteConstellation = () => {
                     <div className="space-y-3">
                       <PerformanceChart data={selectedAsset.marketData.priceHistory} />
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-black/20 p-3 rounded-md">
-                          <span className="font-ibm-plex-mono text-gray-400 text-xs block">Floor Price</span>
+                        <div className="bg-secondary/20 p-3 rounded-md">
+                          <span className="font-ibm-plex-mono text-muted-foreground text-xs block">Floor Price</span>
                           <span className="font-ibm-plex-mono text-gray-200 text-lg font-medium flex items-center">{selectedAsset.marketData.floorPrice.toFixed(2)} <span className="text-xs ml-1">USDCx</span></span>
                         </div>
-                        <div className="bg-black/20 p-3 rounded-md">
-                          <span className="font-ibm-plex-mono text-gray-400 text-xs block">Offers</span>
+                        <div className="bg-secondary/20 p-3 rounded-md">
+                          <span className="font-ibm-plex-mono text-muted-foreground text-xs block">Offers</span>
                           <span className="font-ibm-plex-mono text-gray-200 text-lg font-medium">{selectedAsset.marketData.offers}</span>
                         </div>
-                        <div className="bg-black/20 p-3 rounded-md col-span-2">
-                          <span className="font-ibm-plex-mono text-gray-400 text-xs block">24h Volume</span>
+                        <div className="bg-secondary/20 p-3 rounded-md col-span-2">
+                          <span className="font-ibm-plex-mono text-muted-foreground text-xs block">24h Volume</span>
                           <span className="font-ibm-plex-mono text-gray-200 text-sm font-medium">{selectedAsset.marketData.dailyVolume.toLocaleString()} USDCx</span>
                         </div>
                       </div>

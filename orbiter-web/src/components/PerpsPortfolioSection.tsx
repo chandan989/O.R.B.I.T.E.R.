@@ -91,11 +91,11 @@ export const PerpsPortfolioSection = () => {
 
   if (loading) {
     return (
-      <div className="bg-gray-900/50 border border-white/10 rounded-xl p-6">
+      <div className="bg-card border border-border rounded-xl p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-6 bg-white/10 rounded w-1/2"></div>
-          <div className="h-4 bg-white/10 rounded w-3/4"></div>
-          <div className="h-20 bg-white/10 rounded"></div>
+          <div className="h-6 bg-black/10 rounded w-1/2"></div>
+          <div className="h-4 bg-black/10 rounded w-3/4"></div>
+          <div className="h-20 bg-black/10 rounded"></div>
         </div>
       </div>
     );
@@ -103,12 +103,12 @@ export const PerpsPortfolioSection = () => {
 
   if (!portfolio) {
     return (
-      <div className="bg-gray-900/50 border border-white/10 rounded-xl p-6">
+      <div className="bg-card border border-border rounded-xl p-6">
         <div className="flex items-center gap-2 mb-4">
           <BarChart3 className="h-5 w-5 text-blue-400" />
-          <h3 className="text-lg font-semibold text-white">Portfolio Analytics</h3>
+          <h3 className="text-lg font-semibold text-foreground">Portfolio Analytics</h3>
         </div>
-        <p className="text-gray-400">Connect wallet to view portfolio</p>
+        <p className="text-muted-foreground">Connect wallet to view portfolio</p>
       </div>
     );
   }
@@ -117,13 +117,13 @@ export const PerpsPortfolioSection = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gray-900/50 border border-white/10 rounded-xl p-6 space-y-6"
+      className="bg-card border border-border rounded-xl p-6 space-y-6"
     >
       {/* Header with Service Status */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-blue-400" />
-          <h3 className="text-lg font-semibold text-white">Enhanced Portfolio</h3>
+          <h3 className="text-lg font-semibold text-foreground">Enhanced Portfolio</h3>
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -151,48 +151,48 @@ export const PerpsPortfolioSection = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Total Value */}
-        <div className="bg-black/20 rounded-lg p-4">
+        <div className="bg-secondary/20 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
             <DollarSign className="h-4 w-4 text-green-400" />
-            <span className="text-sm text-gray-400">Total Portfolio</span>
+            <span className="text-sm text-muted-foreground">Total Portfolio</span>
           </div>
-          <p className="text-2xl font-bold text-white">
+          <p className="text-2xl font-bold text-foreground">
             ${portfolio?.totalBalance?.toFixed(2) || '0.00'}
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted-foreground">
             Domains: ${((portfolio?.totalBalance || 0) * 0.6).toFixed(2)} | 
             Perps: ${((portfolio?.totalBalance || 0) * 0.4).toFixed(2)}
           </p>
         </div>
 
         {/* PnL */}
-        <div className="bg-black/20 rounded-lg p-4">
+        <div className="bg-secondary/20 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
             {(portfolio?.totalPnl ?? 0) >= 0 ? (
               <TrendingUp className="h-4 w-4 text-green-400" />
             ) : (
               <TrendingDown className="h-4 w-4 text-red-400" />
             )}
-            <span className="text-sm text-gray-400">24h PnL</span>
+            <span className="text-sm text-muted-foreground">24h PnL</span>
           </div>
           <p className={`text-2xl font-bold ${(portfolio?.totalPnl ?? 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
             {(portfolio?.totalPnl ?? 0) >= 0 ? '+' : ''}${(portfolio?.totalPnl ?? 0).toFixed(2)}
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted-foreground">
             {portfolio?.totalPnlPercentage?.toFixed(2) || '0.00'}% return
           </p>
         </div>
 
         {/* Risk */}
-        <div className="bg-black/20 rounded-lg p-4">
+        <div className="bg-secondary/20 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
             <Target className="h-4 w-4 text-orange-400" />
-            <span className="text-sm text-gray-400">Positions</span>
+            <span className="text-sm text-muted-foreground">Positions</span>
           </div>
-          <p className="text-2xl font-bold text-white">
+          <p className="text-2xl font-bold text-foreground">
             {portfolio?.positions?.length || 0}
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted-foreground">
             Active trades across {portfolio?.protocols?.length || 0} protocols
           </p>
         </div>
@@ -200,12 +200,12 @@ export const PerpsPortfolioSection = () => {
 
       {/* Active Positions Preview */}
       {portfolio?.positions && portfolio.positions.length > 0 && (
-        <div className="bg-black/20 rounded-lg p-4">
+        <div className="bg-secondary/20 rounded-lg p-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Globe className="h-4 w-4 text-green-400" />
-              <span className="text-sm font-medium text-white">Active Positions</span>
-              <span className="text-xs text-gray-500">({portfolio.positions.length})</span>
+              <span className="text-sm font-medium text-foreground">Active Positions</span>
+              <span className="text-xs text-muted-foreground">({portfolio.positions.length})</span>
             </div>
             <button
               onClick={() => alert('Opening full positions manager...')}
@@ -225,11 +225,11 @@ export const PerpsPortfolioSection = () => {
                   }`}>
                     {position.side}
                   </span>
-                  <span className="text-gray-500">{position.leverage}x</span>
+                  <span className="text-muted-foreground">{position.leverage}x</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="text-right">
-                    <div className="text-white">${(position.size * position.markPrice).toFixed(2)}</div>
+                    <div className="text-foreground">${(position.size * position.markPrice).toFixed(2)}</div>
                     <div className={`${position.pnl >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                       {position.pnl >= 0 ? '+' : ''}${position.pnl.toFixed(2)}
                     </div>
@@ -246,7 +246,7 @@ export const PerpsPortfolioSection = () => {
             ))}
             
             {portfolio.positions.length > 3 && (
-              <div className="text-center text-gray-500 text-xs pt-2 border-t border-white/10">
+              <div className="text-center text-muted-foreground text-xs pt-2 border-t border-border">
                 +{portfolio.positions.length - 3} more positions
               </div>
             )}
@@ -256,23 +256,23 @@ export const PerpsPortfolioSection = () => {
 
       {/* Protocols */}
       {portfolio?.protocols && portfolio.protocols.length > 0 && (
-        <div className="bg-black/20 rounded-lg p-4">
+        <div className="bg-secondary/20 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-4">
             <PieChart className="h-4 w-4 text-purple-400" />
-            <span className="text-sm font-medium text-white">Connected Protocols</span>
+            <span className="text-sm font-medium text-foreground">Connected Protocols</span>
           </div>
           
           <div className="grid grid-cols-1 gap-2">
             {portfolio.protocols.map((protocol, index) => (
-              <div key={index} className="flex items-center justify-between text-xs bg-white/5 rounded p-2 group hover:bg-white/10 transition-colors">
+              <div key={index} className="flex items-center justify-between text-xs bg-black/5 rounded p-2 group hover:bg-black/10 transition-colors">
                 <div className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full ${protocol.connected ? 'bg-green-500' : 'bg-gray-500'}`}></div>
                   <span className="text-gray-300">{protocol.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="text-right">
-                    <div className="text-white">${protocol.balance.toFixed(2)}</div>
-                    <div className="text-gray-500">{protocol.positions} pos</div>
+                    <div className="text-foreground">${protocol.balance.toFixed(2)}</div>
+                    <div className="text-muted-foreground">{protocol.positions} pos</div>
                   </div>
                   {protocol.connected && (
                     <button
@@ -289,7 +289,7 @@ export const PerpsPortfolioSection = () => {
           </div>
           
           {/* Quick Actions */}
-          <div className="mt-4 pt-4 border-t border-white/10">
+          <div className="mt-4 pt-4 border-t border-border">
             <div className="flex gap-2">
               <button
                 onClick={() => alert('Opening new position wizard...')}
@@ -311,7 +311,7 @@ export const PerpsPortfolioSection = () => {
       )}
 
       {/* Data Sources */}
-      <div className="text-xs text-gray-500 text-center border-t border-white/10 pt-4">
+      <div className="text-xs text-muted-foreground text-center border-t border-border pt-4">
         <p>Real-time data from dYdX v4 • GMX v2 • Hyperliquid • Drift Protocol</p>
         <p className="mt-1">Portfolio updates every 30 seconds</p>
       </div>

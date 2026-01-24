@@ -43,7 +43,7 @@ export const DemoTransactions = () => {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-gray-900/50 border-gray-700">
+      <Card className="bg-card border-border">
         <CardHeader>
           <CardTitle className="text-orange-400 flex items-center gap-2">
             <Zap className="h-6 w-6" />
@@ -55,7 +55,7 @@ export const DemoTransactions = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="bg-gray-800/50 p-4 rounded-lg">
-            <h3 className="font-semibold text-white mb-2">Contract Address</h3>
+            <h3 className="font-semibold text-foreground mb-2">Contract Address</h3>
             <p className="text-sm text-gray-300 font-mono break-all">{CONTRACT_ADDRESS}</p>
             <a 
               href={`https://explorer.stackslabs.com/account/${CONTRACT_ADDRESS}?network=testnet`}
@@ -93,7 +93,7 @@ export const DemoTransactions = () => {
               </Button>
             </div>
 
-            <div className="text-center text-sm text-gray-400">
+            <div className="text-center text-sm text-muted-foreground">
               🔥 REAL Stacks transactions • Live contract • Backend API powered
             </div>
           </div>

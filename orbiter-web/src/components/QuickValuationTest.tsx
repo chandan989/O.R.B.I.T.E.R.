@@ -30,7 +30,7 @@ export const QuickValuationTest = () => {
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
           placeholder="Enter domain (e.g., google.com)"
-          className="flex-1 px-3 py-2 bg-black/50 border border-gray-600 rounded text-white"
+          className="flex-1 px-3 py-2 bg-secondary/50 border border-border rounded text-foreground"
         />
         <Button onClick={testValuation} disabled={loading}>
           {loading ? 'Calculating...' : 'Get Real Valuation'}
@@ -38,7 +38,7 @@ export const QuickValuationTest = () => {
       </div>
 
       {result && (
-        <div className="bg-black/30 p-4 rounded">
+        <div className="bg-secondary/30 p-4 rounded">
           {result.error ? (
             <div className="text-red-400">Error: {result.error}</div>
           ) : (
@@ -66,7 +66,7 @@ export const QuickValuationTest = () => {
         </div>
       )}
 
-      <div className="mt-4 text-xs text-gray-500">
+      <div className="mt-4 text-xs text-muted-foreground">
         <div className="font-bold mb-1">Try these premium domains:</div>
         <div className="flex flex-wrap gap-2">
           {['google.com', 'chat.com', 'ai.com', 'x.com', 'shop.com'].map(d => (

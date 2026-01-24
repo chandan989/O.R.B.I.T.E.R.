@@ -52,7 +52,7 @@ export const WalletConnector = () => {
           👽 Connect Hiro
         </Button>
       </div>
-      <div className="text-xs text-gray-500 mt-2">
+      <div className="text-xs text-muted-foreground mt-2">
         Without wallet: Demo mode with simulated transactions
       </div>
     </div>

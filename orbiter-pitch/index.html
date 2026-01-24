@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O.R.B.I.T.E.R. - Pitch Deck</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* SCROLLBAR AND ROOT STYLES */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3D2D1D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF7A00;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #111111; /* Void Black */
+            color: #E8E8E8; /* Stark White */
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0);
+            background-size: 25px 25px;
+            overflow: hidden; /* To prevent scrolling on the body */
+        }
+
+        main {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        section {
+            scroll-snap-align: start;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0; /* Prevent sections from shrinking */
+        }
+
+        /* FONT STYLES */
+        .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        .font-ibm-plex-sans { font-family: 'IBM Plex Sans', sans-serif; }
+        .font-ibm-plex-mono { font-family: 'IBM Plex Mono', monospace; }
+
+        /* COLOR STYLES */
+        .solar-flare-text { color: #FF7A00; } /* Ignition Orange */
+        .solar-yellow-text { color: #FFC700; } /* Solar Yellow */
+        .bg-void-black { background-color: #111111; }
+        .border-charred-steel { border-color: #3D2D1D; }
+
+        /* GLASS PANEL COMPONENT */
+        .glass-panel {
+            background: rgba(61, 45, 29, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #3D2D1D;
+        }
+
+        /* SECTION STYLING */
+        .section-container {
+            padding: 5rem 2rem;
+            /* border-bottom: 1px solid #3D2D1D; */ /* Removed as sections now fill viewport */
+        }
+        .section-container:last-child {
+            border-bottom: none;
+        }
+        @media (min-width: 768px) {
+            .section-container {
+                padding: 6rem 4rem;
+            }
+        }
+        .content-wrapper {
+            max-width: 80rem;
+            margin: auto;
+            width: 100%; /* Ensure it takes full width on smaller screens */
+            box-sizing: border-box; /* Include padding in width calculation */
+            overflow-y: auto; /* Allow content to scroll within the wrapper if it overflows */
+            max-height: 100vh; /* Limit height to viewport height */
+        }
+
+        /* CTA BUTTON */
+        .cta-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 122, 0, 0.3);
+            background: linear-gradient(90deg, #FF7A00, #FFC700);
+            color: #111111;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 122, 0, 0.6);
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.98); }
+        }
+        .animate-pulse-slow {
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes orbit-1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes orbit-2 { from { transform: rotate(90deg); } to { transform: rotate(450deg); } }
+
+        .orbit-1 { animation: orbit-1 15s linear infinite; transform-origin: center; }
+        .orbit-2 { animation: orbit-2 25s linear infinite; transform-origin: center; }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 767px) {
+            .section-container {
+                padding: 3rem 1rem; /* Smaller padding for mobile */
+            }
+
+            h1.text-6xl { /* Target h1 with text-6xl */
+                font-size: 3.5rem; /* Smaller font size for h1 on mobile */
+            }
+
+            h2.text-4xl { /* Target h2 with text-4xl */
+                font-size: 2.5rem; /* Smaller font size for h2 on mobile */
+            }
+
+            h3.text-2xl { /* Target h3 with text-2xl */
+                font-size: 1.5rem; /* Smaller font size for h3 on mobile */
+            }
+
+            p.text-xl { /* Target p with text-xl */
+                font-size: 1.125rem; /* Smaller font size for p on mobile */
+            }
+
+            p.text-lg { /* Target p with text-lg */
+                font-size: 1rem; /* Smaller font size for p on mobile */
+            }
+
+            .cta-button.text-lg { /* Target cta-button with text-lg */
+                font-size: 1rem; /* Smaller font size for cta button on mobile */
+                padding: 0.75rem 1.5rem; /* Adjust padding */
+            }
+
+            .glass-panel {
+                padding: 1rem; /* Smaller padding for glass panels */
+            }
+
+            .glass-panel .text-2xl { /* Adjust font size inside glass panels for specific elements */
+                font-size: 1.25rem;
+            }
+
+            .glass-panel .text-6xl { /* Adjust font size inside glass panels for specific elements */
+                font-size: 3rem;
+            }
+
+            .glass-panel .text-xl { /* Adjust font size inside glass panels for specific elements */
+                font-size: 1.125rem;
+            }
+
+            .glass-panel .text-lg { /* Adjust font size inside glass panels for specific elements */
+                font-size: 1rem;
+            }
+
+            .glass-panel .text-sm { /* Adjust font size inside glass panels for specific elements */
+                font-size: 0.875rem;
+            }
+
+            /* Adjust grid gaps for smaller screens */
+            .grid.gap-8 {
+                gap: 1rem;
+            }
+
+            .grid.gap-12 {
+                gap: 1.5rem;
+            }
+
+            /* Adjust specific elements that might overflow */
+            .content-wrapper .h-32 {
+                height: 8rem; /* Smaller height for the SVG container */
+            }
+            .content-wrapper .mb-10 {
+                margin-bottom: 1.5rem; /* Smaller margin */
+            }
+            .content-wrapper .mt-12 {
+                margin-top: 2rem; /* Smaller margin */
+            }
+            .content-wrapper .mt-16 {
+                margin-top: 2.5rem; /* Smaller margin */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+
+        <!-- Section 1: Title -->
+        <section id="title" class="section-container text-center">
+            <div class="fade-in-section content-wrapper">
+                <div class="flex justify-center items-center relative h-32 md:h-48 mb-10 lg:h-[12rem] md:order-last">
+                  <svg
+                    class="absolute w-full h-full"
+                    viewBox="0 0 400 400"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="200" cy="200" r="190" stroke="#3D2D1D" strokeWidth="1" />
+                    <circle cx="200" cy="200" r="140" stroke="#3D2D1D" strokeWidth="1" />
+                    <circle cx="200" cy="200" r="90" stroke="#3D2D1D" strokeWidth="1" />
+
+                    <circle
+                      cx="200"
+                      cy="200"
+                      r="20"
+                      fill="#FF7A00"
+                      style="animation: pulse 4s ease-in-out infinite;"
+                    />
+                    <circle
+                      cx="200"
+                      cy="200"
+                      r="25"
+                      stroke="#FF7A00"
+                      strokeWidth="1"
+                      strokeOpacity="0.5"
+                    />
+
+                    <g
+                      style="animation: orbit-1 10s linear infinite; transform-origin: 200px 200px;"
+                    >
+                      <circle cx="200" cy="10" r="5" fill="#FFC700" />
+                    </g>
+                    <g
+                      style="animation: orbit-2 15s linear infinite; transform-origin: 200px 200px;"
+                    >
+                      <rect x="60" y="198" width="8" height="4" fill="#E8E8E8" />
+                    </g>
+                  </svg>
+                </div>
+                <h1 class="font-space-grotesk text-6xl md:text-8xl font-bold tracking-tighter">O.R.B.I.T.E.R.</h1>
+                <p class="font-ibm-plex-sans text-xl md:text-2xl mt-4 text-gray-300 max-w-4xl mx-auto">On-chain Registry & Brokerage Infrastructure for Tokenized External Resources</p>
+                <p class="mt-8 font-ibm-plex-mono text-solar-yellow-text">[ STATUS: ONLINE ]</p>
+            </div>
+        </section>
+
+        <!-- Section 2: The Problem -->
+        <section id="problem" class="section-container">
+            <div class="fade-in-section content-wrapper grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ THE PROBLEM ]</p>
+                    <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold leading-tight">Billions in Value, Trapped in Web2 Silos.</h2>
+                    <p class="font-ibm-plex-sans text-lg mt-6 text-gray-300 leading-relaxed">The digital economy operates across two parallel universes. The established, high-value landscape of Web2 assets—domains, social handles, digital real estate—remains illiquid and disconnected from the dynamic, permissionless ecosystem of Web3.</p>
+                    <div class="mt-8 space-y-4">
+                        <div class="glass-panel p-4 rounded-lg flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-solar-flare-text flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <p class="font-ibm-plex-mono"><strong>Illiquid Markets:</strong> Slow, high-friction, and centralized OTC trades.</p>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-solar-flare-text flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            <p class="font-ibm-plex-mono"><strong>Lack of Composability:</strong> Inability to use assets in DeFi protocols.</p>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg flex items-center gap-4">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-solar-flare-text flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <p class="font-ibm-plex-mono"><strong>Fragmented Ownership:</strong> No mechanism for fractionalization or collective ownership.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="hidden md:flex justify-center items-center">
+                    <svg width="500" height="500" viewBox="0 0 500 500" class="rounded-lg border-2 border-charred-steel" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#3D2D1D" stroke-width="1"/>
+                            </pattern>
+                        </defs>
+                        <rect width="500" height="500" fill="#111111"/>
+                        <rect width="500" height="500" fill="url(#grid)"/>
+                        <path d="M220 200 a30 30 0 0 1 60 0 v30 h-60 z" stroke="#FF7A00" stroke-width="8" fill="none"/>
+                        <rect x="200" y="230" width="100" height="80" rx="10" stroke="#FF7A00" stroke-width="8" fill="#111111"/>
+                        <circle cx="250" cy="270" r="8" fill="#FFC700"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Market Size -->
+        <section id="market-size" class="section-container">
+            <div class="fade-in-section content-wrapper text-center">
+                <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ MARKET OPPORTUNITY ]</p>
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold">A Multi-Billion Dollar Universe Awaits</h2>
+                <p class="font-ibm-plex-sans text-lg mt-4 text-gray-300 max-w-3xl mx-auto">
+                    The value of unique, identifiable digital assets is immense and largely untapped by the Web3 economy.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                    <div class="glass-panel p-8 rounded-lg text-center border-t-4 border-solar-yellow-text">
+                        <h3 class="font-space-grotesk text-2xl font-bold">Total Addressable Market</h3>
+                        <p class="font-space-grotesk text-6xl font-bold my-4 solar-flare-text">$500B+</p>
+                        <p class="text-gray-400">Value of all unique digital assets including domains, social handles, and in-game items.</p>
+                    </div>
+                     <div class="glass-panel p-8 rounded-lg text-center border-t-4 border-solar-flare-text">
+                        <h3 class="font-space-grotesk text-2xl font-bold">Serviceable Addressable Market</h3>
+                        <p class="font-space-grotesk text-6xl font-bold my-4 solar-flare-text">$50B</p>
+                        <p class="text-gray-400">Market for premium Web2 domains and high-value social media handles, our initial focus.</p>
+                    </div>
+                     <div class="glass-panel p-8 rounded-lg text-center border-t-4 border-solar-yellow-text">
+                        <h3 class="font-space-grotesk text-2xl font-bold">Serviceable Obtainable Market</h3>
+                        <p class="font-space-grotesk text-6xl font-bold my-4 solar-flare-text">$1B+</p>
+                        <p class="text-gray-400">Our 3-year target for Assets Under Orbit, capturing a fraction of the liquid market.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: The Solution -->
+        <section id="solution" class="section-container">
+             <div class="fade-in-section content-wrapper grid md:grid-cols-2 gap-12 items-center">
+                 <div class="hidden md:flex justify-center items-center">
+                    <svg width="500" height="500" viewBox="0 0 500 500" class="rounded-lg border-2 border-solar-flare-text" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="500" height="500" fill="#111111"/>
+                        <circle cx="100" cy="250" r="80" stroke="#3D2D1D" stroke-width="4" fill="rgba(255, 199, 0, 0.1)"/>
+                        <text x="100" y="250" font-family="IBM Plex Mono" font-size="24" fill="#E8E8E8" text-anchor="middle" dy=".3em">Web2</text>
+                        <circle cx="400" cy="250" r="80" stroke="#FF7A00" stroke-width="4" fill="rgba(255, 122, 0, 0.1)"/>
+                        <text x="400" y="250" font-family="IBM Plex Mono" font-size="24" fill="#E8E8E8" text-anchor="middle" dy=".3em">Web3</text>
+                        <path d="M180 230 L 320 230" stroke="#FFC700" stroke-width="3" stroke-dasharray="10 5">
+                            <animate attributeName="stroke-dashoffset" from="15" to="0" dur="1s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M180 250 L 320 250" stroke="#FFC700" stroke-width="3" />
+                        <path d="M180 270 L 320 270" stroke="#FFC700" stroke-width="3" stroke-dasharray="10 5">
+                            <animate attributeName="stroke-dashoffset" from="0" to="15" dur="1s" repeatCount="indefinite"/>
+                        </path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ OUR SOLUTION ]</p>
+                    <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold leading-tight">O.R.B.I.T.E.R. Bridges These Universes.</h2>
+                    <p class="font-ibm-plex-sans text-lg mt-6 text-gray-300 leading-relaxed">We provide enterprise-grade infrastructure to verifiably bring external Web2 assets on-chain as liquid, tradable, and composable Aptos Objects.</p>
+                    <p class="font-ibm-plex-sans text-lg mt-4 text-gray-300 leading-relaxed">Our mission is to unlock this dormant value and create a professional trading environment for the next generation of digital assets.</p>
+                    <div class="mt-8">
+                         <a href="#launch-sequence" class="cta-button inline-block font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg">
+                            [ VIEW THE LAUNCH SEQUENCE ]
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Vision -->
+        <section id="vision" class="section-container">
+            <div class="fade-in-section content-wrapper grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ OUR VISION ]</p>
+                    <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold leading-tight">The Financial Layer for All Digital Value.</h2>
+                    <p class="font-ibm-plex-sans text-lg mt-6 text-gray-300 leading-relaxed">Our long-term vision is to become the universal, chain-agnostic registry and liquidity layer for all verifiable digital assets. We are building the foundational infrastructure to tokenize and trade any unique external resource, from social handles and gaming assets to software licenses and beyond.</p>
+                    <p class="mt-4 font-ibm-plex-sans text-lg text-gray-300 leading-relaxed">
+                        O.R.B.I.T.E.R. will be the nexus where Web2 value meets Web3 velocity.
+                    </p>
+                </div>
+                 <div class="hidden md:flex justify-center items-center">
+                    <svg width="500" height="500" viewBox="0 0 500 500" class="rounded-lg border-2 border-charred-steel" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="500" height="500" fill="#111111"/>
+                        <circle cx="250" cy="250" r="60" stroke="#FF7A00" stroke-width="2" fill="none"/>
+                        <circle cx="250" cy="250" r="62" stroke="#FF7A00" stroke-width="1" stroke-opacity="0.5"/>
+                        <path d="M190 250 H 310 M 250 190 V 310" stroke="#3D2D1D" stroke-width="1"/>
+                        <g class="orbit-1" style="transform-origin: 250px 250px; animation-duration: 20s;">
+                            <circle cx="250" cy="100" r="10" fill="#FFC700"/>
+                            <line x1="250" y1="190" x2="250" y2="110" stroke="#3D2D1D" stroke-width="1"/>
+                        </g>
+                        <g class="orbit-1" style="transform-origin: 250px 250px; animation-duration: 20s; animation-delay: -5s;">
+                            <circle cx="400" cy="250" r="10" fill="#E8E8E8"/>
+                             <line x1="310" y1="250" x2="390" y2="250" stroke="#3D2D1D" stroke-width="1"/>
+                        </g>
+                         <g class="orbit-1" style="transform-origin: 250px 250px; animation-duration: 20s; animation-delay: -10s;">
+                            <circle cx="250" cy="400" r="10" fill="#FFC700"/>
+                             <line x1="250" y1="310" x2="250" y2="390" stroke="#3D2D1D" stroke-width="1"/>
+                        </g>
+                        <g class="orbit-1" style="transform-origin: 250px 250px; animation-duration: 20s; animation-delay: -15s;">
+                            <circle cx="100" cy="250" r="10" fill="#E8E8E8"/>
+                             <line x1="190" y1="250" x2="110" y2="250" stroke="#3D2D1D" stroke-width="1"/>
+                        </g>
+                        <ellipse cx="250" cy="250" rx="200" ry="80" stroke="#3D2D1D" stroke-width="1" fill="none" transform="rotate(45 250 250)"/>
+                        <g class="orbit-2" style="transform-origin: 250px 250px; animation-duration: 30s; transform: rotate(45deg);">
+                            <circle cx="450" cy="250" r="8" fill="#E8E8E8" transform="rotate(-45 450 250)"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Why Aptos? -->
+        <section id="why-aptos" class="section-container">
+            <div class="fade-in-section content-wrapper text-center">
+                <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ PLATFORM CHOICE ]</p>
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold">Why Aptos?</h2>
+                <p class="font-ibm-plex-sans text-lg mt-4 text-gray-300 max-w-3xl mx-auto">
+                    We chose Aptos for its unparalleled performance, security, and scalability characteristics, essential for building a high-throughput financial marketplace.
+                </p>
+                <div class="mt-12 grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto text-left">
+                  <div class="flex items-start space-x-4">
+                    <div class="pt-1 text-solar-flare-text text-2xl">&#10142;</div>
+                    <div>
+                      <h3 class="font-space-grotesk text-xl font-bold solar-yellow-text">Sub-second Finality</h3>
+                      <p class="text-gray-300 mt-1">Enables a zero-latency trading experience, crucial for professional market participants.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-4">
+                    <div class="pt-1 text-solar-flare-text text-2xl">&#10142;</div>
+                    <div>
+                      <h3 class="font-space-grotesk text-xl font-bold solar-yellow-text">Minimal Gas Fees</h3>
+                      <p class="text-gray-300 mt-1">Supports microtransactions and complex operations without prohibitive costs.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-4">
+                    <div class="pt-1 text-solar-flare-text text-2xl">&#10142;</div>
+                    <div>
+                      <h3 class="font-space-grotesk text-xl font-bold solar-yellow-text">Move Language</h3>
+                      <p class="text-gray-300 mt-1">Provides superior security with formal verification capabilities, protecting user assets.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-4">
+                    <div class="pt-1 text-solar-flare-text text-2xl">&#10142;</div>
+                    <div>
+                      <h3 class="font-space-grotesk text-xl font-bold solar-yellow-text">Parallel Execution</h3>
+                      <p class="text-gray-300 mt-1">The Block-STM engine supports high-throughput operations needed for a liquid exchange.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: How It Works -->
+        <section id="launch-sequence" class="section-container">
+            <div class="fade-in-section content-wrapper text-center">
+                 <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ HOW IT WORKS ]</p>
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold">The Launch Sequence</h2>
+                <p class="font-ibm-plex-sans text-lg mt-4 text-gray-300 max-w-3xl mx-auto">A five-stage protocol to achieve a stable, verifiable orbit for your digital assets.</p>
+                <div class="relative mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+                    <div class="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <h3 class="font-space-grotesk text-xl font-bold">1. Pre-Flight</h3>
+                        </div>
+                        <p class="text-gray-300 flex-grow">Connect wallet and provide the domain. Our system performs initial compatibility checks.</p>
+                    </div>
+                    <div class="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                            </div>
+                            <h3 class="font-space-grotesk text-xl font-bold">2. Authorization</h3>
+                        </div>
+                        <p class="text-gray-300 flex-grow">Prove ownership by adding a unique TXT record to your domain's DNS settings.</p>
+                    </div>
+                    <div class="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20V10M18 20V4M6 20V16" /></svg>
+                            </div>
+                            <h3 class="font-space-grotesk text-xl font-bold">3. Valuation</h3>
+                        </div>
+                        <p class="text-gray-300 flex-grow">Our protocol calculates the asset's objective market value based on key metrics.</p>
+                    </div>
+                    <div class="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M4 17v4M2 19h4M17 3v4M16 5h4M19 17v4M18 19h4M12 9v6M9 12h6" /></svg>
+                            </div>
+                            <h3 class="font-space-grotesk text-xl font-bold">4. Tokenization</h3>
+                        </div>
+                        <p class="text-gray-300 flex-grow">Customize on-chain parameters like share symbol and total supply.</p>
+                    </div>
+                    <div class="relative glass-panel p-6 rounded-lg text-left z-10 flex flex-col">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-[#FF7A00]/20 rounded-lg flex items-center justify-center border border-[#FF7A00]/50 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 solar-flare-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.3.04-3.1-.66-.8-2.16-.84-3.04-.04-1.26 1.5-2.04 2-2.04 2z"/><path d="m10.02 14.02 2.12-2.12c.2-.2.38-.42.5-.66l.38-1.12.38-1.14c.1-.3.18-.6.22-.9.04-.3.04-.62.02-.94l-.04-1.1c-.02-.32-.06-.6-.12-.88l-.2-1.14-.2-1.12a2.5 2.5 0 0 0-4.18-2.18l-1.12.2-1.14.2c-.28.06-.56.12-.88.2l-1.1.04c-.32.02-.64.02-.94-.02l-1.14-.38-1.12-.38c-.24-.08-.46-.2-.66-.4l-2.12-2.12"/></svg>
+                            </div>
+                            <h3 class="font-space-grotesk text-xl font-bold">5. Mission Complete</h3>
+                        </div>
+                        <p class="text-gray-300 flex-grow">Your asset achieves stable orbit as a tradable Aptos Object.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Product -->
+        <section id="product" class="section-container">
+             <div class="fade-in-section content-wrapper text-center">
+                 <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ THE PRODUCT ]</p>
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold">Mission Control & The Exosphere</h2>
+                <p class="font-ibm-plex-sans text-lg mt-4 text-gray-300 max-w-3xl mx-auto">Two core interfaces providing a complete ecosystem for tokenization and trading.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+                    <div class="glass-panel p-6 rounded-lg text-left">
+                        <h3 class="font-space-grotesk text-2xl font-bold mb-2">Satellite Constellation</h3>
+                        <p class="text-gray-400 mb-4">Your personal command center. Monitor, manage, and analyze your entire portfolio of orbital assets.</p>
+                        <div class="glass-panel p-4 rounded-md border border-charred-steel">
+                            <p class="font-ibm-plex-mono text-xs text-gray-400 uppercase">Total Assets</p>
+                            <p class="font-ibm-plex-mono text-2xl font-bold">3</p>
+                            <div class="w-full bg-black/20 rounded-full h-4 flex overflow-hidden border border-white/10 mt-2">
+                                <div class="bg-[#FFC700] h-full" style="width: 66.6%"></div>
+                                <div class="bg-[#FF7A00] h-full" style="width: 33.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-lg text-left">
+                        <h3 class="font-space-grotesk text-2xl font-bold mb-2">The Exosphere Exchange</h3>
+                        <p class="text-gray-400 mb-4">A professional trading terminal to monitor trajectories, analyze telemetry data, and trade with confidence.</p>
+                        <div class="glass-panel p-4 rounded-md border border-charred-steel font-ibm-plex-mono text-sm space-y-2">
+                            <div class="grid grid-cols-3 gap-4 text-gray-400"><span>ASSET_ID</span><span class="text-right">SCORE</span><span class="text-right">ORBIT_EPOCH</span></div>
+                            <div class="grid grid-cols-3 gap-4 items-center bg-white/5 p-2 rounded"><span>protocol.apt</span><span class="text-right text-[#FFC700]">92.4</span><span class="text-right">1727421600</span></div>
+                             <div class="grid grid-cols-3 gap-4 items-center"><span>web3domains.io</span><span class="text-right text-[#FF7A00]">78.1</span><span class="text-right">1727421545</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Roadmap -->
+        <section id="roadmap" class="section-container">
+             <div class="fade-in-section content-wrapper text-center">
+                 <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ DEVELOPMENT ROADMAP ]</p>
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold">Future Trajectories</h2>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-panel p-6 rounded-lg text-left">
+                        <p class="font-ibm-plex-mono text-sm solar-flare-text">Q4 2025</p>
+                        <h3 class="font-space-grotesk text-xl font-bold mt-2">Exosphere Expansion</h3>
+                        <ul class="list-disc list-inside text-gray-400 mt-3 space-y-1 text-sm">
+                            <li>Advanced trading protocols</li>
+                            <li>Real-time telemetry data feeds</li>
+                            <li>Liquidity mining programs</li>
+                        </ul>
+                    </div>
+                     <div class="glass-panel p-6 rounded-lg text-left">
+                        <p class="font-ibm-plex-mono text-sm solar-flare-text">Q1 2026</p>
+                        <h3 class="font-space-grotesk text-xl font-bold mt-2">Fleet Expansion</h3>
+                        <ul class="list-disc list-inside text-gray-400 mt-3 space-y-1 text-sm">
+                            <li>Social media handle tokenization</li>
+                            <li>Advanced ownership models</li>
+                            <li>Cross-chain trajectory plotting</li>
+                        </ul>
+                    </div>
+                     <div class="glass-panel p-6 rounded-lg text-left">
+                        <p class="font-ibm-plex-mono text-sm solar-flare-text">Q2 2026</p>
+                        <h3 class="font-space-grotesk text-xl font-bold mt-2">Autonomous Operations</h3>
+                        <ul class="list-disc list-inside text-gray-400 mt-3 space-y-1 text-sm">
+                            <li>Decentralized verification network</li>
+                            <li>$ORBIT governance token launch</li>
+                            <li>DAO-controlled Mission Control</li>
+                        </ul>
+                    </div>
+                     <div class="glass-panel p-6 rounded-lg text-left">
+                        <p class="font-ibm-plex-mono text-sm solar-flare-text">Q3 2026</p>
+                        <h3 class="font-space-grotesk text-xl font-bold mt-2">Deep Space Operations</h3>
+                        <ul class="list-disc list-inside text-gray-400 mt-3 space-y-1 text-sm">
+                            <li>White-label systems for enterprises</li>
+                            <li>Third-party API gateway</li>
+                            <li>Advanced analytics & reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Future Scope -->
+        <section id="future-scope" class="section-container">
+            <div class="fade-in-section content-wrapper grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ FUTURE SCOPE ]</p>
+                    <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold leading-tight">Empowering Hyperlocal Economies</h2>
+                    <p class="font-ibm-plex-sans text-lg mt-6 text-gray-300 leading-relaxed">Beyond the digital realm, O.R.B.I.T.E.R.'s infrastructure can revolutionize community investment. We envision a future where local businesses can tokenize their value, allowing communities to invest directly in their own economic prosperity.</p>
+                    <div class="mt-8 space-y-4">
+                        <div class="glass-panel p-4 rounded-lg">
+                            <h3 class="font-space-grotesk font-bold text-solar-yellow-text">Tokenize Local Businesses</h3>
+                            <p class="font-ibm-plex-sans text-sm mt-1 text-gray-400">Small businesses can offer fractional equity or revenue-sharing tokens, unlocking new capital outside traditional finance.</p>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg">
+                            <h3 class="font-space-grotesk font-bold text-solar-yellow-text">Invest in Your Community</h3>
+                            <p class="font-ibm-plex-sans text-sm mt-1 text-gray-400">Residents become stakeholders, investing in shops, cafes, and services they use daily, fostering a true sense of local ownership and shared growth.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="hidden md:flex justify-center items-center">
+                    <svg width="500" height="500" viewBox="0 0 500 500" class="rounded-lg border-2 border-charred-steel" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="500" height="500" fill="#111111"/>
+                        <!-- Road -->
+                        <path d="M0 400 L 500 400" stroke="#3D2D1D" stroke-width="20"/>
+
+                        <!-- Buildings -->
+                        <rect x="50" y="250" width="80" height="150" fill="rgba(61, 45, 29, 0.3)" stroke="#3D2D1D" stroke-width="2"/>
+                        <rect x="150" y="200" width="100" height="200" fill="rgba(61, 45, 29, 0.3)" stroke="#3D2D1D" stroke-width="2"/>
+                        <rect x="270" y="280" width="70" height="120" fill="rgba(61, 45, 29, 0.3)" stroke="#3D2D1D" stroke-width="2"/>
+                        <rect x="360" y="220" width="90" height="180" fill="rgba(61, 45, 29, 0.3)" stroke="#3D2D1D" stroke-width="2"/>
+
+                        <!-- Glowing nodes for businesses -->
+                        <circle cx="90" cy="350" r="10" fill="#FFC700">
+                            <animate attributeName="r" values="10;12;10" dur="2s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="200" cy="320" r="15" fill="#FF7A00">
+                             <animate attributeName="r" values="15;18;15" dur="2.5s" repeatCount="indefinite" />
+                             <animate attributeName="opacity" values="1;0.7;1" dur="2.5s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="305" cy="360" r="8" fill="#FFC700">
+                            <animate attributeName="r" values="8;10;8" dur="1.8s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="1;0.7;1" dur="1.8s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="405" cy="300" r="12" fill="#FF7A00">
+                            <animate attributeName="r" values="12;15;12" dur="2.2s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="1;0.7;1" dur="2.2s" repeatCount="indefinite" />
+                        </circle>
+
+                        <!-- Connecting lines -->
+                        <path d="M90 350 C 145 335, 155 305, 200 320" stroke="#3D2D1D" stroke-width="1.5" fill="none" stroke-dasharray="4"/>
+                        <path d="M200 320 C 252 340, 255 380, 305 360" stroke="#3D2D1D" stroke-width="1.5" fill="none" stroke-dasharray="4"/>
+                         <path d="M305 360 C 355 330, 355 280, 405 300" stroke="#3D2D1D" stroke-width="1.5" fill="none" stroke-dasharray="4"/>
+
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 11: The Ask & Contact -->
+        <section id="contact" class="section-container">
+            <div class="fade-in-section content-wrapper text-center max-w-4xl">
+                 <p class="font-ibm-plex-mono text-solar-yellow-text mb-2">[ THE ASK ]</p>
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold">Join Our Mission</h2>
+                <p class="font-ibm-plex-sans text-lg mt-4 text-gray-300">We are seeking <strong class="text-solar-yellow-text">$1.5M</strong> in seed funding to expand our engineering team, accelerate product development, and secure strategic partnerships.</p>
+                <div class="mt-12 glass-panel p-8 rounded-lg">
+                     <h3 class="font-space-grotesk text-3xl font-bold">Contact Mission Control</h3>
+                     <p class="font-ibm-plex-mono text-lg mt-4">investors@orbiter.space</p>
+                     <p class="font-ibm-plex-mono mt-2">www.orbiter.space</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: unobserve after animation to save resources
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

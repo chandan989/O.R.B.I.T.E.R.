@@ -67,7 +67,7 @@ export const Portfolio = () => {
 
   const handleQuickList = (holding: PortfolioHolding) => {
     const message = `Quick list ${holding.sharesOwned} shares of ${holding.domain} for ${holding.currentPrice.toFixed(2)} USDCx each?\n\nThis would create a listing on the Exosphere Exchange.`;
-    
+
     if (confirm(message)) {
       // Store listing data for Exosphere Exchange
       localStorage.setItem('quickListing', JSON.stringify({
@@ -75,18 +75,18 @@ export const Portfolio = () => {
         shares: holding.sharesOwned,
         price: holding.currentPrice
       }));
-      
+
       window.location.href = '/exchange';
     }
   };
 
   const exportPortfolioReport = () => {
     if (!portfolio || !metrics) return;
-    
+
     const totalValue = portfolioService.formatCurrency(portfolio.totalValue);
     const changePercent = portfolio.totalChangePercent24h.toFixed(2);
     const trend = portfolio.totalChangePercent24h >= 0 ? '📈 UP' : '📉 DOWN';
-    
+
     const report = `🚀 O.R.B.I.T.E.R. Portfolio Report
     
 💰 Total Value: ${totalValue}
@@ -124,22 +124,22 @@ Generated on ${new Date().toLocaleString()}`;
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-panel p-4 rounded-lg border border-white/10 hover:border-white/20 transition-all"
+      className="glass-panel p-4 rounded-lg border border-border hover:border-border transition-all"
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#FF7A00] to-[#FFC700] rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#FE6440] to-[#FFC700] rounded-lg flex items-center justify-center">
             <span className="font-space-grotesk font-bold text-black text-sm">
               {holding.tokenTicker.slice(0, 2)}
             </span>
           </div>
           <div>
-            <h3 className="font-space-grotesk font-bold text-white">{holding.domain}</h3>
-            <p className="font-ibm-plex-mono text-xs text-gray-400">{holding.tokenTicker}</p>
+            <h3 className="font-space-grotesk font-bold text-foreground">{holding.domain}</h3>
+            <p className="font-ibm-plex-mono text-xs text-muted-foreground">{holding.tokenTicker}</p>
           </div>
         </div>
         <div className="text-right">
-          <p className="font-ibm-plex-mono text-lg font-bold text-white">
+          <p className="font-ibm-plex-mono text-lg font-bold text-foreground">
             {portfolioService.formatCurrency(holding.totalValue)}
           </p>
           <div className={`flex items-center gap-1 text-sm ${portfolioService.getPriceChangeColor(holding.priceChangePercent24h)}`}>
@@ -152,30 +152,30 @@ Generated on ${new Date().toLocaleString()}`;
           </div>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-3 gap-4 text-sm mb-4">
         <div>
-          <p className="font-ibm-plex-mono text-xs text-gray-400">Shares Owned</p>
-          <p className="font-ibm-plex-mono font-bold text-white">{holding.sharesOwned.toLocaleString()}</p>
+          <p className="font-ibm-plex-mono text-xs text-muted-foreground">Shares Owned</p>
+          <p className="font-ibm-plex-mono font-bold text-foreground">{holding.sharesOwned.toLocaleString()}</p>
         </div>
         <div>
-          <p className="font-ibm-plex-mono text-xs text-gray-400">Ownership</p>
-          <p className="font-ibm-plex-mono font-bold text-white">{holding.ownershipPercentage.toFixed(2)}%</p>
+          <p className="font-ibm-plex-mono text-xs text-muted-foreground">Ownership</p>
+          <p className="font-ibm-plex-mono font-bold text-foreground">{holding.ownershipPercentage.toFixed(2)}%</p>
         </div>
         <div>
-          <p className="font-ibm-plex-mono text-xs text-gray-400">Price</p>
-          <p className="font-ibm-plex-mono font-bold text-white">{holding.currentPrice.toFixed(2)} USDCx</p>
+          <p className="font-ibm-plex-mono text-xs text-muted-foreground">Price</p>
+          <p className="font-ibm-plex-mono font-bold text-foreground">{holding.currentPrice.toFixed(2)} USDCx</p>
         </div>
       </div>
-      
+
       {/* Progress bar for ownership percentage */}
       <div className="mb-4">
-        <div className="w-full bg-black/20 rounded-full h-1.5">
+        <div className="w-full bg-secondary/20 rounded-full h-1.5">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min(holding.ownershipPercentage, 100)}%` }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="bg-gradient-to-r from-[#FF7A00] to-[#FFC700] h-1.5 rounded-full"
+            className="bg-gradient-to-r from-[#FE6440] to-[#FFC700] h-1.5 rounded-full"
           />
         </div>
       </div>
@@ -216,9 +216,9 @@ Generated on ${new Date().toLocaleString()}`;
             animate={{ opacity: 1, y: 0 }}
             className="glass-panel p-8 rounded-lg"
           >
-            <Wallet className="h-16 w-16 text-[#FF7A00] mx-auto mb-4" />
+            <Wallet className="h-16 w-16 text-[#FE6440] mx-auto mb-4" />
             <h2 className="font-space-grotesk text-2xl font-bold mb-2">Connect Your Wallet</h2>
-            <p className="font-ibm-plex-sans text-gray-400">
+            <p className="font-ibm-plex-sans text-muted-foreground">
               Connect your wallet to view your domain portfolio and trading history.
             </p>
           </motion.div>
@@ -232,10 +232,10 @@ Generated on ${new Date().toLocaleString()}`;
       <div className="antialiased text-gray-200 min-h-screen p-4 sm:p-6 md:p-8 pt-24 md:pt-32">
         <div className="w-full max-w-7xl mx-auto">
           <div className="animate-pulse space-y-6">
-            <div className="h-8 bg-white/10 rounded w-1/4"></div>
+            <div className="h-8 bg-black/10 rounded w-1/4"></div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[1, 2, 3].map(i => (
-                <div key={i} className="h-32 bg-white/10 rounded-lg"></div>
+                <div key={i} className="h-32 bg-black/10 rounded-lg"></div>
               ))}
             </div>
           </div>
@@ -253,56 +253,56 @@ Generated on ${new Date().toLocaleString()}`;
             animate={{ opacity: 1, y: 0 }}
             className="glass-panel p-8 rounded-lg"
           >
-            <PieChart className="h-16 w-16 text-[#FF7A00] mx-auto mb-4" />
+            <PieChart className="h-16 w-16 text-[#FE6440] mx-auto mb-4" />
             <h2 className="font-space-grotesk text-2xl font-bold mb-2">Start Your Domain Portfolio</h2>
-            <p className="font-ibm-plex-sans text-gray-400 mb-6">
+            <p className="font-ibm-plex-sans text-muted-foreground mb-6">
               Transform your Web2 domains into tradeable blockchain assets. Create your first tokenized domain or buy shares of existing ones.
             </p>
-            
+
             {/* Domain Creation Form */}
             <div className="max-w-md mx-auto mb-6">
               <div className="flex gap-2">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Enter domain (e.g., example.com)"
-                  className="flex-1 bg-black/30 border border-white/10 rounded-lg px-4 py-3 font-ibm-plex-mono focus:ring-1 focus:ring-[#FF7A00] outline-none"
+                  className="flex-1 bg-secondary/30 border border-border rounded-lg px-4 py-3 font-ibm-plex-mono focus:ring-1 focus:ring-[#FE6440] outline-none"
                 />
                 <button
                   onClick={() => window.location.href = '/launch'}
-                  className="bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-space-grotesk font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+                  className="bg-gradient-to-r from-[#FE6440] to-[#FFC700] text-black font-space-grotesk font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
                 >
                   Tokenize
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-2 text-center">
+              <p className="text-xs text-muted-foreground mt-2 text-center">
                 Create an Stacks Object from your domain
               </p>
             </div>
-            
+
             {/* Action Buttons */}
             <div className="flex gap-4 justify-center flex-wrap">
               <motion.button
                 onClick={() => window.location.href = '/launch'}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-space-grotesk font-bold px-6 py-3 rounded-lg"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FE6440] to-[#FFC700] text-black font-space-grotesk font-bold px-6 py-3 rounded-lg"
               >
                 <Plus className="h-4 w-4" />
                 Create First Domain
               </motion.button>
-              
+
               <motion.button
                 onClick={() => window.location.href = '/exchange'}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-space-grotesk font-bold px-6 py-3 rounded-lg border border-white/20"
+                className="inline-flex items-center gap-2 bg-black/10 hover:bg-black/20 text-white font-space-grotesk font-bold px-6 py-3 rounded-lg border border-border"
               >
                 <ExternalLink className="h-4 w-4" />
                 Browse Marketplace
               </motion.button>
             </div>
-            
-            <div className="mt-6 text-sm text-gray-500">
+
+            <div className="mt-6 text-sm text-muted-foreground">
               <p>💡 <strong>Quick Start:</strong> Own a domain? Tokenize it in seconds. Don't own one? Buy fractional shares on the exchange.</p>
             </div>
           </motion.div>
@@ -318,29 +318,29 @@ Generated on ${new Date().toLocaleString()}`;
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold tracking-tighter flex items-center gap-3">
-              <Wallet className="h-9 w-9 text-[#FF7A00]" />
+              <Wallet className="h-9 w-9 text-primary" />
               Portfolio
             </h1>
-            <p className="font-ibm-plex-sans text-lg text-gray-400 mt-2">
+            <p className="font-ibm-plex-sans text-lg text-muted-foreground mt-2">
               Your tokenized domain holdings, performance metrics, and domain creation tools
             </p>
           </div>
-          
+
           <div className="flex gap-2">
             {/* Quick Actions */}
             <button
               onClick={refreshPortfolio}
               disabled={refreshing}
-              className="bg-white/10 hover:bg-white/20 text-gray-300 font-space-grotesk font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50"
+              className="bg-black/10 hover:bg-black/20 text-gray-300 font-space-grotesk font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50"
             >
               {refreshing ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-border border-t-white rounded-full animate-spin"></div>
               ) : (
                 <RefreshCw className="h-4 w-4" />
               )}
               Refresh
             </button>
-            
+
             <button
               onClick={() => window.location.href = '/exchange'}
               className="bg-blue-600/90 hover:bg-blue-600 text-white font-space-grotesk font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
@@ -348,7 +348,7 @@ Generated on ${new Date().toLocaleString()}`;
               <ArrowRight className="h-4 w-4" />
               Trade Now
             </button>
-            
+
             <button
               onClick={() => window.location.href = '/launch'}
               className="bg-gradient-to-r from-[#FF7A00] to-[#FFC700] text-black font-space-grotesk font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
@@ -356,26 +356,24 @@ Generated on ${new Date().toLocaleString()}`;
               <Plus className="h-4 w-4" />
               Add Domain
             </button>
-            
+
             {/* View Mode Toggle */}
-            <div className="flex gap-1 bg-white/10 rounded-lg p-1">
+            <div className="flex gap-1 bg-black/10 rounded-lg p-1">
               <button
                 onClick={() => setViewMode('holdings')}
-                className={`px-3 py-1 rounded-md font-space-grotesk font-bold text-sm transition-all ${
-                  viewMode === 'holdings'
+                className={`px-3 py-1 rounded-md font-space-grotesk font-bold text-sm transition-all ${viewMode === 'holdings'
                     ? 'bg-[#FF7A00] text-black'
-                    : 'text-gray-300 hover:bg-white/10'
-                }`}
+                    : 'text-gray-300 hover:bg-black/10'
+                  }`}
               >
                 Holdings
               </button>
               <button
                 onClick={() => setViewMode('performance')}
-                className={`px-3 py-1 rounded-md font-space-grotesk font-bold text-sm transition-all ${
-                  viewMode === 'performance'
+                className={`px-3 py-1 rounded-md font-space-grotesk font-bold text-sm transition-all ${viewMode === 'performance'
                     ? 'bg-[#FF7A00] text-black'
-                    : 'text-gray-300 hover:bg-white/10'
-                }`}
+                    : 'text-gray-300 hover:bg-black/10'
+                  }`}
               >
                 Performance
               </button>
@@ -388,13 +386,13 @@ Generated on ${new Date().toLocaleString()}`;
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-panel p-6 rounded-lg border border-white/10"
+            className="glass-panel p-6 rounded-lg border border-border"
           >
             <div className="flex items-center gap-3 mb-4">
               <DollarSign className="h-8 w-8 text-[#FFC700]" />
               <h3 className="font-space-grotesk text-lg font-bold">Total Value</h3>
             </div>
-            <p className="font-ibm-plex-mono text-3xl font-bold text-white mb-2">
+            <p className="font-ibm-plex-mono text-3xl font-bold text-foreground mb-2">
               {portfolioService.formatCurrency(portfolio.totalValue)}
             </p>
             <div className={`flex items-center gap-2 ${portfolioService.getPriceChangeColor(portfolio.totalChangePercent24h)}`}>
@@ -413,16 +411,16 @@ Generated on ${new Date().toLocaleString()}`;
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="glass-panel p-6 rounded-lg border border-white/10"
+            className="glass-panel p-6 rounded-lg border border-border"
           >
             <div className="flex items-center gap-3 mb-4">
               <BarChart3 className="h-8 w-8 text-[#FFC700]" />
               <h3 className="font-space-grotesk text-lg font-bold">Holdings</h3>
             </div>
-            <p className="font-ibm-plex-mono text-3xl font-bold text-white mb-2">
+            <p className="font-ibm-plex-mono text-3xl font-bold text-foreground mb-2">
               {metrics?.totalHoldings || 0}
             </p>
-            <p className="font-ibm-plex-mono text-sm text-gray-400">
+            <p className="font-ibm-plex-mono text-sm text-muted-foreground">
               {metrics?.profitableHoldings || 0} profitable ({metrics?.profitablePercentage.toFixed(1)}%)
             </p>
           </motion.div>
@@ -431,16 +429,16 @@ Generated on ${new Date().toLocaleString()}`;
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="glass-panel p-6 rounded-lg border border-white/10"
+            className="glass-panel p-6 rounded-lg border border-border"
           >
             <div className="flex items-center gap-3 mb-4">
               <Shield className="h-8 w-8 text-[#FFC700]" />
               <h3 className="font-space-grotesk text-lg font-bold">Risk Level</h3>
             </div>
-            <p className="font-ibm-plex-mono text-3xl font-bold text-white mb-2">
+            <p className="font-ibm-plex-mono text-3xl font-bold text-foreground mb-2">
               {metrics?.riskLevel || 'N/A'}
             </p>
-            <p className="font-ibm-plex-mono text-sm text-gray-400">
+            <p className="font-ibm-plex-mono text-sm text-muted-foreground">
               Diversification: {portfolio.diversificationScore.toFixed(0)}/100
             </p>
           </motion.div>
@@ -451,7 +449,7 @@ Generated on ${new Date().toLocaleString()}`;
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="font-space-grotesk text-2xl font-bold">Your Holdings</h2>
-              
+
               {/* Quick Actions Bar */}
               <div className="flex gap-2 text-sm">
                 <button
@@ -467,7 +465,7 @@ Generated on ${new Date().toLocaleString()}`;
                   <TrendingUp className="h-3 w-3" />
                   Trade Best
                 </button>
-                
+
                 <button
                   onClick={() => {
                     const worstPerformer = metrics?.worstPerformer;
@@ -483,15 +481,15 @@ Generated on ${new Date().toLocaleString()}`;
                 </button>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {portfolio.holdings.map((holding, index) => (
                 <HoldingCard key={`${holding.domain}-${index}`} holding={holding} />
               ))}
             </div>
-            
+
             {/* Portfolio Summary Card */}
-            <div className="glass-panel p-6 rounded-lg border border-white/10">
+            <div className="glass-panel p-6 rounded-lg border border-border">
               <h3 className="font-space-grotesk text-xl font-bold mb-4 flex items-center gap-2">
                 <BarChart3 className="h-5 w-5 text-[#FFC700]" />
                 Quick Actions
@@ -507,7 +505,7 @@ Generated on ${new Date().toLocaleString()}`;
                     <div className="text-xs opacity-80">Find new opportunities</div>
                   </div>
                 </button>
-                
+
                 <button
                   onClick={() => window.location.href = '/launch'}
                   className="flex items-center justify-center gap-2 bg-orange-600/20 hover:bg-orange-600/30 text-orange-400 border border-orange-500/30 p-4 rounded-lg font-space-grotesk transition-colors"
@@ -518,7 +516,7 @@ Generated on ${new Date().toLocaleString()}`;
                     <div className="text-xs opacity-80">Tokenize new asset</div>
                   </div>
                 </button>
-                
+
                 <button
                   onClick={exportPortfolioReport}
                   className="flex items-center justify-center gap-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/30 p-4 rounded-lg font-space-grotesk transition-colors"
@@ -535,7 +533,7 @@ Generated on ${new Date().toLocaleString()}`;
         ) : (
           <div className="space-y-6">
             <h2 className="font-space-grotesk text-2xl font-bold">Performance Analysis</h2>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Best Performer */}
               <motion.div
@@ -547,7 +545,7 @@ Generated on ${new Date().toLocaleString()}`;
                   <Award className="h-8 w-8 text-green-400" />
                   <h3 className="font-space-grotesk text-lg font-bold text-green-400">Best Performer</h3>
                 </div>
-                <p className="font-ibm-plex-mono text-xl font-bold text-white mb-2">
+                <p className="font-ibm-plex-mono text-xl font-bold text-foreground mb-2">
                   {metrics?.bestPerformer?.domain || 'N/A'}
                 </p>
                 <div className="flex items-center gap-2 text-green-400">
@@ -568,7 +566,7 @@ Generated on ${new Date().toLocaleString()}`;
                   <AlertTriangle className="h-8 w-8 text-red-400" />
                   <h3 className="font-space-grotesk text-lg font-bold text-red-400">Needs Attention</h3>
                 </div>
-                <p className="font-ibm-plex-mono text-xl font-bold text-white mb-2">
+                <p className="font-ibm-plex-mono text-xl font-bold text-foreground mb-2">
                   {metrics?.worstPerformer?.domain || 'N/A'}
                 </p>
                 <div className="flex items-center gap-2 text-red-400">
@@ -581,7 +579,7 @@ Generated on ${new Date().toLocaleString()}`;
             </div>
 
             {/* Portfolio Allocation */}
-            <div className="glass-panel p-6 rounded-lg border border-white/10">
+            <div className="glass-panel p-6 rounded-lg border border-border">
               <h3 className="font-space-grotesk text-xl font-bold mb-4">Portfolio Allocation</h3>
               <div className="space-y-4">
                 {allocation.slice(0, 5).map((holding, index) => (
@@ -592,10 +590,10 @@ Generated on ${new Date().toLocaleString()}`;
                           {holding.tokenTicker.slice(0, 2)}
                         </span>
                       </div>
-                      <span className="font-ibm-plex-mono text-white">{holding.domain}</span>
+                      <span className="font-ibm-plex-mono text-foreground">{holding.domain}</span>
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="w-32 bg-black/20 rounded-full h-2">
+                      <div className="w-32 bg-secondary/20 rounded-full h-2">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${holding.allocationPercentage}%` }}

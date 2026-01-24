@@ -121,25 +121,25 @@ const Layout = () => {
               <div className="flex items-center space-x-8">
                 <Link
                   to="/launch-sequence"
-                  className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
+                  className="px-4 py-2 rounded-md hover:text-[#FE6440] transition-colors"
                 >
                   Launch Sequence
                 </Link>
                 <Link
                   to="/satellite-constellation"
-                  className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
+                  className="px-4 py-2 rounded-md hover:text-[#FE6440] transition-colors"
                 >
                   Satellite Constellation
                 </Link>
                 <Link
                   to="/exosphere-exchange"
-                  className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
+                  className="px-4 py-2 rounded-md hover:text-[#FE6440] transition-colors"
                 >
                   Exosphere Exchange
                 </Link>
                 <Link
                   to="/blog"
-                  className="px-4 py-2 rounded-md hover:text-[#FF7A00] transition-colors"
+                  className="px-4 py-2 rounded-md hover:text-[#FE6440] transition-colors"
                 >
                   Blog
                 </Link>
@@ -151,7 +151,7 @@ const Layout = () => {
 
             <div className="md:hidden flex items-center">
               <WalletConnection />
-              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white focus:outline-none ml-4">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-foreground focus:outline-none ml-4">
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -208,17 +208,17 @@ const Layout = () => {
           <Outlet />
         </div>
       </main>
-      <footer className="border-t border-white/10 py-8">
-        <div className="container mx-auto px-6 text-center text-gray-500 font-ibm-plex-sans text-sm">
+      <footer className="border-t border-border py-8">
+        <div className="container mx-auto px-6 text-center text-muted-foreground font-ibm-plex-sans text-sm">
           <p>&copy; 2025 O.R.B.I.T.E.R. All rights reserved. Licensed under MIT License.</p>
           <div className="flex justify-center space-x-6 mt-4">
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-foreground transition-colors">
               Discord
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-foreground transition-colors">
               Twitter
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-foreground transition-colors">
               GitHub
             </a>
           </div>

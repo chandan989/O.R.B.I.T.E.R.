@@ -113,7 +113,7 @@ export const DemoLaunch = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-foreground p-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4">O.R.B.I.T.E.R.</h1>
@@ -135,7 +135,7 @@ export const DemoLaunch = () => {
                 type="text"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white text-lg"
+                className="w-full px-4 py-3 bg-gray-700 border border-border rounded-lg text-foreground text-lg"
                 placeholder="e.g., google.com"
               />
             </div>
@@ -178,11 +178,11 @@ export const DemoLaunch = () => {
               
               <div className="space-y-2 text-sm text-center">
                 <div className="text-blue-400">📡 Submitting transaction to validators</div>
-                <div className="text-gray-400">⏳ Waiting for consensus...</div>
+                <div className="text-muted-foreground">⏳ Waiting for consensus...</div>
                 <div className="text-green-400">✅ Expected confirmation in ~2 seconds</div>
               </div>
               
-              <div className="mt-4 text-xs text-gray-500 text-center">
+              <div className="mt-4 text-xs text-muted-foreground text-center">
                 Network: Stacks Testnet | Gas Limit: 5000 units | Fee: ~0.001 USDCx
               </div>
             </div>
@@ -235,11 +235,11 @@ export const DemoLaunch = () => {
             <div className="bg-gray-700 rounded-lg p-4 mb-6">
               <h4 className="text-sm font-bold mb-2">📋 Transaction Preview</h4>
               <div className="text-xs font-mono space-y-1">
-                <div><span className="text-gray-400">Function:</span> <span className="text-blue-400">domain_registry::create_domain_object</span></div>
-                <div><span className="text-gray-400">Contract:</span> <span className="text-orange-400">0xb0bbdabdd54cac6e...054047d</span></div>
-                <div><span className="text-gray-400">Domain:</span> <span className="text-green-400">{domain}</span></div>
-                <div><span className="text-gray-400">Valuation:</span> <span className="text-yellow-400">{(valuation.market_value / 1000000).toFixed(1)}M USDCx</span></div>
-                <div><span className="text-gray-400">Shares:</span> <span className="text-purple-400">1,000,000 tokens</span></div>
+                <div><span className="text-muted-foreground">Function:</span> <span className="text-blue-400">domain_registry::create_domain_object</span></div>
+                <div><span className="text-muted-foreground">Contract:</span> <span className="text-orange-400">0xb0bbdabdd54cac6e...054047d</span></div>
+                <div><span className="text-muted-foreground">Domain:</span> <span className="text-green-400">{domain}</span></div>
+                <div><span className="text-muted-foreground">Valuation:</span> <span className="text-yellow-400">{(valuation.market_value / 1000000).toFixed(1)}M USDCx</span></div>
+                <div><span className="text-muted-foreground">Shares:</span> <span className="text-purple-400">1,000,000 tokens</span></div>
               </div>
             </div>
 
@@ -291,28 +291,28 @@ export const DemoLaunch = () => {
               <h4 className="text-lg font-bold mb-4">🔗 Blockchain Transaction</h4>
               <div className="space-y-3 text-sm font-mono">
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Transaction Hash:</span>
+                  <span className="text-muted-foreground">Transaction Hash:</span>
                   <span className="text-green-400">{valuation.txHash}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Block Height:</span>
+                  <span className="text-muted-foreground">Block Height:</span>
                   <span className="text-blue-400">{valuation.blockHeight?.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Gas Used:</span>
+                  <span className="text-muted-foreground">Gas Used:</span>
                   <span className="text-yellow-400">{valuation.gasUsed} units</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Network:</span>
+                  <span className="text-muted-foreground">Network:</span>
                   <span className="text-purple-400">Stacks Testnet</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Contract:</span>
+                  <span className="text-muted-foreground">Contract:</span>
                   <span className="text-orange-400">0xb0bbdabdd54cac6e...054047d</span>
                 </div>
               </div>
               
-              <div className="mt-4 pt-4 border-t border-gray-600">
+              <div className="mt-4 pt-4 border-t border-border">
                 <Button 
                   onClick={() => window.open(`https://explorer.stackslabs.com/txn/${valuation.txHash}?network=testnet`, '_blank')}
                   className="w-full bg-purple-600 hover:bg-purple-700"
