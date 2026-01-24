@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { WalletConnection } from "./WalletConnection";
 import { useState, useEffect, createContext, useContext, ReactNode } from "react";
-import { AppConfig, UserSession, showConnect } from "@stacks/connect";
+import { AppConfig, UserSession, authenticate } from "@stacks/connect";
 
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 const userSession = new UserSession({ appConfig });
@@ -49,7 +49,7 @@ const StacksProvider = ({ children }: { children: ReactNode }) => {
   const connect = (walletName?: string) => {
     // We ignore walletName largely as Stacks Connect handles the modal
     setIsLoading(true);
-    showConnect({
+    authenticate({
       appDetails: {
         name: "O.R.B.I.T.E.R.",
         icon: window.location.origin + "/logo.svg",
