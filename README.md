@@ -12,7 +12,6 @@
 ```
 
 [![Protocol Status](https://img.shields.io/badge/Status-Live%20on%20Stacks%20Testnet-green)](https://stackslabs.com)
-[![Contract](https://img.shields.io/badge/Contract-0xced...b0-blue)](https://explorer.stackslabs.com/account/0xced429d7865e91bd14429a208170f82169a148a98817e0d6f00a225c57b128b0?network=testnet)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 [![Build](https://img.shields.io/badge/Build-Passing-brightgreen)]
 

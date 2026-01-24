@@ -1,13 +1,13 @@
 // TypeScript types generated from deployed smart contract ABI
 
 export interface ValuationData {
-  score: string;
-  market_value: string;
-  seo_authority: string;
-  traffic_estimate: string;
-  brandability: string;
-  tld_rarity: string;
-  updated_at: string;
+  score: string | number;
+  market_value: string | number;
+  seo_authority: string | number;
+  traffic_estimate: string | number;
+  brandability: string | number;
+  tld_rarity: string | number;
+  updated_at: string | number;
 }
 
 export interface FractionalConfig {

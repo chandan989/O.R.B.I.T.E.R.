@@ -1,26 +1,100 @@
 import { Link, Outlet } from "react-router-dom";
 import { WalletConnection } from "./WalletConnection";
-import { Button } from "./ui/button";
-import { useState } from "react";
-import {
-  StacksWalletAdapterProvider,
-  useWallet as useStacksWallet,
-} from "@stacks-labs/wallet-adapter-react";
-import { Network } from "@stacks-labs/ts-sdk";
-import { LeatherWallet } from "petra-plugin-wallet-adapter";
-import { HiroWallet } from "@martianwallet/stacks-wallet-adapter";
+import { useState, useEffect, createContext, useContext, ReactNode } from "react";
+import { AppConfig, UserSession, showConnect } from "@stacks/connect";
+
+const appConfig = new AppConfig(["store_write", "publish_data"]);
+const userSession = new UserSession({ appConfig });
+
+// Create a valid context for wallet state
+interface WalletContextValue {
+  connected: boolean;
+  account: { address: string } | null;
+  wallet: { name: string } | null;
+  connect: (walletName?: string) => void;
+  disconnect: () => void;
+  isLoading: boolean;
+}
+
+const WalletContext = createContext<WalletContextValue>({
+  connected: false,
+  account: null,
+  wallet: null,
+  connect: () => { },
+  disconnect: () => { },
+  isLoading: false,
+});
+
+export const useWallet = () => useContext(WalletContext);
+
+const StacksProvider = ({ children }: { children: ReactNode }) => {
+  const [connected, setConnected] = useState(false);
+  const [account, setAccount] = useState<{ address: string } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const userData = userSession.loadUserData();
+      setConnected(true);
+      // Use testnet address by default
+      setAccount({ address: userData.profile.stxAddress.testnet });
+    } else if (userSession.isSignInPending()) {
+      userSession.handlePendingSignIn().then((userData) => {
+        setConnected(true);
+        setAccount({ address: userData.profile.stxAddress.testnet });
+      });
+    }
+  }, []);
+
+  const connect = (walletName?: string) => {
+    // We ignore walletName largely as Stacks Connect handles the modal
+    setIsLoading(true);
+    showConnect({
+      appDetails: {
+        name: "O.R.B.I.T.E.R.",
+        icon: window.location.origin + "/logo.svg",
+      },
+      redirectTo: "/",
+      onFinish: () => {
+        const userData = userSession.loadUserData();
+        setConnected(true);
+        setAccount({ address: userData.profile.stxAddress.testnet });
+        setIsLoading(false);
+      },
+      onCancel: () => {
+        setIsLoading(false);
+      },
+      userSession,
+    });
+  };
+
+  const disconnect = () => {
+    userSession.signUserOut();
+    setConnected(false);
+    setAccount(null);
+  };
+
+  return (
+    <WalletContext.Provider
+      value={{
+        connected,
+        account,
+        wallet: connected ? { name: "Stacks Wallet" } : null,
+        connect,
+        disconnect,
+        isLoading,
+      }}
+    >
+      {children}
+    </WalletContext.Provider>
+  );
+};
 
 const StacksLayout = () => {
   return (
-    <StacksWalletAdapterProvider
-      autoConnect={true}
-      dappConfig={{ network: Network.TESTNET }}
-      onError={(error) => {
-        console.log("Wallet Error", error);
-      }}
-    >
+    <StacksProvider>
       <Layout />
-    </StacksWalletAdapterProvider>
+    </StacksProvider>
   );
 };
 
@@ -155,5 +229,3 @@ const Layout = () => {
 };
 
 export default StacksLayout;
-
-export const useWallet = useStacksWallet;
