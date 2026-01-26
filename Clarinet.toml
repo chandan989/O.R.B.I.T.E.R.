@@ -1,0 +1,40 @@
+[project]
+name = "orbiter"
+description = "O.R.B.I.T.E.R. - On-chain Registry & Brokerage Infrastructure for Tokenized External Resources"
+authors = ["O.R.B.I.T.E.R. Team"]
+telemetry_enabled = false
+cache_dir = "./.cache"
+requirements = []
+[contracts.domain-registry]
+path = "contracts/domain-registry.clar"
+clarity_version = 2
+epoch = 2.4
+
+[contracts.fractional]
+path = "contracts/fractional.clar"
+clarity_version = 2
+epoch = 2.4
+
+[contracts.marketplace]
+path = "contracts/marketplace.clar"
+clarity_version = 2
+epoch = 2.4
+
+[contracts.valuation]
+path = "contracts/valuation.clar"
+clarity_version = 2
+epoch = 2.4
+
+[contracts.security]
+path = "contracts/security.clar"
+clarity_version = 2
+epoch = 2.4
+
+[contracts.validation]
+path = "contracts/validation.clar"
+clarity_version = 2
+epoch = 2.4
+
+[repl]
+costs_version = 2
+parser_version = 2

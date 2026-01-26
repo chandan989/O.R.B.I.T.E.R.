@@ -1,0 +1,53 @@
+---
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: "https://api.testnet.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: domain-registry
+            expected-sender: ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7
+            cost: 65950
+            path: contracts/domain-registry.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: fractional
+            expected-sender: ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7
+            cost: 72620
+            path: contracts/fractional.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: marketplace
+            expected-sender: ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7
+            cost: 85620
+            path: contracts/marketplace.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: security
+            expected-sender: ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7
+            cost: 62900
+            path: contracts/security.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: validation
+            expected-sender: ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7
+            cost: 71670
+            path: contracts/validation.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: valuation
+            expected-sender: ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7
+            cost: 84210
+            path: contracts/valuation.clar
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.4"

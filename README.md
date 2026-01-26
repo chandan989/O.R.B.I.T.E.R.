@@ -238,12 +238,43 @@ stacks clarity publish   # Deploy to testnet
 
 ---
 
-## 📚 **Documentation**
+## 🚀 **Deployment**
 
-- [Smart Contract Documentation](./sources/) - Clarity contract source code
-- [Frontend Code](./orbiter-web/) - React application source
-- [Demo Scripts](./demo/) - Demonstration utilities
-- [Architecture Documentation](./ARCHITECTURE.md) - Technical architecture details
+### **✅ LIVE ON STACKS TESTNET**
+
+**Deployer Address:** `ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7`
+
+**Deployed Contracts:**
+- `ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.domain-registry`
+- `ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.fractional`
+- `ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.marketplace`
+- `ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.valuation`
+- `ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.security`
+- `ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.validation`
+
+**View on Explorer:** https://explorer.hiro.so/address/ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7?chain=testnet
+
+### **Quick Start**
+
+```bash
+# Clone and install
+git clone https://github.com/chandan989/O.R.B.I.T.E.R.git
+cd O.R.B.I.T.E.R/orbiter-web
+npm install
+npm run dev
+# Open http://localhost:8080
+```
+
+### **Deploy Your Own**
+```bash
+clarinet check
+clarinet deployments generate --testnet --low-cost
+clarinet deployments apply --testnet
+```
+
+### **Documentation**
+- [Smart Contracts](./contracts/README.md)
+- [Architecture](./ARCHITECTURE.md)
 
 ---
 
