@@ -90,17 +90,17 @@ const Blog = () => {
         "We verify cryptographically. You never transfer your domain to us.",
         "",
         "2. Create Domain Object",
-        "Mint an Stacks Object representing your domain with fractional shares:",
+        "Mint a Stacks Object representing your domain with fractional shares:",
         "• Set total shares (e.g., 1,000,000)",
         "• Choose: Full tokenization OR keep majority + tokenize minority",
-        "• Shares become tradable Fungible Assets",
+        "• Shares become tradable on Stacks DeFi",
         "Transaction completes in <1 second on Stacks.",
         "",
         "3. Instant Trading on DEXes",
         "Your domain shares work with all Stacks DeFi:",
-        "• Trade on Liquidswap, PancakeSwap, Thala",
+        "• Trade on ALEX, Velar, Stackswap",
         "• Provide liquidity → earn fees",
-        "• Use as collateral in lending",
+        "• Use as collateral in lending protocols",
         "• Stake for rewards",
         "",
         "4. DNS Control Follows Ownership",
@@ -147,8 +147,8 @@ const Blog = () => {
         "4. Clarity Security",
         "Resource-oriented programming = mathematical proof of correctness. Critical for high-value assets.",
         "",
-        "5. Fungible Assets Framework",
-        "Domain shares work with all DeFi protocols automatically. No custom integrations needed."
+        "5. SIP-010 Fungible Token Standard",
+        "Domain shares work with all Stacks DeFi protocols automatically. No custom integrations needed."
       ]
     },
     {
