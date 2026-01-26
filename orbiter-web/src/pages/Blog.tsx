@@ -230,16 +230,6 @@ const Blog = () => {
                 </span>
               ))}
             </div>
-
-            <a
-              href={blogPost.mediumLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-[#FE6440] text-black font-bold rounded hover:bg-[#FFC700] transition-colors font-space-grotesk shadow-[0_0_15px_rgba(254,100,64,0.3)]"
-            >
-              <ExternalLink className="h-4 w-4" />
-              READ ORIGINAL TRANSMISSION
-            </a>
           </div>
 
           {/* Content Sections */}
@@ -265,14 +255,14 @@ const Blog = () => {
                     <div key={pIndex}>
                       <p
                         className={`${paragraph.startsWith('•') || paragraph.startsWith('✅') || paragraph.startsWith('💎') || paragraph.startsWith('💧') || paragraph.startsWith('💰') || paragraph.startsWith('🎁') || paragraph.startsWith('📊')
-                            ? 'pl-6 relative before:content-[""] before:absolute before:left-0 before:top-2.5 before:w-1.5 before:h-1.5 before:bg-[#FE6440] before:rounded-full opacity-90'
-                            : paragraph === ''
-                              ? 'h-2'
-                              : paragraph.includes('Domain Object = {') || paragraph.trim().startsWith('+') || paragraph.trim().startsWith('Identity:') || paragraph.trim().startsWith('}')
-                                ? 'font-ibm-plex-mono text-[#FFC700] bg-black/40 p-3 mx-2 rounded border-l-2 border-[#FE6440]'
-                                : paragraph.match(/^\d+\./)
-                                  ? 'font-bold text-white text-lg pt-4'
-                                  : ''
+                          ? 'pl-6 relative before:content-[""] before:absolute before:left-0 before:top-2.5 before:w-1.5 before:h-1.5 before:bg-[#FE6440] before:rounded-full opacity-90'
+                          : paragraph === ''
+                            ? 'h-2'
+                            : paragraph.includes('Domain Object = {') || paragraph.trim().startsWith('+') || paragraph.trim().startsWith('Identity:') || paragraph.trim().startsWith('}')
+                              ? 'font-ibm-plex-mono text-[#FFC700] bg-black/40 p-3 mx-2 rounded border-l-2 border-[#FE6440]'
+                              : paragraph.match(/^\d+\./)
+                                ? 'font-bold text-white text-lg pt-4'
+                                : ''
                           }`}
                       >
                         {paragraph}

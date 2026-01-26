@@ -352,14 +352,6 @@ const Index = () => {
                     >
                       Read the Article
                     </Link>
-                    <a
-                      href="https://medium.com/@nikhhils07/the-stacks-primitive-that-unlocks-a-5b-market-83f8c16eb354"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center px-6 py-3 border border-border rounded-lg font-medium hover:bg-black/5 transition-all duration-300"
-                    >
-                      View on Medium
-                    </a>
                   </div>
                 </div>
 
