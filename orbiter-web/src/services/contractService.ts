@@ -3,7 +3,9 @@ import {
   stringAsciiCV,
   standardPrincipalCV,
   tupleCV,
-  bufferCV
+  bufferCV,
+  trueCV,
+  falseCV
 } from '@stacks/transactions';
 import { ValuationData, FractionalConfig } from '../types/contracts';
 
@@ -14,8 +16,10 @@ import { ValuationData, FractionalConfig } from '../types/contracts';
 class ContractService {
   /**
    * Prepare arguments for creating a domain object entry
-   * Matches the contract function signature:
-   * (domain-name, verification-hash, valuation-score, market-value, seo-authority, traffic-estimate)
+   * Matches the ACTUAL contract function signature (13 parameters):
+   * (domain-name, verification-hash, valuation-score, market-value, seo-authority,
+   *  traffic-estimate, brandability, tld-rarity, has-fractional, ticker,
+   *  total-supply, circulating-supply, trading-enabled)
    */
   createDomainArgs(
     domainName: string,
@@ -23,14 +27,21 @@ class ContractService {
     valuation: ValuationData,
     fractionalConfig?: FractionalConfig
   ) {
-    // Return ClarityValues matching contract signature
     return [
       stringAsciiCV(domainName),
       stringAsciiCV(verificationHash),
       uintCV(Number(valuation.score) || 0),
       uintCV(Number(valuation.market_value) || 0),
       uintCV(Number(valuation.seo_authority) || 0),
-      uintCV(Number(valuation.traffic_estimate) || 0)
+      uintCV(Number(valuation.traffic_estimate) || 0),
+      uintCV(Number(valuation.brandability) || 0),
+      uintCV(Number(valuation.tld_rarity) || 0),
+      // Fractional config parameters
+      fractionalConfig ? trueCV() : falseCV(),
+      stringAsciiCV(fractionalConfig?.ticker || ''),
+      uintCV(Number(fractionalConfig?.total_supply) || 0),
+      uintCV(Number(fractionalConfig?.circulating_supply) || 0),
+      fractionalConfig?.trading_enabled ? trueCV() : falseCV()
     ];
   }
 
