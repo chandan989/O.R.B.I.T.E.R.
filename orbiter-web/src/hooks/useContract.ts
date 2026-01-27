@@ -5,7 +5,7 @@ import { useToast } from './use-toast';
 import { CONTRACT_CONFIG } from '../config/contracts';
 import { useWallet } from '../components/Layout';
 import { openContractCall } from '@stacks/connect';
-import { StacksTestnet } from '@stacks/network';
+import { STACKS_TESTNET } from '@stacks/network';
 
 import {
   uintCV,
@@ -76,7 +76,7 @@ export const useContract = () => {
         functionName: 'create-domain-object-entry',
         functionArgs,
         postConditionMode: PostConditionMode.Allow, // Allow for now (testnet)
-        network: new StacksTestnet(),
+        network: STACKS_TESTNET,
         appDetails: {
           name: "O.R.B.I.T.E.R.",
           icon: window.location.origin + "/logo.svg",
