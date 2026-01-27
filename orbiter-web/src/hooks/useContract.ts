@@ -45,6 +45,8 @@ export const useContract = () => {
     valuation: ValuationData,
     fractionalConfig?: FractionalConfig
   ) => {
+    onSuccess?: (txId: string) => void
+
     setLoading(true);
     setError(null);
 
@@ -85,6 +87,9 @@ export const useContract = () => {
           console.log("Transaction ID:", data.txId);
           toast({
             title: "✅ Transaction Submitted!",
+          // Call onSuccess callback
+          if (onSuccess) onSuccess(data.txId);
+
             description: `Tx ID: ${data.txId.substring(0, 8)}...`,
           });
         },
