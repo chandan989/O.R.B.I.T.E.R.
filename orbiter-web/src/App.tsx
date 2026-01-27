@@ -11,6 +11,7 @@ import { DemoLaunch } from "./pages/DemoLaunch";
 import { SatelliteConstellation } from "./pages/SatelliteConstellation";
 import { Portfolio } from "./pages/Portfolio";
 import Blog from "./pages/Blog";
+import PitchDeck from "./pages/PitchDeck";
 import Layout from "./components/Layout";
 
 
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/satellite-constellation" element={<SatelliteConstellation />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/pitch-deck" element={<PitchDeck />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

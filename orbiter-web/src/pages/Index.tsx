@@ -125,17 +125,15 @@ const Index = () => {
                     >
                       [ INITIATE LAUNCH SEQUENCE ]
                     </Link>
-                    <a
-                      href="https://github.com/chandan989/O.R.B.I.T.E.R/blob/main/PITCH_DECK.md"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to="/pitch-deck"
                       className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#FE6440] rounded-lg font-bold font-space-grotesk text-lg hover:bg-[#FE6440]/10 transition-all duration-300"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                       PITCH DECK
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
