@@ -118,12 +118,25 @@ const Index = () => {
                   <p className="mt-6 max-w-lg mx-auto md:mx-0 text-muted-foreground">
                     Unlock the value of your digital universe. Achieve orbit for your Web2 assets and trade them as fractionalized Stacks Objects in the permissionless ecosystem of Web3.
                   </p>
-                  <Link
-                    to="/launch-sequence"
-                    className="cta-button mt-10 inline-block bg-gradient-to-r from-[#FE6440] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg"
-                  >
-                    [ INITIATE LAUNCH SEQUENCE ]
-                  </Link>
+                  <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                    <Link
+                      to="/launch-sequence"
+                      className="cta-button inline-block bg-gradient-to-r from-[#FE6440] to-[#FFC700] text-black font-bold font-space-grotesk px-8 py-4 rounded-lg text-lg text-center"
+                    >
+                      [ INITIATE LAUNCH SEQUENCE ]
+                    </Link>
+                    <a
+                      href="https://github.com/chandan989/O.R.B.I.T.E.R/blob/main/PITCH_DECK.md"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#FE6440] rounded-lg font-bold font-space-grotesk text-lg hover:bg-[#FE6440]/10 transition-all duration-300"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      VIEW PITCH DECK
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
