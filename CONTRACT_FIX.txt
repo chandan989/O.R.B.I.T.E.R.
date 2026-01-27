@@ -1,0 +1,24 @@
+// Quick fix for contract arguments
+// Add this to contractService.ts createDomainArgs method
+
+// The contract expects 6 parameters:
+// 1. domain-name (string-ascii 256)
+// 2. verification-hash (string-ascii 64)  
+// 3. valuation-score (uint)
+// 4. market-value (uint)
+// 5. seo-authority (uint)
+// 6. traffic-estimate (uint)
+
+// Update the return statement to:
+return [
+  stringAsciiCV(domainName),
+  stringAsciiCV(verificationHash),
+  uintCV(valuation.score),
+  uintCV(Math.floor(valuation.estimatedValue * 1000000)), // Convert to micro-units
+  uintCV(valuation.seoScore || 0),
+  uintCV(valuation.trafficEstimate || 0)
+];
+
+// Also need to import StacksTestnet in useContract.ts
+// Add to imports from '@stacks/transactions':
+// import { StacksTestnet } from '@stacks/network';

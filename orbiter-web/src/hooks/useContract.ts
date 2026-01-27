@@ -5,6 +5,8 @@ import { useToast } from './use-toast';
 import { CONTRACT_CONFIG } from '../config/contracts';
 import { useWallet } from '../components/Layout';
 import { openContractCall } from '@stacks/connect';
+import { StacksTestnet } from '@stacks/network';
+
 import {
   uintCV,
   stringAsciiCV,
