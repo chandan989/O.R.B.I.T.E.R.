@@ -11,7 +11,7 @@ const PitchDeck = () => {
                 "Built on Stacks • Powered by USDCx • Secured by Bitcoin",
                 "",
                 "Deployed: ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7",
-                "GitHub: github.com/chandan989/O.R.B.I.T.E.R"
+                "GitHub: github.com/chandan989/O.R.B.I.T.E.R."
             ],
             highlight: true
         },
@@ -226,7 +226,7 @@ const PitchDeck = () => {
                 "Run locally with npm run dev",
                 "",
                 "📖 Read Docs",
-                "github.com/chandan989/O.R.B.I.T.E.R",
+                "github.com/chandan989/O.R.B.I.T.E.R.",
                 "",
                 "🔗 View Contracts",
                 "explorer.hiro.so",
@@ -265,7 +265,7 @@ const PitchDeck = () => {
                     </p>
                     <div className="flex justify-center gap-4 mt-6">
                         <a
-                            href="https://github.com/chandan989/O.R.B.I.T.E.R"
+                            href="https://github.com/chandan989/O.R.B.I.T.E.R."
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-4 py-2 bg-[#FE6440] text-black font-bold rounded hover:bg-[#FFC700] transition-colors"
@@ -282,8 +282,8 @@ const PitchDeck = () => {
                         <div
                             key={index}
                             className={`glass-panel p-8 md:p-12 rounded-2xl ${slide.highlight
-                                    ? 'border-2 border-[#FE6440] bg-gradient-to-br from-[#FE6440]/5 to-[#FFC700]/5'
-                                    : ''
+                                ? 'border-2 border-[#FE6440] bg-gradient-to-br from-[#FE6440]/5 to-[#FFC700]/5'
+                                : ''
                                 }`}
                         >
                             {/* Slide Number */}
@@ -311,12 +311,12 @@ const PitchDeck = () => {
                                     <p
                                         key={lineIndex}
                                         className={`${line.startsWith('•')
-                                                ? 'pl-6 text-gray-400'
-                                                : line.match(/^[🔐💎🤖1️⃣2️⃣3️⃣4️⃣5️⃣📦🎨⚙️💎✅🔒❌✅📊👥🏆💰📈🌐📖🔗📧🚀]/)
-                                                    ? 'font-bold text-white text-lg mt-4'
-                                                    : line === ''
-                                                        ? 'h-2'
-                                                        : ''
+                                            ? 'pl-6 text-gray-400'
+                                            : line.match(/^[🔐💎🤖1️⃣2️⃣3️⃣4️⃣5️⃣📦🎨⚙️💎✅🔒❌✅📊👥🏆💰📈🌐📖🔗📧🚀]/)
+                                                ? 'font-bold text-white text-lg mt-4'
+                                                : line === ''
+                                                    ? 'h-2'
+                                                    : ''
                                             }`}
                                     >
                                         {line}
@@ -344,7 +344,7 @@ const PitchDeck = () => {
                                 TRY THE DEMO
                             </Link>
                             <a
-                                href="https://github.com/chandan989/O.R.B.I.T.E.R"
+                                href="https://github.com/chandan989/O.R.B.I.T.E.R."
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-8 py-3 border border-[#3D2D1D] rounded font-space-grotesk hover:bg-white/5 transition-colors"

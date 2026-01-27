@@ -165,7 +165,7 @@ const Blog = () => {
         "✅ DEX integration (basic)",
         "",
         "Try it: https://o-r-b-i-t-e-r.vercel.app/",
-        "GitHub: https://github.com/chandan989/O.R.B.I.T.E.R"
+        "GitHub: https://github.com/chandan989/O.R.B.I.T.E.R."
       ]
     }
   ];
@@ -294,7 +294,7 @@ const Blog = () => {
                   INITIATE LAUNCH
                 </Link>
                 <a
-                  href="https://github.com/chandan989/O.R.B.I.T.E.R"
+                  href="https://github.com/chandan989/O.R.B.I.T.E.R."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-3 border border-[#3D2D1D] rounded font-space-grotesk hover:bg-white/5 transition-colors text-white"
