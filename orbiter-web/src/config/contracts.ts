@@ -1,28 +1,28 @@
 // O.R.B.I.T.E.R. Smart Contract Configuration
 // Allow overriding contract address via Vite env (VITE_CONTRACT_ADDRESS)
 const ENV_CONTRACT = (import.meta as any).env?.VITE_CONTRACT_ADDRESS as string | undefined;
-const FALLBACK_CONTRACT = "0x2a259fea4483e1ce69d3230ef3dbc2a7eb00a262938f2885bc630c442eb2ff7c";
+const FALLBACK_CONTRACT = "ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7";
 if (ENV_CONTRACT && ENV_CONTRACT.length < 10) {
   console.warn('[contracts] Ignoring too-short VITE_CONTRACT_ADDRESS env value');
 }
 export const CONTRACT_CONFIG = {
   // Deployed contract address on Stacks Testnet (override with VITE_CONTRACT_ADDRESS)
   CONTRACT_ADDRESS: (ENV_CONTRACT && ENV_CONTRACT.length >= 10 ? ENV_CONTRACT : FALLBACK_CONTRACT),
-  
+
   // Network configuration
   NETWORK: "testnet",
-  NODE_URL: "https://fullnode.testnet.stackslabs.com/v1",
-  
+  NODE_URL: "https://api.testnet.hiro.so",
+
   // Module names
   MODULES: {
-    DOMAIN_REGISTRY: "domain_registry",
-    FRACTIONAL: "fractional", 
+    DOMAIN_REGISTRY: "domain-registry",
+    FRACTIONAL: "fractional",
     MARKETPLACE: "marketplace",
     VALUATION: "valuation",
     SECURITY: "security",
     VALIDATION: "validation"
   },
-  
+
   // Key function names for frontend integration
   FUNCTIONS: {
     // Domain Registry Functions
@@ -30,19 +30,19 @@ export const CONTRACT_CONFIG = {
     GET_DOMAIN_INFO: "get_domain_info",
     IS_DOMAIN_OWNER: "is_domain_owner",
     GET_REGISTRY_STATS: "get_registry_stats",
-    
+
     // Fractional Functions
     INITIALIZE_FRACTIONAL: "initialize_fractional_ownership",
     TRANSFER_SHARES: "transfer_shares",
     GET_SHARE_BALANCE: "get_share_balance",
     APPROVE_SHARES: "approve_shares",
-    
+
     // Marketplace Functions
     CREATE_LISTING: "create_listing",
     PURCHASE_SHARES: "purchase_shares",
     IS_LISTING_ACTIVE: "is_listing_active",
     GET_LISTING_INFO: "get_listing_info",
-    
+
     // Valuation Functions
     CALCULATE_INITIAL_VALUATION: "calculate_initial_valuation",
     GET_ORACLE_STATS: "get_oracle_stats"

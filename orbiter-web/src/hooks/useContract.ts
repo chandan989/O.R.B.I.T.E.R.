@@ -65,20 +65,16 @@ export const useContract = () => {
         fractionalConfig
       );
 
-      const [contractAddress, contractName] = CONTRACT_CONFIG.CONTRACT_ADDRESS.split('.');
+      const contractAddress = CONTRACT_CONFIG.CONTRACT_ADDRESS;
+      const contractName = CONTRACT_CONFIG.MODULES.DOMAIN_REGISTRY;
 
       await openContractCall({
         contractAddress,
         contractName: contractName || 'domain_registry',
-        functionName: 'create_domain_object_entry', // Verify actual function name in contract
+        functionName: 'create-domain-object-entry',
         functionArgs,
         postConditionMode: PostConditionMode.Allow, // Allow for now (testnet)
-        network: {
-          testnet: true,         // or use new StacksTestnet()
-          version: 'testnet',
-          chainId: 2147483648,   // ChainID.Testnet
-          coreApiUrl: CONTRACT_CONFIG.NODE_URL,
-        } as any, // casting to avoid strict type issues with differing versions
+        network: new StacksTestnet(),
         appDetails: {
           name: "O.R.B.I.T.E.R.",
           icon: window.location.origin + "/logo.svg",
