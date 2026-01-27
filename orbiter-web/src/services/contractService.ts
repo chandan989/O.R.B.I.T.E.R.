@@ -1,169 +1,164 @@
-import { STACKS_TESTNET } from "@stacks/network";
 import {
-  fetchCallReadOnlyFunction,
-  cvToValue,
   uintCV,
   stringAsciiCV,
   standardPrincipalCV,
-  ClarityValue
-} from "@stacks/transactions";
-import { CONTRACT_CONFIG, FUNCTION_IDS } from "../config/contracts";
-import {
-  ValuationData,
-  FractionalConfig,
-  DomainInfo,
-} from "../types/contracts";
+  tupleCV,
+  bufferCV
+} from '@stacks/transactions';
+import { ValuationData, FractionalConfig } from '../types/contracts';
 
-export class ContractService {
-  private network: typeof STACKS_TESTNET;
-
-  constructor() {
-    this.network = STACKS_TESTNET;
-  }
-
-  // Domain Registry Functions - Returns payload for wallet to sign
-  // Note: For Stacks Connect, we usually pass separate arguments to the function, 
-  // not a pre-serialized payload object. However, if we need to structure data,
-  // we can prepare the ClarityValues here.
-
+/**
+ * Service for interacting with O.R.B.I.T.E.R. smart contracts on Stacks.
+ * Provides helper functions to prepare transaction arguments and parse responses.
+ */
+class ContractService {
+  /**
+   * Prepare arguments for creating a domain object entry
+   * Matches the contract function signature:
+   * (domain-name, verification-hash, valuation-score, market-value, seo-authority, traffic-estimate)
+   */
   createDomainArgs(
     domainName: string,
     verificationHash: string,
     valuation: ValuationData,
     fractionalConfig?: FractionalConfig
   ) {
-    // Return ClarityValues for use with openContractCall
+    // Return ClarityValues matching contract signature
     return [
       stringAsciiCV(domainName),
       stringAsciiCV(verificationHash),
-      uintCV(valuation.score), // Simplified for now - real contract likely needs a tuple for valuation
-      // Note: If the contract expects a tuple, we need to construct it properly. 
-      // Based on previous code, it was serializing u64s individually.
-      // If the entry function takes individual args, we return them as an array.
-      // If it takes a tuple, we return [tupleCV({...})]
-      // Assuming individual args based on "arguments" array in previous code,
-      // but wait, previous code had "valuationBytes" which implies it might be taking a buffer?
-      // "create_domain_object_entry" usually implies taking components.
-      // Let's assume for now we just pass the raw values to the UI handler which will construct CVs.
+      uintCV(Number(valuation.score) || 0),
+      uintCV(Number(valuation.market_value) || 0),
+      uintCV(Number(valuation.seo_authority) || 0),
+      uintCV(Number(valuation.traffic_estimate) || 0)
     ];
   }
 
-  // Helper for read-only calls
-  async callReadOnly(functionName: string, args: ClarityValue[]) {
-    // contract address and name from config
-    const [contractAddress, contractName] = CONTRACT_CONFIG.CONTRACT_ADDRESS.split('.');
-
-    const result = await fetchCallReadOnlyFunction({
-      contractAddress,
-      contractName: contractName || 'domain_registry', // fallback
-      functionName,
-      functionArgs: args,
-      network: this.network,
-      senderAddress: contractAddress, // call as contract owner for read-only
-    });
-
-    return result;
+  /**
+   * Prepare arguments for initializing fractional ownership
+   */
+  initializeFractionalArgs(
+    domainObject: string,
+    ticker: string,
+    totalSupply: number
+  ) {
+    return [
+      standardPrincipalCV(domainObject),
+      stringAsciiCV(ticker),
+      uintCV(totalSupply)
+    ];
   }
 
-  async getDomainInfo(domainObject: string): Promise<DomainInfo | null> {
-    try {
-      // Assuming domainObject is an ID or principal?
-      // If it's a principal, use standardPrincipalCV
-      // If string, use stringAsciiCV
-      // Previous code used "domainObject" string.
-
-      // We will need to verify what the contract expects.
-      // For now, let's assume it wants a principal if it's an object address
-
-      const args = [standardPrincipalCV(domainObject)];
-      // Note: Function name 'get_domain_info'
-
-      // Since we don't know the exact contract interface, we'll wrap in try/catch
-      // and return null if fails.
-      return null;
-
-      /* 
-      // Real implementation would look like:
-      const result = await this.callReadOnly('get_domain_info', args);
-      return cvToValue(result);
-      */
-    } catch (error) {
-      console.error("Error getting domain info:", error);
-      return null;
-    }
+  /**
+   * Prepare arguments for transferring shares
+   */
+  transferSharesArgs(
+    domainObject: string,
+    recipient: string,
+    amount: number
+  ) {
+    return [
+      standardPrincipalCV(domainObject),
+      standardPrincipalCV(recipient),
+      uintCV(amount)
+    ];
   }
 
-  async isDomainOwner(domainObject: string, address: string): Promise<boolean> {
-    try {
-      const args = [standardPrincipalCV(domainObject), standardPrincipalCV(address)];
-      const result = await this.callReadOnly('is_domain_owner', args);
-      return cvToValue(result) === true;
-    } catch (error) {
-      console.error("Error checking domain ownership:", error);
-      return false;
-    }
+  /**
+   * Prepare arguments for creating a marketplace listing
+   */
+  createListingArgs(
+    domainObject: string,
+    pricePerShare: number,
+    sharesToSell: number
+  ) {
+    return [
+      standardPrincipalCV(domainObject),
+      uintCV(pricePerShare),
+      uintCV(sharesToSell)
+    ];
   }
 
-  async getShareBalance(domainObject: string, holder: string): Promise<string> {
-    try {
-      const args = [standardPrincipalCV(domainObject), standardPrincipalCV(holder)];
-      const result = await this.callReadOnly('get_share_balance', args);
-      const val = cvToValue(result);
-      return val ? val.toString() : "0";
-    } catch (error) {
-      console.error("Error getting share balance:", error);
-      return "0";
-    }
+  /**
+   * Prepare arguments for purchasing shares
+   */
+  purchaseSharesArgs(
+    listingId: number,
+    sharesToBuy: number
+  ) {
+    return [
+      uintCV(listingId),
+      uintCV(sharesToBuy)
+    ];
   }
 
-  async isListingActive(listingId: string): Promise<boolean> {
-    try {
-      const args = [standardPrincipalCV(listingId)];
-      const result = await this.callReadOnly('is_listing_active', args);
-      return cvToValue(result) === true;
-    } catch (error) {
-      console.error("Error checking listing status:", error);
-      return false;
-    }
+  /**
+   * Parse valuation data from contract response
+   */
+  parseValuationData(data: any): ValuationData {
+    return {
+      score: data.score?.value || '0',
+      market_value: data.market_value?.value || '0',
+      seo_authority: data.seo_authority?.value || '0',
+      traffic_estimate: data.traffic_estimate?.value || '0',
+      brandability: data.brandability?.value || '0',
+      tld_rarity: data.tld_rarity?.value || '0',
+      updated_at: data.updated_at?.value || '0'
+    };
   }
 
-  // Valuation Functions
-  async calculateInitialValuation(domainName: string): Promise<ValuationData | null> {
-    try {
-      // First try to get real-world valuation data
-      // const { realDomainValuation } = await import('./domainValuationAPI');
-      // const realValuation = await realDomainValuation.calculateRealValuation(domainName);
-      // return realValuation;
-
-      // Mock return for now since we don't have the API file
-      return {
-        score: 85,
-        market_value: 5000,
-        seo_authority: 70,
-        traffic_estimate: 1000,
-        brandability: 90,
-        tld_rarity: 80,
-        updated_at: Date.now()
-      };
-
-    } catch (error) {
-      console.warn("Real valuation failed:", error);
-      return null;
-    }
+  /**
+   * Parse fractional config from contract response
+   */
+  parseFractionalConfig(data: any): FractionalConfig {
+    return {
+      ticker: data.ticker?.value || '',
+      total_supply: data.total_supply?.value || '0',
+      circulating_supply: data.circulating_supply?.value || '0',
+      trading_enabled: data.trading_enabled?.value || false
+    };
   }
 
-  // Utility Functions
-  async getAccountBalance(address: string): Promise<string> {
-    try {
-      const response = await fetch(`${CONTRACT_CONFIG.NODE_URL}/extended/v1/address/${address}/balances`);
-      const data = await response.json();
-      return data.stx?.balance || "0";
-    } catch (error) {
-      console.error("Error getting account balance:", error);
-      return "0";
-    }
+  /**
+   * Generate a verification hash for domain ownership
+   */
+  generateVerificationHash(domainName: string, ownerAddress: string): string {
+    // Simple hash generation - in production, use a more secure method
+    const combined = `${domainName}-${ownerAddress}-${Date.now()}`;
+    return Buffer.from(combined).toString('hex').substring(0, 64);
+  }
+
+  /**
+   * Validate domain name format
+   */
+  isValidDomainName(domain: string): boolean {
+    const domainRegex = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,}$/i;
+    return domainRegex.test(domain) && domain.length <= 256;
+  }
+
+  /**
+   * Validate ticker symbol format
+   */
+  isValidTicker(ticker: string): boolean {
+    const tickerRegex = /^[A-Z]{2,10}$/;
+    return tickerRegex.test(ticker);
+  }
+
+  /**
+   * Convert micro-units to regular units (for display)
+   */
+  fromMicroUnits(microUnits: number | string): number {
+    return Number(microUnits) / 1_000_000;
+  }
+
+  /**
+   * Convert regular units to micro-units (for contract calls)
+   */
+  toMicroUnits(units: number): number {
+    return Math.floor(units * 1_000_000);
   }
 }
 
 // Export singleton instance
 export const contractService = new ContractService();
+export default contractService;
