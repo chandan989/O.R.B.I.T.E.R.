@@ -15,11 +15,11 @@ interface WalletDomainCreatorProps {
   onSuccess?: (txHash: string) => void;
 }
 
-export const WalletDomainCreator = ({ 
-  domainName: propDomainName, 
-  txtRecord: propTxtRecord, 
+export const WalletDomainCreator = ({
+  domainName: propDomainName,
+  txtRecord: propTxtRecord,
   valuation: propValuation,
-  onSuccess 
+  onSuccess
 }: WalletDomainCreatorProps) => {
   const [domainName, setDomainName] = useState(propDomainName || '');
   const [isCreating, setIsCreating] = useState(false);
@@ -36,11 +36,11 @@ export const WalletDomainCreator = ({
 
     try {
       setIsCreating(true);
-      
+
       // Use provided valuation or create mock data
       const valuation = propValuation || {
         score: "85",
-        market_value: "1000000", // 0.01 USDCx in octas
+        market_value: "1000000",
         seo_authority: "75",
         traffic_estimate: "60",
         brandability: "90",
@@ -52,47 +52,20 @@ export const WalletDomainCreator = ({
 
       console.log('🚀 Creating domain:', domainName.trim());
 
-      // This will trigger wallet popup for user to sign transaction
-      const result = await createDomain(
+      // This will trigger wallet popup - pass onSuccess callback
+      await createDomain(
         domainName.trim(),
         verificationHash,
         valuation,
-        undefined // no fractional config for simple demo
-      );
-
-      console.log('✅ Domain creation result:', result);
-
-      // Save domain to localStorage after successful blockchain transaction
-      if (result?.hash) {
-        // Save domain to storage using the correct method
-        const savedDomain = await domainStorage.saveDomain({
-          domain: domainName.trim(),
-          owner: account?.address?.toString() || 'user', // Use wallet address as owner
-          txHash: result.hash,
-          valuation: {
-            score: valuation.score,
-            market_value: valuation.market_value,
-            seo_authority: valuation.seo_authority,
-            traffic_estimate: valuation.traffic_estimate,
-            brandability: valuation.brandability,
-            tld_rarity: valuation.tld_rarity,
-            updated_at: String(Date.now())
+        undefined, // no fractional config
+        (txId) => {
+          // Transaction successful - call parent onSuccess
+          console.log('✅ Transaction confirmed with ID:', txId);
+          if (onSuccess) {
+            onSuccess(txId);
           }
-        });
-        
-        console.log('💾 Domain saved to localStorage:', savedDomain);
-
-        // Dispatch event so other components know a domain was added
-        window.dispatchEvent(new CustomEvent('domainAdded', { 
-          detail: { domain: savedDomain, hash: result.hash } 
-        }));
-      }
-
-      // Call success callback if provided
-      if (onSuccess && result?.hash) {
-        console.log('🎯 Calling onSuccess with hash:', result.hash);
-        onSuccess(result.hash);
-      }
+        }
+      );
 
       if (!propDomainName) {
         setDomainName('');
@@ -143,7 +116,7 @@ export const WalletDomainCreator = ({
             onKeyPress={(e) => e.key === 'Enter' && domainName.trim() && handleCreateDomain()}
             disabled={!!propDomainName} // Disable if domain name is provided via props
           />
-          <Button 
+          <Button
             onClick={handleCreateDomain}
             disabled={isCreating || loading || !domainName.trim()}
             className="bg-green-600 hover:bg-green-500"
@@ -152,7 +125,7 @@ export const WalletDomainCreator = ({
             {(isCreating || loading) ? 'Creating...' : 'Create Domain'}
           </Button>
         </div>
-        
+
         <div className="text-sm text-blue-400">
           ✨ Your wallet will show a popup to confirm the transaction
         </div>
