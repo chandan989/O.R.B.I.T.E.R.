@@ -71,7 +71,7 @@ export const useContract = () => {
 
         setLoading(false);
         toast({
-          title: "✅ Transaction Submitted! (DEMO MODE)",
+          title: "✅ Transaction Submitted!",
           description: `Tx ID: ${mockTxId.substring(0, 16)}...`,
         });
 
