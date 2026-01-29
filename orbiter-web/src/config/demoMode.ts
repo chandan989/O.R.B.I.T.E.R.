@@ -2,7 +2,7 @@
 // Set to true to simulate transactions without actual blockchain calls
 // Perfect for demos, videos, and testing the UI flow
 
-export const DEMO_MODE = true; // Set to false when contracts are deployed
+export const DEMO_MODE = false; // Set to false when contracts are deployed
 
 export const DEMO_CONFIG = {
     // Simulated transaction delay (ms)
@@ -29,10 +29,10 @@ export const DEMO_CONFIG = {
 // When contracts are deployed, update this:
 export const DEPLOYED_CONTRACTS = {
     // Replace with actual deployed contract addresses
-    DOMAIN_REGISTRY: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.domain-registry',
-    FRACTIONAL: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fractional',
-    MARKETPLACE: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.marketplace',
-    VALUATION: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.valuation',
-    SECURITY: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.security',
-    VALIDATION: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.validation'
+    DOMAIN_REGISTRY: 'ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.domain-registry',
+    FRACTIONAL: 'ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.fractional',
+    MARKETPLACE: 'ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.marketplace',
+    VALUATION: 'ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.valuation',
+    SECURITY: 'ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.security',
+    VALIDATION: 'ST1167QYEXGAFNB1H94QZGDMNAPAD4ZNKVCFY9K7.validation'
 };
