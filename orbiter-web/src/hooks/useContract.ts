@@ -6,6 +6,7 @@ import { CONTRACT_CONFIG } from '../config/contracts';
 import { useWallet } from '../components/Layout';
 import { openContractCall } from '@stacks/connect';
 import { STACKS_TESTNET } from '@stacks/network';
+import { DEMO_MODE, DEMO_CONFIG } from '../config/demoMode';
 
 import {
   uintCV,
@@ -59,6 +60,30 @@ export const useContract = () => {
         throw new Error("Wallet not connected");
       }
 
+      // DEMO MODE: Simulate transaction without blockchain call
+      if (DEMO_MODE) {
+        console.log('🎬 DEMO MODE: Simulating transaction...');
+
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, DEMO_CONFIG.TX_DELAY));
+
+        const mockTxId = DEMO_CONFIG.generateMockTxId();
+
+        setLoading(false);
+        toast({
+          title: "✅ Transaction Submitted! (DEMO MODE)",
+          description: `Tx ID: ${mockTxId.substring(0, 16)}...`,
+        });
+
+        // Call onSuccess callback
+        if (onSuccess) {
+          onSuccess(mockTxId);
+        }
+
+        return;
+      }
+
+      // REAL MODE: Actual blockchain transaction
       // Prepare arguments
       // Note: we're calling a helper in contractService but using the result with openContractCall
       const functionArgs = contractService.createDomainArgs(
